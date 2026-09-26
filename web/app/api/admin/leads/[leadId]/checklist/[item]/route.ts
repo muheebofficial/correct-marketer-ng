@@ -7,6 +7,7 @@ export async function PATCH(request: NextRequest, { params }: { params: { leadId
         return NextResponse.json({ detail: "Unauthorized." }, { status: 401 });
     }
 
+    const body = await request.json().catch(() => ({}));
     const res = await proxyAdminApi(`/v1/admin/leads/${params.leadId}/checklist/${encodeURIComponent(params.item)}`, {
         method: "PATCH",
         body: JSON.stringify(body),

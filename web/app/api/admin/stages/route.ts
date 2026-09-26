@@ -7,6 +7,7 @@ export async function GET() {
         return NextResponse.json({ detail: "Unauthorized." }, { status: 401 });
     }
 
+    const res = await proxyAdminApi("/v1/admin/stages");
     const data = await res.json().catch(() => ({}));
     return NextResponse.json(data, { status: res.status });
 }

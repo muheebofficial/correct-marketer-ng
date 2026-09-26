@@ -4,8 +4,8 @@ const ADMIN_SESSION_COOKIE = "cm_admin_session";
 
 export function getAdminCredentials(): { username: string; password: string } {
     return {
-        username: process.env.ADMIN_USERNAME || "admin",
-        password: process.env.ADMIN_PASSWORD || "change-me",
+        username: process.env.ADMIN_USERNAME || "",
+        password: process.env.ADMIN_PASSWORD || "",
     };
 }
 
