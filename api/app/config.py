@@ -15,7 +15,7 @@ class Settings:
     shared_secret: str = os.getenv("API_SHARED_SECRET", "")
     admin_key: str = os.getenv("ADMIN_API_KEY", "")
     web_origins: tuple = tuple(
-        o.strip() for o in os.getenv("WEB_ORIGINS", "http://localhost:3000").split(",") if o.strip()
+        o.strip() for o in os.getenv("WEB_ORIGINS", "http://localhost:3000").split("https://correctmarketer.com.ng,https://www.correctmarketer.com.ng") if o.strip()
     )
     lead_webhook_url: str = os.getenv("LEAD_WEBHOOK_URL", "")
 
