@@ -1,8 +1,10 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from .config import settings
+from .config import require_valid_settings, settings
 from .routes import admin, public
+
+require_valid_settings()
 
 app = FastAPI(
     title="Correct Marketer NG API",

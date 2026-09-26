@@ -11,6 +11,11 @@ const SECRET = process.env.API_SHARED_SECRET || "";
 
 async function fetchRemote<T extends { slug: string }>(collection: string): Promise<T[]> {
   if (!API_URL) return [];
+  if (!SECRET) {
+    console.warn("API_SHARED_SECRET is not set; skipping content sync for collection:", collection);
+    return [];
+  }
+
   try {
     const res = await fetch(`${API_URL}/v1/content/${collection}`, {
       headers: { "X-Api-Secret": SECRET },
@@ -19,7 +24,8 @@ async function fetchRemote<T extends { slug: string }>(collection: string): Prom
     if (!res.ok) return [];
     const data = (await res.json()) as { items?: T[] };
     return data.items ?? [];
-  } catch {
+  } catch (error) {
+    console.warn(`Failed to fetch remote content for ${collection}:`, error);
     return [];
   }
 }
@@ -36,10 +42,19 @@ export async function postToApi(path: string, body: unknown, clientIp: string): 
   if (!API_URL) {
     return new Response(JSON.stringify({ detail: "Form service is not configured." }), { status: 503 });
   }
-  return fetch(`${API_URL}${path}`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json", "X-Api-Secret": SECRET, "X-Client-IP": clientIp },
-    body: JSON.stringify(body),
-    cache: "no-store",
-  });
+  if (!SECRET) {
+    return new Response(JSON.stringify({ detail: "API_SHARED_SECRET is not configured." }), { status: 503 });
+  }
+
+  try {
+    return await fetch(`${API_URL}${path}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "X-Api-Secret": SECRET, "X-Client-IP": clientIp },
+      body: JSON.stringify(body),
+      cache: "no-store",
+    });
+  } catch (error) {
+    console.error(`Failed to call API path ${path}:`, error);
+    return new Response(JSON.stringify({ detail: "Form service is temporarily unavailable." }), { status: 503 });
+  }
 }

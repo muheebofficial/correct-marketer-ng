@@ -16,20 +16,62 @@ api/   FastAPI service: lead capture, newsletter, content CMS, rate limiting, As
 
 ## Run it locally
 
+### Required environment variables
+
+Before starting either app, set up the expected secrets and connection values.
+
+API (`api/.env`):
+
 ```bash
-# 1. API (no Astra needed for local dev)
+DEV_MEMORY_DB=1
+API_SHARED_SECRET=replace-with-long-random-string
+ADMIN_API_KEY=replace-with-admin-key
+WEB_ORIGINS=http://localhost:3000
+```
+
+Web (`web/.env.local`):
+
+```bash
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
+API_URL=http://localhost:8000
+API_SHARED_SECRET=replace-with-the-same-long-random-string
+```
+
+For production, set `DEV_MEMORY_DB=0` and provide Astra credentials:
+
+```bash
+ASTRA_DB_API_ENDPOINT=https://<db-id>-<region>.apps.astra.datastax.com
+ASTRA_DB_APPLICATION_TOKEN=AstraCS:...
+```
+
+### Start the stack
+
+```bash
+# 1. API (local dev uses the in-memory datastore; Astra is optional for now)
 cd api
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
-cp .env.example .env        # set DEV_MEMORY_DB=1, API_SHARED_SECRET, ADMIN_API_KEY
+cp .env.example .env
 uvicorn app.main:app --reload --port 8000     # docs at http://localhost:8000/docs
 
 # 2. Web
 cd ../web
 npm install
-cp .env.example .env.local  # API_URL=http://localhost:8000, same API_SHARED_SECRET
+cp .env.example .env.local
 npm run dev
 ```
+
+### Quick verification
+
+```bash
+# API health
+curl http://localhost:8000/health
+
+# Frontend type-check
+cd web && npx tsc --noEmit
+```
+
+The API will fail fast on startup if `API_SHARED_SECRET` or `ADMIN_API_KEY` are missing, and it will also require Astra credentials whenever `DEV_MEMORY_DB=0`.
 
 ## Connect Astra DB
 

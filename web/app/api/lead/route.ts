@@ -16,17 +16,29 @@ function originAllowed(req: NextRequest): boolean {
 }
 
 export async function POST(req: NextRequest) {
-  if (!originAllowed(req)) return NextResponse.json({ detail: "Forbidden." }, { status: 403 });
+  if (!originAllowed(req)) {
+    return NextResponse.json({ detail: "Forbidden." }, { status: 403 });
+  }
+
   const raw = await req.text();
-  if (raw.length > 20_000) return NextResponse.json({ detail: "Request too large." }, { status: 413 });
+  if (raw.length > 20_000) {
+    return NextResponse.json({ detail: "Request too large." }, { status: 413 });
+  }
+
   let body: unknown;
   try {
     body = JSON.parse(raw);
   } catch {
     return NextResponse.json({ detail: "Invalid request." }, { status: 400 });
   }
+
+  if (!body || typeof body !== "object") {
+    return NextResponse.json({ detail: "Invalid request body." }, { status: 400 });
+  }
+
   const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
   const res = await postToApi("/v1/leads", body, ip);
   const data = await res.json().catch(() => ({}));
+
   return NextResponse.json(data, { status: res.status });
 }
