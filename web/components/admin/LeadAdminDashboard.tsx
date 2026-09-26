@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 type LeadNote = { text: string; author: string; created_at?: string };
 type ChecklistItem = { label: string; status: "pending" | "done"; completed_by?: string; completed_at?: string };
@@ -61,7 +61,7 @@ export function LeadAdminDashboard() {
 
     const leadId = (lead: Lead | null | undefined) => lead?._id || lead?.id || "";
 
-    async function refreshLeads() {
+    const refreshLeads = useCallback(async () => {
         setLoading(true);
         try {
             const res = await fetch("/api/admin/leads");
@@ -72,7 +72,7 @@ export function LeadAdminDashboard() {
             if (!selectedId && items.length) {
                 setSelectedId(leadId(items[0]));
             }
-            if (selectedId && !items.some((lead) => leadId(lead) === selectedId)) {
+            if (selectedId && !items.some((lead: Lead) => leadId(lead) === selectedId)) {
                 setSelectedId(leadId(items[0]) || null);
             }
         } catch (err) {
@@ -80,9 +80,9 @@ export function LeadAdminDashboard() {
         } finally {
             setLoading(false);
         }
-    }
+    }, [selectedId]);
 
-    async function refreshStages() {
+    const refreshStages = useCallback(async () => {
         try {
             const res = await fetch("/api/admin/stages");
             const data = await res.json();
@@ -90,12 +90,12 @@ export function LeadAdminDashboard() {
         } catch {
             setStages([]);
         }
-    }
+    }, []);
 
     useEffect(() => {
         void refreshLeads();
         void refreshStages();
-    }, []);
+    }, [refreshLeads, refreshStages]);
 
     const filteredLeads = useMemo(() => {
         if (filter === "all") return leads;
