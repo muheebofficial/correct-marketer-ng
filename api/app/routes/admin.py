@@ -4,8 +4,9 @@ from __future__ import annotations
 from datetime import datetime, timezone
 
 from fastapi import APIRouter, Depends, HTTPException
+from pydantic import BaseModel, Field
 
-from ..config import CONTENT_COLLECTIONS
+from ..config import CONTENT_COLLECTIONS, settings
 from ..models import ContentDoc
 from ..security import require_admin
 from ..store import get_store
@@ -13,9 +14,44 @@ from ..store import get_store
 router = APIRouter(prefix="/v1/admin", dependencies=[Depends(require_admin)], tags=["admin"])
 
 
+class StageUpdate(BaseModel):
+    stage: str = Field(min_length=1, max_length=80)
+    owner: str | None = Field(default=None, max_length=200)
+
+
+class NoteCreate(BaseModel):
+    text: str = Field(min_length=1, max_length=2000)
+    author: str = Field(default="Muheeb", max_length=200)
+
+
+class ChecklistToggle(BaseModel):
+    status: str = Field(default="done", pattern="^(pending|done)$")
+    completed_by: str = Field(default="Muheeb", max_length=200)
+
+
+class LostLead(BaseModel):
+    lost_reason: str = Field(min_length=1, max_length=500)
+
+
 def _check(collection: str) -> None:
     if collection not in CONTENT_COLLECTIONS:
         raise HTTPException(status_code=404, detail="Unknown collection.")
+
+
+def _now() -> str:
+    return datetime.now(timezone.utc).isoformat()
+
+
+def _lead_by_id(lead_id: str):
+    lead = get_store().get("leads", lead_id)
+    if not lead:
+        raise HTTPException(status_code=404, detail="Lead not found.")
+    return lead
+
+
+@router.get("/stages")
+def stages():
+    return {"items": list(settings.lead_pipeline_stages)}
 
 
 @router.get("/content/{collection}")
@@ -31,7 +67,7 @@ def upsert(collection: str, slug: str, doc: ContentDoc):
     """Create or replace a document. `slug` becomes its URL slug. Set status to `published` to make it live."""
     _check(collection)
     body = doc.model_dump()
-    body["updated_at"] = datetime.now(timezone.utc).isoformat()
+    body["updated_at"] = _now()
     get_store().upsert(collection, slug, body)
     return {"ok": True, "slug": slug}
 
@@ -49,3 +85,56 @@ def leads(limit: int = 100):
     docs = get_store().list("leads", None, min(max(limit, 1), 500))
     docs.sort(key=lambda d: d.get("created_at", ""), reverse=True)
     return {"items": docs}
+
+
+@router.get("/leads/{lead_id}")
+def lead_detail(lead_id: str):
+    return _lead_by_id(lead_id)
+
+
+@router.patch("/leads/{lead_id}/stage")
+def update_stage(lead_id: str, payload: StageUpdate):
+    lead = _lead_by_id(lead_id)
+    if payload.stage not in settings.lead_pipeline_stages:
+        raise HTTPException(status_code=400, detail="Unknown pipeline stage.")
+    lead["stage"] = payload.stage
+    lead["stage_updated_at"] = _now()
+    if payload.owner:
+        lead["owner"] = payload.owner
+    get_store().upsert("leads", lead_id, lead)
+    return {"ok": True, "stage": lead["stage"]}
+
+
+@router.post("/leads/{lead_id}/notes")
+def add_note(lead_id: str, payload: NoteCreate):
+    lead = _lead_by_id(lead_id)
+    note = {"text": payload.text, "author": payload.author, "created_at": _now()}
+    lead.setdefault("notes", []).append(note)
+    lead["stage_updated_at"] = _now()
+    get_store().upsert("leads", lead_id, lead)
+    return {"ok": True, "note": note}
+
+
+@router.patch("/leads/{lead_id}/checklist/{item_label}")
+def toggle_checklist(lead_id: str, item_label: str, payload: ChecklistToggle):
+    lead = _lead_by_id(lead_id)
+    checklist = lead.setdefault("onboarding_checklist", [])
+    item = next((i for i in checklist if i.get("label") == item_label), None)
+    if item is None:
+        raise HTTPException(status_code=404, detail="Checklist item not found.")
+    item["status"] = payload.status
+    item["completed_by"] = payload.completed_by
+    item["completed_at"] = _now() if payload.status == "done" else ""
+    lead["stage_updated_at"] = _now()
+    get_store().upsert("leads", lead_id, lead)
+    return {"ok": True, "item": item}
+
+
+@router.patch("/leads/{lead_id}/lost")
+def mark_lost(lead_id: str, payload: LostLead):
+    lead = _lead_by_id(lead_id)
+    lead["stage"] = "lost"
+    lead["lost_reason"] = payload.lost_reason
+    lead["stage_updated_at"] = _now()
+    get_store().upsert("leads", lead_id, lead)
+    return {"ok": True, "stage": lead["stage"]}

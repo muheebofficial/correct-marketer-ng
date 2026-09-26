@@ -68,7 +68,7 @@ export function LeadForm({
       const res = await fetch("/api/lead", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
       const data = await res.json().catch(() => ({}));
       if (res.ok) {
-        track(intent === "contact" ? "contact_form_submit" : "audit_request", { intent });
+        track(intent === "contact" ? "contact_form_submit" : "audit_request", { intent, stage: data.stage || "new_lead" });
         setStatus("done");
         return;
       }
@@ -92,10 +92,10 @@ export function LeadForm({
       <div role="status" className={`rounded-[3px] border p-6 ${tone === "dark" ? "border-ivory/30" : "border-forest/30 bg-white"}`}>
         <h3 className="font-display text-3xl font-extrabold">Thanks. We've got your details.</h3>
         <p className="mt-2 max-w-prose">
-          We'll reply as soon as we can during working hours, usually within one business day. If it's urgent, WhatsApp is the fastest way to reach us.
+          We’ll follow up within 24 hours. If you’d prefer to reach us immediately, message us on WhatsApp and we’ll take it from there.
         </p>
         <a
-          href={waLink(successWaMessage)}
+          href={waLink(successWaMessage || "Hi Correct Marketer NG, I’ve submitted my enquiry and would like to continue on WhatsApp.")}
           target="_blank"
           rel="noopener noreferrer"
           onClick={() => track("whatsapp_click", { source: "form_success" })}
@@ -182,6 +182,13 @@ export function LeadForm({
         </p>
       )}
 
+      <label className="flex items-start gap-2 text-sm">
+        <input type="checkbox" name="consent" required className="mt-1 h-4 w-4 accent-[#C8850A]" />
+        <span>
+          By submitting this form you agree to be contacted by Correct Marketer NG via WhatsApp and/or email regarding your enquiry, in line with our <Link href="/privacy" className="underline">Privacy Policy</Link>.
+        </span>
+      </label>
+
       <div>
         <button
           type="submit"
@@ -191,7 +198,7 @@ export function LeadForm({
           {status === "sending" ? "Sending…" : submitLabel}
         </button>
         <p className={`mt-3 max-w-prose text-sm ${tone === "dark" ? "text-ivory/85" : "text-mute"}`}>
-          We'll use your details only to reply to this request. Read our <Link href="/privacy" className="underline">Privacy Policy</Link>.
+          We’ll use your details only to reply to this request. Read our <Link href="/privacy" className="underline">Privacy Policy</Link>.
         </p>
       </div>
     </form>

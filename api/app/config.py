@@ -2,6 +2,16 @@
 import os
 from dataclasses import dataclass
 
+DEFAULT_LEAD_STAGES = (
+    "new_lead",
+    "contacted",
+    "qualified",
+    "proposal_sent",
+    "onboarding",
+    "active_client",
+    "lost",
+)
+
 
 def _bool(value: str) -> bool:
     return value.strip().lower() in {"1", "true", "yes", "on"}
@@ -18,6 +28,9 @@ class Settings:
         o.strip() for o in os.getenv("WEB_ORIGINS", "http://localhost:3000").split("https://correctmarketer.com.ng,https://www.correctmarketer.com.ng") if o.strip()
     )
     lead_webhook_url: str = os.getenv("LEAD_WEBHOOK_URL", "")
+    lead_pipeline_stages: tuple[str, ...] = tuple(
+        s.strip() for s in os.getenv("LEAD_PIPELINE_STAGES", "").split(",") if s.strip()
+    ) or DEFAULT_LEAD_STAGES
 
 
 settings = Settings()

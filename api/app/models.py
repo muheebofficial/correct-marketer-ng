@@ -19,6 +19,19 @@ class Attribution(BaseModel):
     referrer: str = Field(default="", max_length=500)
 
 
+class LeadNote(BaseModel):
+    text: str = Field(min_length=1, max_length=2000)
+    author: str = Field(default="Muheeb", max_length=200)
+    created_at: str = ""
+
+
+class LeadChecklistItem(BaseModel):
+    label: str = Field(min_length=1, max_length=200)
+    status: Literal["pending", "done"] = "pending"
+    completed_by: str = Field(default="", max_length=200)
+    completed_at: str = ""
+
+
 class LeadIn(BaseModel):
     intent: Literal[
         "contact",
@@ -39,6 +52,15 @@ class LeadIn(BaseModel):
     message: str = Field(default="", max_length=2000)
     consent: bool = False
     attribution: Attribution = Attribution()
+    source: str = Field(default="website_form", max_length=200)
+    stage: str = Field(default="new_lead", max_length=80)
+    owner: str = Field(default="Muheeb", max_length=200)
+    contact_channel_preference: Literal["whatsapp", "email", "phone", ""] = ""
+    notes: list[LeadNote] = Field(default_factory=list)
+    lost_reason: str | None = None
+    onboarding_checklist: list[LeadChecklistItem] = Field(default_factory=list)
+    stage_updated_at: str = ""
+    created_at: str = ""
     # Honeypot: real people never see or fill this field.
     fax: str = Field(default="", max_length=200)
 
@@ -54,6 +76,13 @@ class LeadIn(BaseModel):
         if not PHONE_RE.match(v):
             raise ValueError("Enter a valid phone or WhatsApp number, e.g. 0803 000 0000 or +234 803 000 0000.")
         return v
+
+    @field_validator("contact_channel_preference", mode="before")
+    @classmethod
+    def _contact_pref(cls, v):
+        if v in (None, ""):
+            return ""
+        return str(v).strip().lower()
 
 
 class NewsletterIn(BaseModel):

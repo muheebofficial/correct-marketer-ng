@@ -8,15 +8,33 @@ from datetime import datetime, timezone
 from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Request
 
 from ..config import CONTENT_COLLECTIONS, settings
-from ..models import LeadIn, NewsletterIn
+from ..models import LeadChecklistItem, LeadIn, NewsletterIn
 from ..security import client_ip, limiter, require_web_secret
 from ..store import get_store
 
 router = APIRouter(prefix="/v1", dependencies=[Depends(require_web_secret)])
 
+DEFAULT_ONBOARDING_CHECKLIST = [
+    "Contract / agreement confirmed",
+    "Deposit or payment received",
+    "Brand assets collected (logo, brand guide, colors/fonts, existing content)",
+    "Access collected (domain registrar, hosting, socials, analytics — as applicable)",
+    "Kickoff call scheduled",
+    "Scope document shared with client for sign-off",
+    "Internal project record created (owner, timeline, milestones)",
+    "Welcome message sent",
+]
+
 
 def _now() -> str:
     return datetime.now(timezone.utc).isoformat()
+
+
+def _default_onboarding_checklist() -> list[dict]:
+    return [
+        {"label": label, "status": "pending", "completed_by": "", "completed_at": ""}
+        for label in DEFAULT_ONBOARDING_CHECKLIST
+    ]
 
 
 def _notify(payload: dict) -> None:
@@ -35,21 +53,57 @@ def _notify(payload: dict) -> None:
         pass
 
 
+def _lead_auto_reply_message(name: str, preferred_contact: str) -> str:
+    channel = preferred_contact or "whatsapp"
+    if channel == "email":
+        return (
+            f"Hi {name}, thanks for reaching out to Correct Marketer NG! We've received your details and Muheeb will follow "
+            "up within 24 hours. In the meantime, feel free to reply here with more about what you're looking to achieve — "
+            "We engineer your growth. 🚀"
+        )
+    return (
+        f"Hi {name}, thanks for reaching out to Correct Marketer NG! We've received your details and Muheeb will follow up "
+        "within 24 hours. In the meantime, feel free to reply here with more about what you're looking to achieve — "
+        "We engineer your growth. 🚀"
+    )
+
+
 @router.post("/leads", status_code=201)
 def create_lead(lead: LeadIn, request: Request, background: BackgroundTasks):
     ip = client_ip(request)
     limiter.check("lead", ip, limit=5, window_seconds=600)
 
     if lead.fax:  # honeypot tripped: pretend success, store nothing
-        return {"ok": True}
+        return {"ok": True, "stage": "new_lead"}
 
     doc = lead.model_dump()
     doc.pop("fax", None)
+    doc["source"] = "website_form"
+    doc["stage"] = "new_lead"
+    doc["owner"] = "Muheeb"
+    doc["contact_channel_preference"] = lead.preferred_contact or ("whatsapp" if lead.phone else "email")
+    doc["notes"] = []
+    doc["lost_reason"] = None
+    doc["onboarding_checklist"] = _default_onboarding_checklist()
+    doc["stage_updated_at"] = _now()
     doc["created_at"] = _now()
-    doc["status"] = "new"
+    doc.pop("status", None)
+
     lead_id = get_store().insert("leads", doc)
-    background.add_task(_notify, {"type": "lead", "id": lead_id, **doc})
-    return {"ok": True, "id": lead_id}
+    background.add_task(
+        _notify,
+        {
+            "type": "lead_created",
+            "id": lead_id,
+            "name": lead.name,
+            "email": lead.email,
+            "phone": lead.phone,
+            "source": doc["source"],
+            "stage": doc["stage"],
+            "auto_reply": _lead_auto_reply_message(lead.name, doc["contact_channel_preference"]),
+        },
+    )
+    return {"ok": True, "id": lead_id, "stage": doc["stage"]}
 
 
 @router.post("/newsletter", status_code=201)
