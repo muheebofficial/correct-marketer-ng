@@ -45,7 +45,7 @@ export function Footer() {
         <div className="grid gap-12 lg:grid-cols-[1.2fr_2fr]">
           <div>
             <div className="flex items-center gap-3">
-              <Image src="/logo.jpg" alt="" width={44} height={44} className="h-11 w-11" />
+              <Image src="/logo.jpg" alt="Correct Marketer NG logo" width={44} height={44} className="h-11 w-11" />
               <p className="font-sub text-lg font-bold leading-tight">
                 Correct Marketer NG
               </p>

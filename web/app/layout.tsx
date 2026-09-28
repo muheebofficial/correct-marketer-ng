@@ -25,6 +25,11 @@ export const metadata: Metadata = {
   applicationName: site.name,
   authors: [{ name: site.founder.name }],
   alternates: { canonical: site.url },
+  icons: {
+    icon: "/icon.jpg",
+    shortcut: "/icon.jpg",
+    apple: "/icon.jpg",
+  },
   openGraph: { type: "website", siteName: site.name, locale: "en_NG", url: site.url },
   twitter: { card: "summary_large_image" },
   verification: process.env.NEXT_PUBLIC_GSC_VERIFICATION ? { google: process.env.NEXT_PUBLIC_GSC_VERIFICATION } : undefined,

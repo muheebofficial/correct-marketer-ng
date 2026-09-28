@@ -30,7 +30,7 @@ export function Header() {
     <header className="sticky top-0 z-40 border-b border-stone-light bg-ivory/95 backdrop-blur">
       <div className="mx-auto flex h-[68px] max-w-page items-center justify-between px-5 sm:px-8">
         <Link href="/" className="flex items-center gap-3" aria-label="Correct Marketer NG, home">
-          <Image src="/logo.jpg" alt="" width={40} height={40} priority className="h-10 w-10" />
+          <Image src="/logo.jpg" alt="Correct Marketer NG logo" width={40} height={40} priority className="h-10 w-10" />
           <span className="font-sub text-[15px] font-bold leading-[1.1] text-forest">
             CORRECT
             <span className="block text-gold-ink">MARKETER NG</span>
@@ -43,9 +43,8 @@ export function Header() {
               key={n.href}
               href={n.href}
               aria-current={isActive(n.href) ? "page" : undefined}
-              className={`font-sub text-[15px] font-bold underline-offset-[10px] hover:underline ${
-                isActive(n.href) ? "text-forest underline decoration-gold decoration-2" : "text-obsidian"
-              }`}
+              className={`font-sub text-[15px] font-bold underline-offset-[10px] hover:underline ${isActive(n.href) ? "text-forest underline decoration-gold decoration-2" : "text-obsidian"
+                }`}
             >
               {n.label}
             </Link>

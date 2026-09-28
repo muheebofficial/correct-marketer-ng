@@ -1,10 +1,10 @@
 const map: [string, string][] = [
-  ["/services/seo", "Hi Correct Marketer NG, I'd like an SEO growth consultation."],
-  ["/services/paid-advertising", "Hi Correct Marketer NG, I'd like to review my ad performance."],
-  ["/services/ai-marketing-automation", "Hi Correct Marketer NG, I'd like to explore AI automation for my business."],
-  ["/services/web-development", "Hi Correct Marketer NG, I'd like to talk about a new website."],
-  ["/services/lead-generation", "Hi Correct Marketer NG, I'd like to generate more qualified leads."],
-  ["/services/brand-strategy", "Hi Correct Marketer NG, I'd like help with my brand and positioning."],
+  ["/services/best-seo-agency-in-nigeria", "Hi Correct Marketer NG, I want to speak with the best SEO agency in Nigeria about growing my business."],
+  ["/services/best-google-ads-agency-in-nigeria", "Hi Correct Marketer NG, I want to speak with the best Google Ads agency in Nigeria about my campaigns."],
+  ["/services/best-ai-automation-agency-in-nigeria", "Hi Correct Marketer NG, I want to explore AI automation with the best AI agency in Nigeria."],
+  ["/services/best-web-development-company-in-nigeria", "Hi Correct Marketer NG, I want to talk with the best web development company in Nigeria about a new website."],
+  ["/services/best-lead-generation-agency-in-nigeria", "Hi Correct Marketer NG, I want to speak with the best lead generation agency in Nigeria about more qualified leads."],
+  ["/services/best-brand-strategy-agency-in-nigeria", "Hi Correct Marketer NG, I want to speak with the best brand strategy agency in Nigeria about my positioning."],
   ["/industries", "Hi Correct Marketer NG, I run a business and want a growth plan for my industry."],
   ["/case-studies", "Hi Correct Marketer NG, I'd like to build something like your case studies."],
 ];

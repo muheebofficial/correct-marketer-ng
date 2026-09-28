@@ -5,9 +5,9 @@ import { Section } from "@/components/ui/Section";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
-  title: "Digital Marketing Services in Nigeria | SEO, Ads, AI, Web",
+  title: "Best Digital Marketing Agency in Lagos, Nigeria | SEO, Ads, AI & Web",
   description:
-    "SEO, paid advertising, AI marketing automation, web development, lead generation and brand strategy for Nigerian businesses, built as one connected growth system.",
+    "Looking for the best digital marketing agency in Lagos or the best digital marketing services in Nigeria? Correct Marketer NG helps businesses grow with SEO, paid ads, AI automation, websites, lead generation and branding that drive measurable results for Nigerian companies.",
   path: "/services",
 });
 
@@ -16,10 +16,10 @@ export default function ServicesPage() {
     <>
       <PageHero
         crumbs={[{ name: "Services", path: "/services" }]}
-        title="Six ways we help your business grow. One system behind all of them."
-        sub="You don't need every service on day one. Tell us where growth is stuck and we'll start with the piece that moves it."
-        cta="Start a Growth Conversation"
-        source="services_index"
+        title="The best digital marketing services in Lagos, Nigeria for businesses that want real growth."
+        sub="From the best SEO agency in Nigeria to the best Google Ads agency in Lagos, our team helps businesses grow with AI automation, websites, lead generation and brand strategy built for results.",
+      cta="Start a Growth Conversation"
+      source="services_index"
       />
       <Section>
         <ServiceGrid />
