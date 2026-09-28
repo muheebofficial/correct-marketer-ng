@@ -8,6 +8,7 @@ import { FooterCTA } from "@/components/sections/FooterCTA";
 import { Button } from "@/components/ui/Button";
 import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
 import { services } from "@/lib/content/services";
+import { getCollection } from "@/lib/api";
 import { formatDate, getPosts, slugify } from "@/lib/insights";
 import { articleSchema } from "@/lib/schema";
 import { buildMetadata } from "@/lib/seo";
@@ -38,7 +39,14 @@ export default async function PostPage({ params }: { params: { slug: string } })
   if (!post) notFound();
 
   const path = `/insights/${post.slug}`;
-  const service = services.find((s) => s.slug === post.service);
+  const allServices = await getCollection<Service>("services", services);
+  const serviceAliases: Record<string, string> = {
+    seo: "best-seo-agency-in-nigeria",
+    "web-development": "best-web-development-company-in-nigeria",
+    "ai-marketing-automation": "best-ai-automation-agency-in-nigeria",
+  };
+  const serviceSlug = serviceAliases[post.service] ?? post.service;
+  const service = allServices.find((s) => s.slug === serviceSlug);
   const related = all.filter((p) => post.related.includes(p.slug));
   const url = absoluteUrl(path);
   const share = [

@@ -13,6 +13,9 @@ export type Service = {
   seoDescription: string;
   heroHeadline: string;
   heroSub: string;
+  heroJourney: [string, string, string];
+  whyChoose: { title: string; body: string }[];
+  relatedServices: string[];
   problem: { title: string; points: string[] };
   solution: string[];
   how: { title: string; body: string }[];

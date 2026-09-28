@@ -1,10 +1,13 @@
 import { TrackedLink } from "@/components/tracking/TrackedLink";
+import { getCollection } from "@/lib/api";
 import { services } from "@/lib/content/services";
+import type { Service } from "@/lib/content/types";
 
-export function ServiceGrid({ headingId }: { headingId?: string }) {
+export async function ServiceGrid({ headingId }: { headingId?: string }) {
+  const allServices = await getCollection<Service>("services", services);
   return (
     <ul aria-labelledby={headingId} className="grid gap-px border border-stone-light bg-stone-light md:grid-cols-2 lg:grid-cols-3">
-      {services.map((s) => (
+      {allServices.map((s) => (
         <li key={s.slug} className="bg-ivory">
           <TrackedLink
             href={`/services/${s.slug}`}

@@ -1,7 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { NewsletterForm } from "@/components/forms/NewsletterForm";
+import { getCollection } from "@/lib/api";
 import { services } from "@/lib/content/services";
+import type { Service } from "@/lib/content/types";
 import { site, waLink } from "@/lib/site";
 
 const company = [
@@ -38,7 +40,8 @@ function Col({ title, links }: { title: string; links: { label: string; href: st
   );
 }
 
-export function Footer() {
+export async function Footer() {
+  const allServices = await getCollection<Service>("services", services);
   return (
     <footer className="on-dark bg-obsidian text-ivory">
       <div className="mx-auto max-w-page px-5 py-16 sm:px-8">
@@ -61,7 +64,7 @@ export function Footer() {
           </div>
 
           <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
-            <Col title="Services" links={services.map((s) => ({ label: s.name, href: `/services/${s.slug}` }))} />
+            <Col title="Services" links={allServices.map((s) => ({ label: s.name, href: `/services/${s.slug}` }))} />
             <Col title="Company" links={company} />
             <Col title="Resources" links={resources} />
             <div>

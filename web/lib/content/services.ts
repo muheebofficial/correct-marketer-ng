@@ -14,9 +14,16 @@ export const services: Service[] = [
     seoTitle: "Best SEO Agency in Nigeria | SEO Company in Lagos for Real Growth",
     seoDescription:
       "Looking for the best SEO agency in Nigeria or the best SEO company in Lagos? Correct Marketer NG helps Nigerian businesses rank higher on Google, dominate local search, and win more customers with AI-ready SEO strategies.",
-    heroHeadline: "The best SEO agency in Lagos, Nigeria helps your business get found before your competitors do.",
+    heroHeadline: "Best SEO agency in Nigeria: stop losing customers to competitors who rank above you.",
     heroSub:
       "We build search visibility that brings qualified buyers, not vanity traffic: technical SEO, high-intent content, local SEO for Lagos and Abuja, and AI search visibility that keeps your business discoverable when customers search for your service.",
+    heroJourney: ["Customers cannot find you", "We fix search visibility", "More qualified enquiries"],
+    whyChoose: [
+      { title: "SEO tied to customer intent", body: "We map what buyers search for to pages that answer their needs and give them a clear next step." },
+      { title: "Technical and content work together", body: "Crawlability, local signals, useful content and conversion paths are treated as one growth system." },
+      { title: "Reporting beyond rankings", body: "You see how organic search contributes to enquiries and leads, not just position changes." },
+    ],
+    relatedServices: ["best-google-ads-agency-in-nigeria", "best-web-development-company-in-nigeria", "best-lead-generation-agency-in-nigeria"],
     problem: {
       title: "Why a good business can be invisible on Google",
       points: [
@@ -88,9 +95,16 @@ export const services: Service[] = [
     seoTitle: "Best Google Ads Agency in Nigeria | Meta Ads Company in Lagos",
     seoDescription:
       "Looking for the best Google Ads agency in Nigeria or the best Meta ads company in Lagos? Correct Marketer NG manages Meta and Google campaigns that target the right buyers, cut wasted spend, and generate qualified leads for Nigerian businesses.",
-    heroHeadline: "The best Google Ads agency in Lagos, Nigeria turns ad spend into qualified customers.",
+    heroHeadline: "Best Google Ads agency in Nigeria: stop paying for clicks that never become customers.",
     heroSub:
       "We run Meta and Google campaigns designed to increase qualified leads and sales: sharper targeting, better landing pages, smarter retargeting, and clear reporting that shows which campaigns produce real revenue, not just clicks.",
+    heroJourney: ["Clicks waste your budget", "We improve the full ad journey", "More qualified leads"],
+    whyChoose: [
+      { title: "We look beyond the ad", body: "Targeting, offer, landing page, tracking and follow-up are reviewed together before more budget is spent." },
+      { title: "Testing has a purpose", body: "Structured tests show which audiences and messages bring qualified enquiries, so spend can follow evidence." },
+      { title: "Clear cost and lead reporting", body: "Know what you spent, which campaigns drove leads and where the next improvement should happen." },
+    ],
+    relatedServices: ["best-lead-generation-agency-in-nigeria", "best-web-development-company-in-nigeria", "best-seo-agency-in-nigeria"],
     problem: {
       title: "Where ad budgets quietly disappear",
       points: [
@@ -162,9 +176,16 @@ export const services: Service[] = [
     seoTitle: "Best AI Automation Agency in Nigeria | WhatsApp AI Automation in Lagos",
     seoDescription:
       "Looking for the best AI automation agency in Nigeria or the best WhatsApp automation company in Lagos? Correct Marketer NG builds AI-powered lead qualification, CRM workflows, and customer response systems that help Nigerian businesses convert faster.",
-    heroHeadline: "The best AI automation agency in Lagos, Nigeria keeps your leads responding while your team focuses on closing sales.",
+    heroHeadline: "Best AI automation agency in Nigeria: stop losing leads to slow replies and manual follow-up.",
     heroSub:
       "We build AI systems that answer routine enquiries, qualify leads and follow up on WhatsApp and email, then hand serious buyers to your team with clear context and a warm handoff that is built for conversion.",
+    heroJourney: ["Enquiries wait too long", "We automate routine follow-up", "Your team closes warmer leads"],
+    whyChoose: [
+      { title: "Built around your real conversations", body: "We map your customers' questions and automate the repeatable work using your existing tools." },
+      { title: "People stay in control", body: "Clear handover rules bring complex or sensitive conversations to a human with the right context." },
+      { title: "WhatsApp-first, not tech for its own sake", body: "The workflow fits how your customers already contact you and how your team actually works." },
+    ],
+    relatedServices: ["best-lead-generation-agency-in-nigeria", "best-google-ads-agency-in-nigeria", "best-web-development-company-in-nigeria"],
     problem: {
       title: "What manual follow-up is costing you",
       points: [
@@ -236,9 +257,16 @@ export const services: Service[] = [
     seoTitle: "Best Web Development Company in Nigeria | Website Design in Lagos",
     seoDescription:
       "Need the best web development company in Nigeria or the best website design company in Lagos? Correct Marketer NG builds fast, mobile-first, SEO-ready websites and landing pages that turn Nigerian visitors into real enquiries and customers.",
-    heroHeadline: "The best web development company in Lagos, Nigeria builds websites that look strong and sell even harder.",
+    heroHeadline: "Best web development company in Nigeria: fix the website that loses visitors before they enquire.",
     heroSub:
       "We build fast, mobile-first websites and landing pages with SEO structure and conversion paths built in, so your visitors know exactly what you do, trust your brand, and take the next step without hesitation.",
+    heroJourney: ["Visitors leave without enquiring", "We rebuild for speed and clarity", "More visits become leads"],
+    whyChoose: [
+      { title: "Designed around the buyer's decision", body: "Messaging, page structure and calls to action make it easier for the right visitor to choose you." },
+      { title: "Search and conversion from day one", body: "Technical foundations, metadata, accessibility and analytics are part of the build, not later add-ons." },
+      { title: "A site your team can use", body: "We build for your real content and workflow, with clear handover and practical editing in mind." },
+    ],
+    relatedServices: ["best-seo-agency-in-nigeria", "best-lead-generation-agency-in-nigeria", "best-brand-strategy-agency-in-nigeria"],
     problem: {
       title: "Why most business websites don't produce enquiries",
       points: [
@@ -310,9 +338,16 @@ export const services: Service[] = [
     seoTitle: "Best Lead Generation Agency in Nigeria | Lead Funnel Company in Lagos",
     seoDescription:
       "Looking for the best lead generation agency in Nigeria or a lead funnel company in Lagos? Correct Marketer NG builds landing pages, CRM systems, offer pages, and WhatsApp follow-up workflows that convert traffic into real buyers.",
-    heroHeadline: "The best lead generation agency in Lagos, Nigeria turns traffic into qualified conversations that actually convert.",
+    heroHeadline: "Best lead generation agency in Nigeria: stop letting warm enquiries slip through the cracks.",
     heroSub:
       "We connect your traffic to a lead system: a page that converts, an offer worth giving contact details for, a fast response and follow-up sequence that moves buyers toward a sale and helps your team close faster.",
+    heroJourney: ["Interest gets lost", "We connect capture and follow-up", "A visible qualified pipeline"],
+    whyChoose: [
+      { title: "Every step has an owner", body: "Landing pages, forms or WhatsApp, CRM routing and follow-up work as one connected path." },
+      { title: "Qualified leads over raw volume", body: "Offers and qualification are designed to attract people your team can genuinely help." },
+      { title: "Attribution you can act on", body: "See where enquiries came from and where prospects drop off, then improve the weakest step." },
+    ],
+    relatedServices: ["best-google-ads-agency-in-nigeria", "best-seo-agency-in-nigeria", "best-ai-automation-agency-in-nigeria"],
     problem: {
       title: "Where leads leak out of your business",
       points: [
@@ -384,9 +419,16 @@ export const services: Service[] = [
     seoTitle: "Best Brand Strategy Agency in Nigeria | Branding Company in Lagos",
     seoDescription:
       "Looking for the best brand strategy agency in Nigeria or a branding company in Lagos? Correct Marketer NG helps Nigerian businesses and founders sharpen positioning, messaging, and trust-building content that attracts the right customers.",
-    heroHeadline: "The best brand strategy agency in Lagos, Nigeria helps your business become the obvious choice in a crowded market.",
+    heroHeadline: "Best brand strategy agency in Nigeria: stop blending in when customers compare their options.",
     heroSub:
       "We help businesses and professional founders get clear on what makes them the right choice, then turn that into a compelling brand, a stronger website, and content that builds authority and leads to enquiries.",
+    heroJourney: ["Your value is hard to explain", "We sharpen your position and proof", "The right buyers remember you"],
+    whyChoose: [
+      { title: "Positioning before decoration", body: "We clarify who you serve, why you are different and what proof supports that promise before polishing visuals." },
+      { title: "Grounded in Nigerian buyers", body: "Your message reflects local expectations, trust signals and the way your customers make decisions." },
+      { title: "Strategy carried into execution", body: "Positioning is translated into website messaging and useful content, so it shows up wherever buyers meet you." },
+    ],
+    relatedServices: ["best-web-development-company-in-nigeria", "best-seo-agency-in-nigeria", "best-lead-generation-agency-in-nigeria"],
     problem: {
       title: "When great work still doesn't get noticed",
       points: [
