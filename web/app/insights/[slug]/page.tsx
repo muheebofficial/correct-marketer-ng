@@ -7,7 +7,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { FooterCTA } from "@/components/sections/FooterCTA";
 import { Button } from "@/components/ui/Button";
 import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
-import { services } from "@/lib/content/services";
+import { services, type Services } from "@/lib/content/services";
 import { getCollection } from "@/lib/api";
 import { formatDate, getPosts, slugify } from "@/lib/insights";
 import { articleSchema } from "@/lib/schema";
@@ -20,8 +20,9 @@ export async function generateStaticParams() {
   return (await getPosts()).map((p) => ({ slug: p.slug }));
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const post = (await getPosts()).find((p) => p.slug === params.slug);
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const post = (await getPosts()).find((p) => p.slug === slug);
   if (!post) return {};
   return buildMetadata({
     title: post.title,
@@ -33,13 +34,16 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   });
 }
 
-export default async function PostPage({ params }: { params: { slug: string } }) {
+export default async function PostPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
   const all = await getPosts();
-  const post = all.find((p) => p.slug === params.slug);
-  if (!post) notFound();
+  const foundPost = all.find((p) => p.slug === slug);
 
+  if (!foundPost) notFound();
+
+  const post = foundPost;
   const path = `/insights/${post.slug}`;
-  const allServices = await getCollection<Service>("services", services);
+  const allServices = await getCollection<Services>("services", services);
   const serviceAliases: Record<string, string> = {
     seo: "best-seo-agency-in-nigeria",
     "web-development": "best-web-development-company-in-nigeria",
