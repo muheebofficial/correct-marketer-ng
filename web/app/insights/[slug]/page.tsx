@@ -7,7 +7,8 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { FooterCTA } from "@/components/sections/FooterCTA";
 import { Button } from "@/components/ui/Button";
 import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
-import { services, type Services } from "@/lib/content/services";
+import { services } from "@/lib/content/services";
+import type { Service } from "@/lib/content/types";
 import { getCollection } from "@/lib/api";
 import { formatDate, getPosts, slugify } from "@/lib/insights";
 import { articleSchema } from "@/lib/schema";
@@ -43,7 +44,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
 
   const post = foundPost;
   const path = `/insights/${post.slug}`;
-  const allServices = await getCollection<Services>("services", services);
+  const allServices = await getCollection<Service>("services", services);
   const serviceAliases: Record<string, string> = {
     seo: "best-seo-agency-in-nigeria",
     "web-development": "best-web-development-company-in-nigeria",

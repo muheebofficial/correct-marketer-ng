@@ -17,7 +17,7 @@ export default function ServicesPage() {
       <PageHero
         crumbs={[{ name: "Services", path: "/services" }]}
         title="The best digital marketing services in Lagos, Nigeria for businesses that want real growth."
-        sub="From the best SEO agency in Nigeria to the best Google Ads agency in Lagos, our team helps businesses grow with AI automation, websites, lead generation and brand strategy built for results.",
+        sub="From the best SEO agency in Nigeria to the best Google Ads agency in Lagos, our team helps businesses grow with AI automation, websites, lead generation and brand strategy built for results."
         cta="Start a Growth Conversation"
         source="services_index"
       />
