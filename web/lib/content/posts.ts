@@ -54,7 +54,7 @@ export const posts: Post[] = [
         ],
       },
     ],
-    related: ["seo-vs-google-ads-nigeria", "how-much-does-seo-cost-in-nigeria"],
+    related: ["seo-vs-google-ads-nigeria", "how-much-does-seo-cost-in-nigeria", "can-ai-automate-whatsapp-customer-support"],
   },
   {
     slug: "seo-vs-google-ads-nigeria",
