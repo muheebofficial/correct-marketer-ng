@@ -24,6 +24,7 @@ type Lead = {
     stage_updated_at?: string;
     preferred_contact?: string;
     challenge?: string;
+    budget?: string;
     message?: string;
 };
 
