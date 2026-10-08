@@ -149,5 +149,7 @@ def get_published(collection: str, slug: str):
 
 def _public(doc: dict) -> dict:
     out = dict(doc)
-    out["slug"] = out.pop("_id", out.get("slug"))
+    slug = out.get("slug", out.get("_id"))
+    out.pop("_id", None)
+    out["slug"] = slug
     return out

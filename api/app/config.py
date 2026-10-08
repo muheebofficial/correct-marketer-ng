@@ -24,6 +24,8 @@ class Settings:
     dev_memory_db: bool = _bool(os.getenv("DEV_MEMORY_DB", "0"))
     shared_secret: str = os.getenv("API_SHARED_SECRET", "")
     admin_key: str = os.getenv("ADMIN_API_KEY", "")
+    site_url: str = os.getenv("SITE_URL", os.getenv("NEXT_PUBLIC_SITE_URL", "")).rstrip("/")
+    notify_secret: str = os.getenv("NOTIFY_SECRET", "")
     web_origins: tuple = tuple(
         o.strip() for o in os.getenv("WEB_ORIGINS", "http://localhost:3000").split("https://correctmarketer.com.ng,https://www.correctmarketer.com.ng") if o.strip()
     )

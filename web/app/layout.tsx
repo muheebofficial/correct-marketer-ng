@@ -6,6 +6,7 @@ import { FloatingWhatsApp } from "@/components/layout/FloatingWhatsApp";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { OneSignalInit } from "@/components/tracking/OneSignalInit";
 import { organizationSchema } from "@/lib/schema";
 import { site } from "@/lib/site";
 
@@ -47,6 +48,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Footer />
         <FloatingWhatsApp />
         <Analytics />
+        <OneSignalInit />
         <JsonLd data={organizationSchema()} />
       </body>
     </html>

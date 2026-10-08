@@ -1,9 +1,12 @@
 """Content management + lead inbox. Protected by X-Admin-Key. Explore interactively at /docs."""
 from __future__ import annotations
 
+import json
+import logging
+import urllib.request
 from datetime import datetime, timezone
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException
 from pydantic import BaseModel, Field
 
 from ..config import CONTENT_COLLECTIONS, settings
@@ -12,6 +15,7 @@ from ..security import require_admin
 from ..store import get_store
 
 router = APIRouter(prefix="/v1/admin", dependencies=[Depends(require_admin)], tags=["admin"])
+logger = logging.getLogger(__name__)
 
 
 class StageUpdate(BaseModel):
@@ -49,6 +53,26 @@ def _lead_by_id(lead_id: str):
     return lead
 
 
+def _trigger_post_notification(slug: str) -> None:
+    if not settings.site_url or not settings.notify_secret:
+        logger.warning("Post notification hook is not configured for slug %s", slug)
+        return
+    request = urllib.request.Request(
+        f"{settings.site_url}/api/notify/post-published",
+        data=json.dumps({"slug": slug}).encode(),
+        headers={
+            "Content-Type": "application/json",
+            "x-notify-secret": settings.notify_secret,
+        },
+        method="POST",
+    )
+    try:
+        with urllib.request.urlopen(request, timeout=10):  # noqa: S310 - configured site URL
+            pass
+    except Exception:  # noqa: BLE001
+        logger.exception("Post notification hook failed for slug %s", slug)
+
+
 @router.get("/stages")
 def stages():
     return {"items": list(settings.lead_pipeline_stages)}
@@ -63,12 +87,19 @@ def list_all(collection: str, limit: int = 200):
 
 
 @router.put("/content/{collection}/{slug}")
-def upsert(collection: str, slug: str, doc: ContentDoc):
+def upsert(collection: str, slug: str, doc: ContentDoc, background: BackgroundTasks):
     """Create or replace a document. `slug` becomes its URL slug. Set status to `published` to make it live."""
     _check(collection)
+    store = get_store()
+    previous = store.get(collection, slug)
     body = doc.model_dump()
+    body["slug"] = slug
     body["updated_at"] = _now()
-    get_store().upsert(collection, slug, body)
+    store.upsert(collection, slug, body)
+    if collection == "posts" and body.get("status") == "published" and (
+        not previous or previous.get("status") != "published"
+    ):
+        background.add_task(_trigger_post_notification, slug)
     return {"ok": True, "slug": slug}
 
 

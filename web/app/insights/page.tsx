@@ -3,6 +3,7 @@ import { FooterCTA } from "@/components/sections/FooterCTA";
 import { PageHero } from "@/components/sections/PageHero";
 import { PostList } from "@/components/sections/PostList";
 import { Section } from "@/components/ui/Section";
+import { OneSignalSubscribeButton } from "@/components/tracking/OneSignalSubscribeButton";
 import { categoriesOf, getPosts, slugify } from "@/lib/insights";
 import { buildMetadata } from "@/lib/seo";
 
@@ -34,6 +35,9 @@ export default async function InsightsPage() {
             </Link>
           ))}
         </nav>
+        <div className="mb-8">
+          <OneSignalSubscribeButton />
+        </div>
         <PostList posts={posts} />
       </Section>
       <FooterCTA source="insights_index" />

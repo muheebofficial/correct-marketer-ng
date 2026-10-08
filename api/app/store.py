@@ -6,8 +6,6 @@ import uuid
 from functools import lru_cache
 from typing import Any
 
-from fastapi import HTTPException
-
 from .config import CONTENT_COLLECTIONS, DATA_COLLECTIONS, settings
 
 
@@ -45,6 +43,51 @@ class MemoryStore:
         with self._lock:
             return self._data.get(name, {}).pop(doc_id, None) is not None
 
+    def claim_post_notification(self, slug: str) -> dict[str, Any] | None:
+        with self._lock:
+            doc = next(
+                (
+                    candidate
+                    for candidate in self._data.get("posts", {}).values()
+                    if candidate.get("slug") == slug or candidate.get("_id") == slug
+                ),
+                None,
+            )
+            if (
+                not doc
+                or doc.get("status") != "published"
+                or doc.get("notified") is True
+                or doc.get("notifyState") == "sending"
+            ):
+                return None
+            doc["notifyState"] = "sending"
+            return dict(doc)
+
+    def set_post_notification(self, slug: str, fields: dict[str, Any]) -> bool:
+        with self._lock:
+            doc = next(
+                (
+                    candidate
+                    for candidate in self._data.get("posts", {}).values()
+                    if candidate.get("slug") == slug or candidate.get("_id") == slug
+                ),
+                None,
+            )
+            if not doc:
+                return False
+            doc.update(fields)
+            return True
+
+    def mark_published_posts_notified(self, notified_at: str) -> int:
+        with self._lock:
+            posts = self._data.get("posts", {}).values()
+            updated = 0
+            for doc in posts:
+                if doc.get("status") == "published" and doc.get("notified") is not True:
+                    doc.update({"notified": True, "notifiedAt": notified_at, "notifyState": "sent"})
+                    updated += 1
+            return updated
+
 
 class AstraStore:
     """Astra DB via the Data API (astrapy). Collections are created on first use."""
@@ -78,12 +121,39 @@ class AstraStore:
     def delete(self, name: str, doc_id: str) -> bool:
         return self._col(name).delete_one({"_id": doc_id}).deleted_count > 0
 
+    def claim_post_notification(self, slug: str) -> dict[str, Any] | None:
+        return self._col("posts").find_one_and_update(
+            {
+                "$or": [{"slug": slug}, {"_id": slug}],
+                "status": "published",
+                "notified": {"$ne": True},
+                "notifyState": {"$ne": "sending"},
+            },
+            {"$set": {"notifyState": "sending"}},
+            return_document=True,
+        )
+
+    def set_post_notification(self, slug: str, fields: dict[str, Any]) -> bool:
+        result = self._col("posts").update_one(
+            {"$or": [{"slug": slug}, {"_id": slug}]}, {"$set": fields}
+        )
+        return result.matched_count > 0
+
+    def mark_published_posts_notified(self, notified_at: str) -> int:
+        result = self._col("posts").update_many(
+            {"status": "published", "notified": {"$ne": True}},
+            {"$set": {"notified": True, "notifiedAt": notified_at, "notifyState": "sent"}},
+        )
+        return result.modified_count
+
 
 @lru_cache(maxsize=1)
 def get_store() -> MemoryStore | AstraStore:
     if settings.dev_memory_db:
         return MemoryStore()
     if not (settings.astra_endpoint and settings.astra_token):
+        from fastapi import HTTPException
+
         raise HTTPException(status_code=503, detail="Database is not configured.")
     return AstraStore()
 

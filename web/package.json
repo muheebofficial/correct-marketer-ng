@@ -7,12 +7,15 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "notify": "node scripts/notify-post.mjs",
+    "mark-notified": "node scripts/mark-notified.mjs"
   },
   "dependencies": {
     "next": "^14.2.15",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-onesignal": "^3.5.6",
     "server-only": "^0.0.1"
   },
   "devDependencies": {

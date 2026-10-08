@@ -6,6 +6,7 @@ import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { FooterCTA } from "@/components/sections/FooterCTA";
 import { Button } from "@/components/ui/Button";
+import { OneSignalSubscribeButton } from "@/components/tracking/OneSignalSubscribeButton";
 import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
 import { services } from "@/lib/content/services";
 import type { Service } from "@/lib/content/types";
@@ -85,6 +86,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
             />
             <p className="mt-8 font-sub text-sm font-bold text-gold-soft">{post.category}</p>
             <h1 className="mt-2 font-display text-[clamp(2.25rem,5.5vw,4rem)] font-extrabold leading-[1.02]">{post.title}</h1>
+            <div className="mt-5"><OneSignalSubscribeButton /></div>
             <p className="mt-5 text-sm text-ivory/85">
               By <Link href="/about" className="font-semibold underline underline-offset-4">{post.author}</Link> · Published{" "}
               <time dateTime={post.published}>{formatDate(post.published)}</time>
