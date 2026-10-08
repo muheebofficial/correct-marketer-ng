@@ -27,9 +27,9 @@ export const metadata: Metadata = {
   authors: [{ name: site.founder.name }],
   alternates: { canonical: site.url },
   icons: {
-    icon: "/icon.jpg",
-    shortcut: "/icon.jpg",
-    apple: "/icon.jpg",
+    icon: "/logo-color.svg",
+    shortcut: "/logo-color.svg",
+    apple: "/logo-color.svg",
   },
   openGraph: { type: "website", siteName: site.name, locale: "en_NG", url: site.url },
   twitter: { card: "summary_large_image" },

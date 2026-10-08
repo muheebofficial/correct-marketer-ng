@@ -1,6 +1,6 @@
 export const site = {
   name: "Correct Marketer NG",
-  tagline: "We engineer your growth.",
+  tagline: "Attract, Nurture, Convert and Scale",
   url: (process.env.NEXT_PUBLIC_SITE_URL || "https://correctmarketer.com.ng").replace(/\/$/, ""),
   email: "muheeb@muheebsulaiman.com",
   whatsappNumber: "2349110172901",

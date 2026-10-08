@@ -1,0 +1,16 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Check push env presence only",
+			"type": "shell",
+			"command": "node.exe",
+			"args": [
+				"-e",
+				"const fs=require('node:fs');const file='web/.env.local';if(!fs.existsSync(file)){console.log('web/.env.local: missing');process.exit(0)}const contents=fs.readFileSync(file,'utf8');for(const key of ['NEXT_PUBLIC_ONESIGNAL_APP_ID','ONESIGNAL_REST_API_KEY','NOTIFY_SECRET','CRON_SECRET','SITE_URL','API_URL','API_SHARED_SECRET']){const match=contents.match(new RegExp('^\\\\s*'+key+'\\\\s*=\\\\s*(.*?)\\\\s*$','m'));const value=match?.[1]?.replace(/^['\\\"]|['\\\"]$/g,'').trim();console.log(key+': '+(value?'present':'missing or empty'))}"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		}
+	]
+}

@@ -8,7 +8,7 @@ export function FounderBlock({ compact = false }: { compact?: boolean }) {
     <Section tone="white" labelledBy="founder-heading">
       <div className="grid gap-10 md:grid-cols-[200px_1fr] md:gap-14">
         <div className="adire grid aspect-square w-40 place-items-center bg-forest md:w-full">
-          <Image src="/logo.jpg" alt="Correct Marketer NG logo mark" width={96} height={96} className="h-24 w-24" />
+          <Image src="/logo-white.svg" alt="Correct Marketer NG logo mark" width={120} height={59} className="h-auto w-[120px]" />
         </div>
         <div>
           <Heading id="founder-heading">{site.founder.name}</Heading>

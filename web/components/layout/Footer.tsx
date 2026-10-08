@@ -48,12 +48,12 @@ export async function Footer() {
         <div className="grid gap-12 lg:grid-cols-[1.2fr_2fr]">
           <div>
             <div className="flex items-center gap-3">
-              <Image src="/logo.jpg" alt="Correct Marketer NG logo" width={44} height={44} className="h-11 w-11" />
+              <Image src="/logo-white.svg" alt="Correct Marketer NG logo" width={52} height={26} className="h-[26px] w-[52px]" />
               <p className="font-sub text-lg font-bold leading-tight">
                 Correct Marketer NG
               </p>
             </div>
-            <p className="mt-3 font-display text-3xl font-extrabold text-gold">We engineer your growth.</p>
+            <p className="mt-3 font-display text-3xl font-extrabold text-gold">{site.tagline}</p>
             <div className="mt-8 max-w-md">
               <h2 className="font-sub text-base font-bold">Get Smarter About Growth</h2>
               <p className="mb-4 mt-1 text-sm text-ivory/85">
