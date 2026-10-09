@@ -8,7 +8,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
 
 from ..security import require_web_secret
-from ..store import get_store
+from ..store import get_store, is_post_due
 
 router = APIRouter(
     prefix="/v1/notifications",
@@ -32,7 +32,9 @@ def _public(doc: dict) -> dict:
 @router.get("/posts")
 def pending_posts(limit: int = 500):
     docs = get_store().list("posts", {"status": "published"}, min(max(limit, 1), 500))
-    return {"items": [_public(doc) for doc in docs if doc.get("notified") is not True]}
+    return {
+        "items": [_public(doc) for doc in docs if doc.get("notified") is not True and is_post_due(doc)]
+    }
 
 
 @router.post("/posts/mark-notified")

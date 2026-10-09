@@ -3,10 +3,41 @@ from __future__ import annotations
 
 import threading
 import uuid
+from datetime import datetime, timezone
 from functools import lru_cache
 from typing import Any
 
 from .config import CONTENT_COLLECTIONS, DATA_COLLECTIONS, settings
+
+
+def is_post_due(doc: dict[str, Any]) -> bool:
+    """Return True when a published post is eligible to be notified."""
+    published_at = doc.get("publishedAt")
+    if published_at is None:
+        published_at = doc.get("published")
+    if published_at in (None, "", False):
+        return True
+
+    if isinstance(published_at, datetime):
+        dt = published_at
+    elif isinstance(published_at, (int, float)):
+        dt = datetime.fromtimestamp(float(published_at), tz=timezone.utc)
+    elif isinstance(published_at, str):
+        text = published_at.strip()
+        if not text:
+            return True
+        if text.endswith("Z"):
+            text = text[:-1] + "+00:00"
+        try:
+            dt = datetime.fromisoformat(text)
+        except ValueError:
+            return True
+    else:
+        return True
+
+    if dt.tzinfo is None:
+        dt = dt.replace(tzinfo=timezone.utc)
+    return dt.astimezone(timezone.utc) <= datetime.now(timezone.utc)
 
 
 class MemoryStore:
@@ -58,6 +89,7 @@ class MemoryStore:
                 or doc.get("status") != "published"
                 or doc.get("notified") is True
                 or doc.get("notifyState") == "sending"
+                or not is_post_due(doc)
             ):
                 return None
             doc["notifyState"] = "sending"
@@ -83,7 +115,7 @@ class MemoryStore:
             posts = self._data.get("posts", {}).values()
             updated = 0
             for doc in posts:
-                if doc.get("status") == "published" and doc.get("notified") is not True:
+                if doc.get("status") == "published" and doc.get("notified") is not True and is_post_due(doc):
                     doc.update({"notified": True, "notifiedAt": notified_at, "notifyState": "sent"})
                     updated += 1
             return updated
@@ -122,7 +154,7 @@ class AstraStore:
         return self._col(name).delete_one({"_id": doc_id}).deleted_count > 0
 
     def claim_post_notification(self, slug: str) -> dict[str, Any] | None:
-        return self._col("posts").find_one_and_update(
+        doc = self._col("posts").find_one_and_update(
             {
                 "$or": [{"slug": slug}, {"_id": slug}],
                 "status": "published",
@@ -132,6 +164,10 @@ class AstraStore:
             {"$set": {"notifyState": "sending"}},
             return_document=True,
         )
+        if doc and not is_post_due(doc):
+            self._col("posts").update_one({"_id": doc["_id"]}, {"$set": {"notifyState": "pending"}})
+            return None
+        return doc
 
     def set_post_notification(self, slug: str, fields: dict[str, Any]) -> bool:
         result = self._col("posts").update_one(
@@ -140,11 +176,13 @@ class AstraStore:
         return result.matched_count > 0
 
     def mark_published_posts_notified(self, notified_at: str) -> int:
-        result = self._col("posts").update_many(
-            {"status": "published", "notified": {"$ne": True}},
-            {"$set": {"notified": True, "notifiedAt": notified_at, "notifyState": "sent"}},
-        )
-        return result.modified_count
+        updated = 0
+        for doc in self._col("posts").find({"status": "published", "notified": {"$ne": True}}):
+            if not is_post_due(doc):
+                continue
+            self._col("posts").update_one({"_id": doc["_id"]}, {"$set": {"notified": True, "notifiedAt": notified_at, "notifyState": "sent"}})
+            updated += 1
+        return updated
 
 
 @lru_cache(maxsize=1)
