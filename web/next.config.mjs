@@ -11,6 +11,18 @@ const nextConfig = {
   poweredByHeader: false,
   reactStrictMode: true,
   images: { formats: ["image/avif", "image/webp"] },
+  experimental: {
+    outputFileTracingIncludes: {
+      "/api/free-guide": ["./private/The-Nigerian-Business-Guide-to-Agentic-AI-Automation.pdf"],
+    },
+  },
+  async rewrites() {
+    return {
+      beforeFiles: [{ source: "/free-guide", destination: "/free-guide/index.html" }],
+      afterFiles: [],
+      fallback: [],
+    };
+  },
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
   },

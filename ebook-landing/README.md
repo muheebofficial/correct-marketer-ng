@@ -5,7 +5,7 @@ This project delivers a single-page ebook landing page and serverless API that s
 ## Project structure
 
 - `public/index.html` – marketing page and form
-- `public/assets/cover.jpg` – ebook cover image
+- `public/assets/cover.svg` – ebook cover image displayed on the landing page
 - `private/The-Nigerian-Business-Guide-to-Agentic-AI-Automation.pdf` – PDF attached by email
 - `api/lead.js` – form handler
 - `api/_config.js` – monday and email configuration

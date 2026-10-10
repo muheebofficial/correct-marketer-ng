@@ -651,7 +651,7 @@
                         Nigerians buy and pay</div>
                 </div>
                 <div class="bk"><img alt="Cover of The Nigerian Business Guide to Agentic AI Automation"
-                        src="assets/cover.svg"></div>
+                        src="/free-guide/assets/cover.svg"></div>
             </div>
         </div>
     </header>
@@ -855,7 +855,7 @@
     </footer>
     <div class="sb s" id="sb"><a class="btn" href="#get">Get the Free Guide</a></div>
     <script>
-        const CONFIG = { leadEndpoint: '/api/lead' };
+        const CONFIG = { leadEndpoint: '/api/free-guide' };
         const $ = i => document.getElementById(i);
         $('f').addEventListener('submit', async e => {
             e.preventDefault(); const b = $('b'), label = b.innerHTML; b.disabled = true; b.textContent = 'Sending your guide...'; $('er').hidden = true;

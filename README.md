@@ -115,6 +115,10 @@ UTM parameters, landing page and referrer are captured per visit and stored with
 - API: any container or Python host (Render, Railway, Fly, a VPS): `uvicorn app.main:app --host 0.0.0.0 --port $PORT`. The rate limiter is in-memory per process; if you run more than one instance, move it to Redis.
 - After launch: submit `/sitemap.xml` in Search Console and set `NEXT_PUBLIC_GSC_VERIFICATION`.
 
+### Free guide
+
+The ebook landing page is served by the web app at `/free-guide`. Set the Monday.com and Resend variables from `web/.env.example` in the web deployment, and place `The-Nigerian-Business-Guide-to-Agentic-AI-Automation.pdf` in `web/private/`. The PDF is included with the server-side delivery function and is not served as a public file. Until the PDF and required email/CRM settings are present, form submissions return a configuration error instead of reporting a false success.
+
 ## Status and honest limits
 
 - The build environment had no network, so `npm install`, `next build`, `tsc` and the FastAPI server were **not run here**. Python files compile; all TypeScript imports and exports were cross-checked statically. Expect to fix a small number of type or lint errors on first `npm run build`, and run Lighthouse yourself.
