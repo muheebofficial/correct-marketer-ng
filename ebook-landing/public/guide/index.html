@@ -1,0 +1,870 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Free Guide: The Nigerian Business Guide to Agentic AI Automation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="description"
+        content="Free 38-page guide: the 7 principles for building WhatsApp, CRM and follow-up automation that scales for Nigerian businesses.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@700;800&family=Work+Sans:wght@400;500;600&family=Lora:ital@1&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --fo: #0B4D2C;
+            --go: #C8850A;
+            --ob: #0D0D10;
+            --iv: #F7F4EC;
+            --sa: #4A7A5A;
+            --bg: #F7F4EC;
+            --cd: #fff;
+            --tx: #17171B;
+            --mu: #55555C;
+            --ln: #DDD6C3;
+            --ac: #8F5C04;
+            box-sizing: border-box;
+            padding-top: env(safe-area-inset-top, 0px);
+            padding-bottom: env(safe-area-inset-bottom, 0px)
+        }
+
+        @media(prefers-color-scheme:dark) {
+            :root:not([data-theme=light]) {
+                --bg: #0D0D10;
+                --cd: #17171C;
+                --tx: #EFEBDD;
+                --mu: #A9A9B0;
+                --ln: #2C2C33;
+                --ac: #E3A02E
+            }
+        }
+
+        :root[data-theme=dark] {
+            --bg: #0D0D10;
+            --cd: #17171C;
+            --tx: #EFEBDD;
+            --mu: #A9A9B0;
+            --ln: #2C2C33;
+            --ac: #E3A02E
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: env(safe-area-inset-top, 0px)
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--tx);
+            font: 17px/1.6 'Work Sans', system-ui, sans-serif
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Bricolage Grotesque', 'Work Sans', system-ui, sans-serif;
+            line-height: 1.1;
+            margin: 0
+        }
+
+        .w {
+            max-width: 1080px;
+            margin: 0 auto;
+            padding: 0 22px
+        }
+
+        section {
+            padding: 72px 0
+        }
+
+        .k {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            color: var(--ac);
+            margin-bottom: 12px
+        }
+
+        h2 {
+            font-size: clamp(28px, 4.4vw, 42px);
+            font-weight: 800;
+            margin-bottom: 14px
+        }
+
+        .lead {
+            color: var(--mu);
+            max-width: 640px;
+            margin: 0 0 34px
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--go);
+            color: #fff;
+            font: 700 17px 'Work Sans', sans-serif;
+            border: 0;
+            border-radius: 10px;
+            padding: 16px 28px;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 8px 24px rgba(200, 133, 10, .35);
+            transition: transform .15s
+        }
+
+        .btn:hover {
+            transform: translateY(-2px)
+        }
+
+        .btn:disabled {
+            opacity: .6
+        }
+
+        .hero {
+            background: radial-gradient(900px 500px at 85% 20%, rgba(74, 122, 90, .55), transparent 60%), var(--fo);
+            color: #fff;
+            padding: 0 0 70px
+        }
+
+        .bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0
+        }
+
+        .bar b {
+            font: 800 15px 'Bricolage Grotesque';
+            letter-spacing: .08em
+        }
+
+        .bar a {
+            color: #fff;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            border-bottom: 2px solid var(--go)
+        }
+
+        .hg {
+            display: grid;
+            grid-template-columns: 1.15fr .85fr;
+            gap: 40px;
+            align-items: center;
+            padding-top: 30px
+        }
+
+        .hero h1 {
+            font-size: clamp(38px, 6.2vw, 66px);
+            font-weight: 800
+        }
+
+        .hero h1 em {
+            font-style: normal;
+            color: #F0B646
+        }
+
+        .hero p {
+            font-size: 19px;
+            color: #E4EDE7;
+            max-width: 560px;
+            margin: 20px 0 26px
+        }
+
+        .ticks {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 30px;
+            display: grid;
+            gap: 8px
+        }
+
+        .ticks li {
+            padding-left: 28px;
+            position: relative;
+            color: #EAF1EC
+        }
+
+        .ticks li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #F0B646;
+            font-weight: 700
+        }
+
+        .fine {
+            font-size: 13px;
+            color: #BFD0C5;
+            margin-top: 14px
+        }
+
+        .bk {
+            position: relative;
+            display: grid;
+            place-items: center
+        }
+
+        .bk:before {
+            content: "";
+            position: absolute;
+            width: 78%;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            background: var(--go);
+            opacity: .9;
+            filter: blur(2px);
+            transform: translate(10%, 8%)
+        }
+
+        .bk img {
+            position: relative;
+            width: min(100%, 330px);
+            border-radius: 6px 12px 12px 6px;
+            transform: perspective(1100px) rotateY(-16deg) rotateX(3deg);
+            box-shadow: -18px 26px 50px rgba(0, 0, 0, .5), inset 6px 0 8px rgba(255, 255, 255, .2)
+        }
+
+        .st {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px;
+            margin-top: -38px;
+            position: relative
+        }
+
+        .st div {
+            background: var(--cd);
+            border: 1px solid var(--ln);
+            border-top: 4px solid var(--go);
+            border-radius: 12px;
+            padding: 20px 22px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, .08)
+        }
+
+        .st b {
+            display: block;
+            font: 800 40px 'Bricolage Grotesque';
+            color: var(--fo)
+        }
+
+        @media(prefers-color-scheme:dark) {
+            :root:not([data-theme=light]) .st b {
+                color: #F0B646
+            }
+        }
+
+        .st span {
+            font-size: 14px;
+            color: var(--mu)
+        }
+
+        .gr {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 18px
+        }
+
+        .cd {
+            background: var(--cd);
+            border: 1px solid var(--ln);
+            border-radius: 14px;
+            padding: 24px
+        }
+
+        .cd h3 {
+            font-size: 20px;
+            margin: 8px 0
+        }
+
+        .cd p {
+            margin: 0;
+            color: var(--mu);
+            font-size: 15.5px
+        }
+
+        .n {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: var(--fo);
+            color: #F0B646;
+            display: grid;
+            place-items: center;
+            font: 800 17px 'Bricolage Grotesque'
+        }
+
+        .cta {
+            background: var(--fo);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 14px
+        }
+
+        .cta h3 {
+            color: #fff
+        }
+
+        .dm {
+            background: var(--fo);
+            color: #fff
+        }
+
+        .dm .k {
+            color: #F0B646
+        }
+
+        .dm .lead {
+            color: #D5E3DA
+        }
+
+        .dg {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 44px;
+            align-items: center
+        }
+
+        .ch {
+            background: #E9EFEA;
+            color: #17171B;
+            border-radius: 18px;
+            padding: 18px;
+            display: grid;
+            gap: 10px;
+            box-shadow: 0 24px 50px rgba(0, 0, 0, .35)
+        }
+
+        .ch div {
+            max-width: 82%;
+            padding: 10px 14px;
+            border-radius: 14px;
+            font-size: 15px;
+            line-height: 1.45
+        }
+
+        .ch .c {
+            background: #fff;
+            border-bottom-left-radius: 4px
+        }
+
+        .ch .a {
+            background: #CFE8D6;
+            margin-left: auto;
+            border-bottom-right-radius: 4px
+        }
+
+        .ch small {
+            display: block;
+            font-size: 12px;
+            color: #0B4D2C;
+            font-weight: 600;
+            margin-top: 4px
+        }
+
+        .ls {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 10px 26px
+        }
+
+        .ls li {
+            padding: 10px 0 10px 30px;
+            border-bottom: 1px solid var(--ln);
+            position: relative
+        }
+
+        .ls li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--go);
+            font-weight: 800
+        }
+
+        .sc small {
+            font-size: 12px;
+            color: var(--ac);
+            font-weight: 600;
+            letter-spacing: .08em;
+            text-transform: uppercase
+        }
+
+        .sc p {
+            margin: 8px 0 0
+        }
+
+        .sc p b {
+            color: var(--tx)
+        }
+
+        .au {
+            display: flex;
+            gap: 22px;
+            align-items: center;
+            background: var(--cd);
+            border: 1px solid var(--ln);
+            border-radius: 16px;
+            padding: 26px
+        }
+
+        .au i {
+            flex: none;
+            width: 76px;
+            height: 76px;
+            border-radius: 50%;
+            background: var(--fo);
+            color: #F0B646;
+            display: grid;
+            place-items: center;
+            font: 800 28px 'Bricolage Grotesque';
+            font-style: normal
+        }
+
+        .fm {
+            background: var(--fo);
+            color: #fff;
+            border-radius: 22px;
+            padding: clamp(24px, 5vw, 50px);
+            box-shadow: 0 30px 70px rgba(11, 77, 44, .35)
+        }
+
+        .fm h2 {
+            color: #fff
+        }
+
+        .fm .k {
+            color: #F0B646
+        }
+
+        .fm .lead {
+            color: #D5E3DA
+        }
+
+        form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px
+        }
+
+        label {
+            display: grid;
+            gap: 6px;
+            font-size: 14px;
+            font-weight: 600
+        }
+
+        label i {
+            font-style: normal;
+            font-weight: 400;
+            color: #BFD0C5
+        }
+
+        .f {
+            grid-column: 1/-1
+        }
+
+        input,
+        select,
+        textarea {
+            font: 16px 'Work Sans', sans-serif;
+            padding: 13px 14px;
+            border-radius: 9px;
+            border: 2px solid transparent;
+            background: #fff;
+            color: #17171B;
+            width: 100%
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: 0;
+            border-color: #F0B646
+        }
+
+        .ck {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+            font-weight: 400;
+            font-size: 14px;
+            color: #D5E3DA
+        }
+
+        .ck input {
+            width: 20px;
+            height: 20px;
+            margin-top: 2px;
+            flex: none
+        }
+
+        .ok {
+            text-align: center;
+            padding: 10px 0
+        }
+
+        .ok h3 {
+            font-size: 30px;
+            color: #fff;
+            margin-bottom: 10px
+        }
+
+        .ok p {
+            color: #D5E3DA;
+            margin: 0 0 22px
+        }
+
+        .pv {
+            background: rgba(240, 182, 70, .18);
+            border: 1px dashed #F0B646;
+            border-radius: 10px;
+            padding: 10px 14px;
+            font-size: 13.5px;
+            color: #FBE7B8;
+            margin-top: 18px
+        }
+
+        .er {
+            color: #FFD4C9;
+            grid-column: 1/-1
+        }
+
+        details {
+            border-bottom: 1px solid var(--ln);
+            padding: 16px 0
+        }
+
+        summary {
+            font-weight: 600;
+            cursor: pointer
+        }
+
+        details p {
+            color: var(--mu);
+            margin: 10px 0 0
+        }
+
+        footer {
+            background: var(--ob);
+            color: #A9A9B0;
+            font-size: 14px;
+            padding: 32px 0
+        }
+
+        footer b {
+            color: #F0B646
+        }
+
+        .sb {
+            display: none;
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            padding: 10px 14px calc(10px + env(safe-area-inset-bottom, 0px));
+            background: var(--fo);
+            z-index: 9;
+            box-shadow: 0 -8px 24px rgba(0, 0, 0, .25)
+        }
+
+        .sb .btn {
+            width: 100%;
+            text-align: center;
+            padding: 14px
+        }
+
+        @media(max-width:820px) {
+
+            .hg,
+            .dg {
+                grid-template-columns: 1fr
+            }
+
+            .bk {
+                order: -1;
+                padding: 10px 0 0
+            }
+
+            .bk img {
+                width: 230px
+            }
+
+            section {
+                padding: 54px 0
+            }
+
+            form {
+                grid-template-columns: 1fr
+            }
+
+            .sb.s {
+                display: block
+            }
+
+            .au {
+                flex-direction: column;
+                text-align: center
+            }
+
+            body {
+                padding-bottom: 70px
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="hero">
+        <div class="w">
+            <div class="bar"><b>CORRECT MARKETER NG</b><a href="#get">Get the free guide</a></div>
+            <div class="hg">
+                <div>
+                    <div class="k" style="color:#F0B646">Free guide for Nigerian business owners</div>
+                    <h1>Stop losing the leads you <em>already paid for.</em></h1>
+                    <p>The 7 principles for building WhatsApp, CRM and follow-up automation that scales, without adding
+                        staff or wrecking trust.</p>
+                    <ul class="ticks">
+                        <li>Find the one process worth automating first</li>
+                        <li>Launch a working AI agent system in 30 days</li>
+                        <li>Keep humans in control of what matters</li>
+                    </ul>
+                    <a class="btn" href="#get">Get the Free Guide &rarr;</a>
+                    <div class="fine">Free &middot; Sent straight to your inbox &middot; 38 pages &middot; Built for how
+                        Nigerians buy and pay</div>
+                </div>
+                <div class="bk"><img alt="Cover of The Nigerian Business Guide to Agentic AI Automation"
+                        src="../assets/cover.jpg"></div>
+            </div>
+        </div>
+    </header>
+    <div class="w">
+        <div class="st">
+            <div><b>67%</b><span>of Nigerian MSMEs saw demand decline over two years (PwC, 2024)</span></div>
+            <div><b>73%</b><span>of consumers prefer messaging a business over other channels (Meta/Kantar, 2025)</span>
+            </div>
+            <div><b>39.7M+</b><span>MSMEs in Nigeria, most of them already on WhatsApp (SMEDAN/NBS)</span></div>
+        </div>
+    </div>
+    <section>
+        <div class="w">
+            <div class="k">What you&rsquo;ll learn</div>
+            <h2>Seven principles. One system that scales.</h2>
+            <p class="lead">Most automation works for a few weeks, then breaks. These principles are how you build the
+                kind that doesn&rsquo;t.</p>
+            <div class="gr">
+                <div class="cd">
+                    <div class="n">1</div>
+                    <h3>Start with the process, not the tool</h3>
+                    <p>Find the single process that is actually costing you money before you buy anything.</p>
+                </div>
+                <div class="cd">
+                    <div class="n">2</div>
+                    <h3>Start narrow, prove it, expand</h3>
+                    <p>One use case, one metric, live in 30 days, instead of ten half-built experiments.</p>
+                </div>
+                <div class="cd">
+                    <div class="n">3</div>
+                    <h3>Design for how Nigerians buy</h3>
+                    <p>WhatsApp-first, patchy networks, manual payment confirmation and a trust-first customer.</p>
+                </div>
+                <div class="cd">
+                    <div class="n">4</div>
+                    <h3>Build on a connected foundation</h3>
+                    <p>Get WhatsApp, your CRM and your workflow talking so no lead depends on memory.</p>
+                </div>
+                <div class="cd">
+                    <div class="n">5</div>
+                    <h3>Set guardrails, keep humans in the loop</h3>
+                    <p>Agents that never invent prices, availability or promises, and hand off cleanly.</p>
+                </div>
+                <div class="cd">
+                    <div class="n">6</div>
+                    <h3>Protect data and earn trust</h3>
+                    <p>The questions to answer before deployment, aligned to the Nigeria Data Protection Act.</p>
+                </div>
+                <div class="cd">
+                    <div class="n">7</div>
+                    <h3>Measure, then scale what works</h3>
+                    <p>A baseline, a simple ROI sum and the right order to expand.</p>
+                </div>
+                <div class="cd cta">
+                    <h3>All seven, with checklists and a 30-day roadmap</h3><a class="btn" href="#get">Get it free
+                        &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="dm">
+        <div class="w dg">
+            <div>
+                <div class="k">See it work</div>
+                <h2>A WhatsApp sales agent, in seconds.</h2>
+                <p class="lead">It answers from your approved information, logs every conversation to your CRM, and
+                    passes the human moments, like discounts, straight to your team.</p><a class="btn" href="#get">Show
+                    me how to build this &rarr;</a>
+            </div>
+            <div class="ch">
+                <div class="c">How much is the 6-seater dining set, and can you deliver to Lekki?</div>
+                <div class="a">Hello! Yes, the 6-seater set is available and we deliver to Lekki. May I take your name
+                    and delivery address?<small>&#10003; Lead created in CRM</small></div>
+                <div class="c">Can you do a discount?</div>
+                <div class="a">Let me connect you with our sales manager, who can help with pricing.<small>&#8599;
+                        Handed to a human, with full context</small></div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="w">
+            <div class="k">Inside the guide</div>
+            <h2>Not theory. Tools you can use this week.</h2>
+            <ul class="ls">
+                <li>7 Principles Readiness Scorecard (14 points)</li>
+                <li>Agentic AI Opportunity Checklist</li>
+                <li>The 7 Principles on one page</li>
+                <li>30-day roadmap, week by week</li>
+                <li>Six business scenarios, step by step</li>
+                <li>Use cases: education, e-commerce, real estate, food, B2B, high-trust sectors</li>
+                <li>Honest answers to the objections owners actually raise</li>
+                <li>Glossary and sources, in plain English</li>
+            </ul>
+        </div>
+    </section>
+    <section style="padding-top:0">
+        <div class="w">
+            <div class="k">Real problems, practical fixes</div>
+            <h2>Does this sound like your business?</h2>
+            <p class="lead">Illustrative scenarios from the guide.</p>
+            <div class="gr">
+                <div class="cd sc"><small>Lagos fashion e-commerce</small>
+                    <p><b>The problem:</b> ads bring WhatsApp questions, then customers vanish after seeing the price.
+                    </p>
+                    <p><b>The fix:</b> an agent that answers from the approved catalogue, follows up and logs
+                        everything.</p>
+                </div>
+                <div class="cd sc"><small>Abuja real estate</small>
+                    <p><b>The problem:</b> salespeople waste hours on low-intent enquiries.</p>
+                    <p><b>The fix:</b> qualify budget, location and timeline first, then book viewings straight to the
+                        calendar.</p>
+                </div>
+                <div class="cd sc"><small>Study-abroad consultancy</small>
+                    <p><b>The problem:</b> counsellors repeat the same early answers and chase documents.</p>
+                    <p><b>The fix:</b> an enquiry agent that handles the front end and briefs the counsellor before
+                        every call.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section style="padding-top:0">
+        <div class="w">
+            <div class="au"><i>MS</i>
+                <div>
+                    <div class="k">About the author</div>
+                    <h3 style="font-size:26px">Muheeb Sulaiman</h3>
+                    <p style="margin:8px 0 0;color:var(--mu)">AI Growth Architect and founder of Correct Marketer NG, a
+                        Lagos digital agency. Website developer and digital marketer specialising in SEO and paid
+                        advertising, building agentic AI automation for businesses.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="get" style="padding-top:0">
+        <div class="w">
+            <div class="fm">
+                <div class="k">Free guide</div>
+                <h2>Get your free copy</h2>
+                <p class="lead">Tell us a little about your business and we will email the guide to you instantly.</p>
+                <form id="f"><label>First name<input name="firstName" required
+                            autocomplete="given-name"></label><label>Surname<input name="surname" required
+                            autocomplete="family-name"></label>
+                    <label>Email address<input name="email" type="email" required
+                            autocomplete="email"></label><label>Phone / WhatsApp number<input name="phone" type="tel"
+                            required autocomplete="tel" placeholder="+234"></label>
+                    <label>Business name<input name="business" required
+                            autocomplete="organization"></label><label>Monthly marketing and automation budget<select
+                            name="budget" required>
+                            <option value="">Select a range</option>
+                            <option>Under &#8358;100,000</option>
+                            <option>&#8358;100,000 &ndash; &#8358;300,000</option>
+                            <option>&#8358;300,000 &ndash; &#8358;750,000</option>
+                            <option>&#8358;750,000 &ndash; &#8358;2,000,000</option>
+                            <option>Above &#8358;2,000,000</option>
+                        </select></label>
+                    <label class="f">What problem do you want us to solve? <i>(one sentence, in your own
+                            words)</i><textarea name="problem" required maxlength="300" rows="2" style="min-height:76px"
+                            placeholder="e.g. My ads bring enquiries but nobody follows up fast enough, or I need a website that actually converts."></textarea></label>
+                    <label class="f">About your business<textarea name="description" required
+                            placeholder="What do you sell, who do you sell to, and what is your biggest follow-up headache?"></textarea></label>
+                    <label>Social media handle <i>(optional)</i><input name="social"
+                            placeholder="@yourbusiness"></label><label>Website URL <i>(optional)</i><input
+                            name="website" type="url" placeholder="https://"></label>
+                    <label class="f ck"><input type="checkbox" name="consent" required><span>I agree to receive the
+                            guide and to be contacted about my business needs. I can opt out at any time.</span></label>
+                    <div class="er" id="er" hidden>We could not send your guide. Please check your email address and try
+                        again.</div>
+                    <div class="f"><button class="btn" id="b" type="submit">Send Me the Free Guide &rarr;</button></div>
+                </form>
+                <div class="ok" id="ok" hidden role="status">
+                    <h3>&#10003; Your guide is on its way.</h3>
+                    <p>The ebook has been sent to <b id="em"></b>. It should arrive within a minute. If you do not see
+                        it, check your spam or promotions folder.</p>
+                    <p style="margin:0;font-size:14px">Want to move faster? Reply to the email and tell us your biggest
+                        follow-up headache.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section style="padding-top:0">
+        <div class="w">
+            <h2 style="font-size:30px">Quick answers</h2>
+            <details>
+                <summary>Is it really free?</summary>
+                <p>Yes. Complete the form and we will email you the full guide instantly.</p>
+            </details>
+            <details>
+                <summary>Is this only for tech-savvy businesses?</summary>
+                <p>No. It is written for business owners, not engineers, and starts with your process, not software.</p>
+            </details>
+            <details>
+                <summary>Will it replace my team?</summary>
+                <p>Usually not. The guide explains why AI handles repetitive work so your people can focus on judgement
+                    and relationships.</p>
+            </details>
+        </div>
+    </section>
+    <footer>
+        <div class="w"><b>Correct Marketer NG</b> &middot; muheebsulaiman.com &middot; Strategy. Automation. Growth.
+            Done Right.<br>We use your details only to send your guide and follow up about your business needs.</div>
+    </footer>
+    <div class="sb s" id="sb"><a class="btn" href="#get">Get the Free Guide</a></div>
+    <script>
+        const CONFIG = { leadEndpoint: '/api/lead' };
+        const $ = i => document.getElementById(i);
+        $('f').addEventListener('submit', async e => {
+            e.preventDefault(); const b = $('b'), label = b.innerHTML; b.disabled = true; b.textContent = 'Sending your guide...'; $('er').hidden = true;
+            const d = Object.fromEntries(new FormData($('f'))); d.consent = $('f').consent.checked; d.source = 'ebook-landing'; d.submittedAt = new Date().toISOString();
+            try { const r = await fetch(CONFIG.leadEndpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(d) }); if (!r.ok) throw 0 } catch (_) { $('er').hidden = false; b.disabled = false; b.innerHTML = label; return }
+            $('em').textContent = d.email; $('f').hidden = true; $('ok').hidden = false; $('ok').scrollIntoView({ block: 'center' })
+        });
+        const sb = $('sb'), io = new IntersectionObserver(a => sb.classList.toggle('s', !a[0].isIntersecting), { threshold: .15 }); io.observe($('get'));
+    </script>
+</body>
+
+</html>
