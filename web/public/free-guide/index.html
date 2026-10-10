@@ -856,14 +856,57 @@
     <div class="sb s" id="sb"><a class="btn" href="#get">Get the Free Guide</a></div>
     <script>
         const CONFIG = { leadEndpoint: '/api/free-guide' };
+        const MSG = {
+            400: 'Please check that every required field is filled in and your email address is valid.',
+            403: 'This form is temporarily blocked by the site origin check. Please try again in a moment.',
+            413: 'Your submission is too large. Please try again with shorter details.',
+            502: 'We could not email your guide. Please check your email address and try again.',
+            503: 'Guide delivery is not configured yet. Please contact the site owner to activate the guide email and PDF setup.'
+        };
         const $ = i => document.getElementById(i);
         $('f').addEventListener('submit', async e => {
-            e.preventDefault(); const b = $('b'), label = b.innerHTML; b.disabled = true; b.textContent = 'Sending your guide...'; $('er').hidden = true;
-            const d = Object.fromEntries(new FormData($('f'))); d.consent = $('f').consent.checked; d.source = 'ebook-landing'; d.submittedAt = new Date().toISOString();
-            try { const r = await fetch(CONFIG.leadEndpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(d) }); if (!r.ok) throw 0 } catch (_) { $('er').hidden = false; b.disabled = false; b.innerHTML = label; return }
-            $('em').textContent = d.email; $('f').hidden = true; $('ok').hidden = false; $('ok').scrollIntoView({ block: 'center' })
+            e.preventDefault();
+            const b = $('b'), label = b.innerHTML;
+            b.disabled = true;
+            b.textContent = 'Sending your guide...';
+            $('er').hidden = true;
+
+            const d = Object.fromEntries(new FormData($('f')));
+            d.consent = $('f').consent.checked;
+            d.source = 'ebook-landing';
+            d.submittedAt = new Date().toISOString();
+
+            try {
+                const r = await fetch(CONFIG.leadEndpoint, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(d),
+                });
+
+                if (!r.ok) {
+                    let payload = {};
+                    try {
+                        payload = await r.json();
+                    } catch (_) { }
+                    throw { status: r.status, payload };
+                }
+            } catch (error) {
+                const status = error && typeof error === 'object' && 'status' in error ? Number(error.status) : 0;
+                const message = status ? (MSG[status] || 'Our sign-up system is temporarily unavailable. Please try again in a few minutes.') : 'Connection problem. Please check your internet and try again.';
+                $('er').textContent = message;
+                $('er').hidden = false;
+                b.disabled = false;
+                b.innerHTML = label;
+                return;
+            }
+
+            $('em').textContent = d.email;
+            $('f').hidden = true;
+            $('ok').hidden = false;
+            $('ok').scrollIntoView({ block: 'center' });
         });
-        const sb = $('sb'), io = new IntersectionObserver(a => sb.classList.toggle('s', !a[0].isIntersecting), { threshold: .15 }); io.observe($('get'));
+        const sb = $('sb'), io = new IntersectionObserver(a => sb.classList.toggle('s', !a[0].isIntersecting), { threshold: .15 });
+        io.observe($('get'));
     </script>
 </body>
 
