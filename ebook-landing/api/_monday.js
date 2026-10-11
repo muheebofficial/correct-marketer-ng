@@ -10,7 +10,7 @@ const esc = (s) => String(s).replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt
 async function gql(query, variables) {
     const r = await fetch('https://api.monday.com/v2', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', Authorization: process.env.MONDAY_API_TOKEN, 'API-Version': M.apiVersion },
+        headers: { 'Content-Type': 'application/json', Authorization: String(process.env.MONDAY_API_TOKEN || '').trim().replace(/^['"]+|['"]+$/g, '').trim().replace(/^bearer\s+/i, ''), 'API-Version': M.apiVersion },
         body: JSON.stringify({ query, variables }),
         signal: AbortSignal.timeout(8000),
     });
@@ -80,24 +80,35 @@ async function saveToMonday(lead) {
     const cv = buildColumns(lead);
     if (existing) { for (const k of ['status', 'owner']) if (colId(k)) delete cv[colId(k)]; } // never reset a lead already being worked
 
-    const write = (values) => existing
-        ? gql(CHANGE, { b: M.boardId, i: existing, v: JSON.stringify(values) }).then(() => existing)
-        : gql(CREATE, { b: M.boardId, g: M.groupId, n: name, v: JSON.stringify(values) }).then((d) => d.create_item.id);
+    // Try the full save first; if monday rejects something, retry with less so the lead is never lost.
+    const without = (obj, id) => { const c = { ...obj }; if (id) delete c[id]; return c; };
+    const keep = (obj, ids) => Object.fromEntries(Object.entries(obj).filter(([k]) => ids.filter(Boolean).includes(k)));
+    const noPhone = without(cv, colId('phone'));
+    const minimal = keep(cv, [colId('email'), colId('business'), colId('status'), colId('source')]);
+    const attempts = [{ cv, group: M.groupId }, { cv: noPhone, group: M.groupId }, { cv: noPhone, group: null }, { cv: minimal, group: null }]
+        .filter((a, i, arr) => arr.findIndex((b) => JSON.stringify(b) === JSON.stringify(a)) === i);
 
-    let itemId;
-    try { itemId = await write(cv); }
-    catch (e) {
-        const pc = colId('phone');
-        if (pc && cv[pc] && /phone/i.test(e.message)) { // invalid phone: save everything else, phone goes in the note
-            const rest = { ...cv }; delete rest[pc];
-            itemId = await write(rest);
-        } else throw e;
+    const write = (a) => existing
+        ? gql(CHANGE, { b: M.boardId, i: existing, v: JSON.stringify(a.cv) }).then(() => existing)
+        : gql(CREATE, { b: M.boardId, g: a.group, n: name, v: JSON.stringify(a.cv) }).then((d) => d.create_item.id);
+
+    let itemId = null, used = 0;
+    const errors = [];
+    for (const [i, a] of attempts.entries()) {
+        try { itemId = await write(a); used = i; break; }
+        catch (e) {
+            errors.push(e.message);
+            if (/401|not authenticated|unauthori[sz]ed/i.test(e.message)) break; // wrong token: retrying cannot help
+        }
     }
+    if (!itemId) throw new Error(errors.join(' || '));
+    if (used > 0) console.warn('monday: saved with reduced fields after errors:', errors.join(' || '));
 
     const note = '<b>' + (existing ? 'Form resubmitted' : 'New ebook lead') + '</b><br>' +
-        ['Name: ' + name, 'Problem to solve: ' + lead.problem, 'Email: ' + lead.email, 'Phone / WhatsApp: ' + lead.phone, 'Business: ' + lead.business,
-        'Budget: ' + lead.budget, 'About: ' + lead.description, 'Social: ' + (lead.social || '-'),
-        'Website: ' + (lead.website || '-'), 'Consent: yes', 'Submitted: ' + lead.submittedAt].map(esc).join('<br>');
+        ['Name: ' + name, 'Problem to solve: ' + lead.problem, 'Email: ' + lead.email, 'Phone / WhatsApp: ' + lead.phone,
+        'Business: ' + lead.business, 'Budget: ' + lead.budget, 'About: ' + lead.description, 'Social: ' + (lead.social || '-'),
+        'Website: ' + (lead.website || '-'), 'Consent: yes', 'Submitted: ' + lead.submittedAt].map(esc).join('<br>') +
+        (used > 0 ? '<br><i>Saved with reduced fields because monday rejected some values. Every detail is in this note.</i>' : '');
     await gql(NOTE, { i: itemId, t: note }).catch((e) => console.error('monday note failed:', e.message));
     return itemId;
 }

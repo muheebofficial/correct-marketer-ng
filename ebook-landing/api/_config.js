@@ -1,9 +1,15 @@
 // api/_config.js  -- the one file you edit to match your monday.com board and email wording.
+// Ignore env values that cannot be a board ID / group ID (for example a group *name* pasted by mistake).
+const digits = (v) => (/^\d+$/.test(String(v || '').trim()) ? String(v).trim() : null);
+const slug = (v) => (/^[A-Za-z0-9_]+$/.test(String(v || '').trim()) ? String(v).trim() : null);
+if (process.env.MONDAY_BOARD_ID && !digits(process.env.MONDAY_BOARD_ID)) console.warn('Ignoring MONDAY_BOARD_ID: it must be digits only. Using the built-in board ID.');
+if (process.env.MONDAY_GROUP_ID && !slug(process.env.MONDAY_GROUP_ID)) console.warn('Ignoring MONDAY_GROUP_ID: it must be a group ID such as "topics", not a group name. Using the built-in group.');
+
 module.exports = {
     monday: {
         apiVersion: process.env.MONDAY_API_VERSION || '2026-07',
-        boardId: process.env.MONDAY_BOARD_ID || '5105685497', // your "Leads" board
-        groupId: process.env.MONDAY_GROUP_ID || 'topics', // "New Leads" group
+        boardId: digits(process.env.MONDAY_BOARD_ID) || '5105685497', // your "Leads" board
+        groupId: slug(process.env.MONDAY_GROUP_ID) || 'topics', // "New Leads" group
 
         // Map each form field to the column ID on YOUR board.
         // Find the IDs by running:  node --env-file=.env scripts/list-columns.js
@@ -37,7 +43,10 @@ module.exports = {
     },
     email: {
         fromName: 'Muheeb Sulaiman',
-        subject: 'Your free guide: The Nigerian Business Guide to Agentic AI Automation',
+        subject: 'Your free guide is attached, {firstName}',
         attachmentName: 'The-Nigerian-Business-Guide-to-Agentic-AI-Automation.pdf',
+        siteLabel: 'correctmarketer.com.ng',
+        siteUrl: 'https://correctmarketer.com.ng',
+        pageUrl: 'correctmarketer.com.ng/free-guide',
     },
 };
