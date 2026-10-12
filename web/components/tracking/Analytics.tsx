@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { captureAttribution } from "@/lib/attribution";
 import { track } from "@/lib/track";
 
-const GA4 = process.env.NEXT_PUBLIC_GA4_ID;
+const GA4 = process.env.NEXT_PUBLIC_GA4_ID || "G-MMRD9FB9V2";
 const META = process.env.NEXT_PUBLIC_META_PIXEL_ID;
 const LINKEDIN = process.env.NEXT_PUBLIC_LINKEDIN_PARTNER_ID;
 const ADS = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID;
