@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Big_Shoulders_Display, Bricolage_Grotesque, Lora, Work_Sans } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import { Analytics } from "@/components/tracking/Analytics";
 import { FloatingWhatsApp } from "@/components/layout/FloatingWhatsApp";
@@ -14,6 +15,7 @@ const display = Big_Shoulders_Display({ subsets: ["latin"], weight: ["700", "800
 const sub = Bricolage_Grotesque({ subsets: ["latin"], weight: ["600", "700"], variable: "--font-sub", display: "swap" });
 const body = Work_Sans({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--font-body", display: "swap" });
 const accent = Lora({ subsets: ["latin"], style: ["italic"], weight: ["400"], variable: "--font-accent", display: "swap" });
+const GA4_ID = process.env.NEXT_PUBLIC_GA4_ID || "G-MMRD9FB9V2";
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -41,6 +43,16 @@ export const viewport: Viewport = { themeColor: "#0B4D2C", width: "device-width"
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en-NG" className={`${display.variable} ${sub.variable} ${body.variable} ${accent.variable}`}>
+      <head>
+        <Script async src={`https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`} strategy="beforeInteractive" />
+        <Script id="gtag-init" strategy="beforeInteractive">{`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          window.gtag = gtag;
+          gtag('js', new Date());
+          gtag('config', '${GA4_ID}');
+        `}</Script>
+      </head>
       <body>
         <a href="#main" className="skip-link">Skip to content</a>
         <Header />

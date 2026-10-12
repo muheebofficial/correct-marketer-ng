@@ -98,7 +98,7 @@ curl -X PUT http://localhost:8000/v1/admin/content/case_studies/acme-lead-gen \
 
 ## Analytics
 
-Set the IDs in `web/.env.local` (GA4, Meta Pixel, LinkedIn, Google Ads). Tags load only after a visitor accepts the cookie banner. Events fired through `track()`: `whatsapp_click`, `contact_form_submit`, `audit_request`, `newsletter_signup`, `service_cta_click`, `case_study_view`, `scroll_depth` (`phone_click` is defined; use `event="phone_click"` on a `tel:` link when you add a phone number).
+Set the IDs in `web/.env.local` (GA4, Meta Pixel, LinkedIn, Google Ads). Google Analytics loads immediately; Google Ads, Meta Pixel and LinkedIn load only after a visitor accepts the cookie banner. Events fired through `track()`: `whatsapp_click`, `contact_form_submit`, `audit_request`, `newsletter_signup`, `service_cta_click`, `case_study_view`, `scroll_depth` (`phone_click` is defined; use `event="phone_click"` on a `tel:` link when you add a phone number).
 UTM parameters, landing page and referrer are captured per visit and stored with every lead.
 
 ## Things only you can supply

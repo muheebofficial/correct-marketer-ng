@@ -6,15 +6,14 @@ import { useEffect, useState } from "react";
 import { captureAttribution } from "@/lib/attribution";
 import { track } from "@/lib/track";
 
-const GA4 = process.env.NEXT_PUBLIC_GA4_ID || "G-MMRD9FB9V2";
 const META = process.env.NEXT_PUBLIC_META_PIXEL_ID;
 const LINKEDIN = process.env.NEXT_PUBLIC_LINKEDIN_PARTNER_ID;
 const ADS = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID;
 
 /**
- * Consent banner + analytics loader.
+ * Consent banner + consent-gated advertising loaders.
  * - UTM / landing page / referrer are captured for lead attribution regardless (first-party, only sent when a visitor submits a form).
- * - Third-party tags (GA4, Meta Pixel, LinkedIn, Google Ads) load only after the visitor accepts.
+ * - Google Analytics loads immediately; Google Ads, Meta Pixel and LinkedIn load only after the visitor accepts.
  */
 export function Analytics() {
   const [consent, setConsent] = useState<"unknown" | "granted" | "denied">("unknown");
@@ -61,19 +60,7 @@ export function Analytics() {
     <>
       {consent === "granted" && (
         <>
-          {(GA4 || ADS) && (
-            <>
-              <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA4 || ADS}`} strategy="afterInteractive" />
-              <Script id="gtag-init" strategy="afterInteractive">{`
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                window.gtag = gtag;
-                gtag('js', new Date());
-                ${GA4 ? `gtag('config', '${GA4}');` : ""}
-                ${ADS ? `gtag('config', '${ADS}');` : ""}
-              `}</Script>
-            </>
-          )}
+          {ADS && <Script id="gtag-ads-config" strategy="afterInteractive">{`gtag('config', '${ADS}');`}</Script>}
           {META && (
             <Script id="meta-pixel" strategy="afterInteractive">{`
               !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
@@ -96,7 +83,7 @@ export function Analytics() {
       {consent === "unknown" && (
         <div role="region" aria-label="Cookie preferences" className="fixed inset-x-3 bottom-3 z-50 mx-auto max-w-xl rounded-[4px] border border-stone-light bg-white p-4 shadow-xl sm:bottom-5 sm:left-5 sm:right-auto">
           <p className="text-sm">
-            We use cookies to understand which pages and campaigns bring in enquiries. Nothing is loaded until you choose.{" "}
+            Google Analytics loads immediately to measure site visits. Google Ads and other advertising tags load only if you accept.{" "}
             <Link href="/cookies" className="font-semibold text-forest underline">Cookie Policy</Link>
           </p>
           <div className="mt-3 flex gap-2">
