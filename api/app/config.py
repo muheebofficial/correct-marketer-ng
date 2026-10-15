@@ -17,6 +17,13 @@ def _bool(value: str) -> bool:
     return value.strip().lower() in {"1", "true", "yes", "on"}
 
 
+def _csv(value: str | None, default: str = "") -> tuple[str, ...]:
+    raw = (value or default).strip()
+    if not raw:
+        return ()
+    return tuple(part.strip() for part in raw.split(",") if part.strip())
+
+
 @dataclass(frozen=True)
 class Settings:
     astra_endpoint: str = os.getenv("ASTRA_DB_API_ENDPOINT", "")
@@ -26,8 +33,9 @@ class Settings:
     admin_key: str = os.getenv("ADMIN_API_KEY", "")
     site_url: str = os.getenv("SITE_URL", os.getenv("NEXT_PUBLIC_SITE_URL", "")).rstrip("/")
     notify_secret: str = os.getenv("NOTIFY_SECRET", "")
-    web_origins: tuple = tuple(
-        o.strip() for o in os.getenv("WEB_ORIGINS", "http://localhost:3000").split("https://correctmarketer.com.ng,https://www.correctmarketer.com.ng") if o.strip()
+    web_origins: tuple[str, ...] = _csv(
+        os.getenv("WEB_ORIGINS"),
+        "http://localhost:3000,https://correctmarketer.com.ng,https://www.correctmarketer.com.ng",
     )
     lead_webhook_url: str = os.getenv("LEAD_WEBHOOK_URL", "")
     lead_pipeline_stages: tuple[str, ...] = tuple(

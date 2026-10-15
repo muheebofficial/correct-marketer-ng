@@ -1,5 +1,8 @@
+import importlib
+import os
 import unittest
 
+import app.config as config
 from app.config import Settings, validate_settings
 
 
@@ -28,6 +31,29 @@ class SettingsValidationTests(unittest.TestCase):
         )
 
         self.assertEqual([], validate_settings(cfg))
+
+    def test_parses_comma_separated_web_origins(self):
+        original = os.environ.get("WEB_ORIGINS")
+        try:
+            os.environ["WEB_ORIGINS"] = (
+                "http://localhost:3000,https://correctmarketer.com.ng,"
+                "https://www.correctmarketer.com.ng"
+            )
+            importlib.reload(config)
+            self.assertEqual(
+                (
+                    "http://localhost:3000",
+                    "https://correctmarketer.com.ng",
+                    "https://www.correctmarketer.com.ng",
+                ),
+                config.settings.web_origins,
+            )
+        finally:
+            if original is None:
+                os.environ.pop("WEB_ORIGINS", None)
+            else:
+                os.environ["WEB_ORIGINS"] = original
+            importlib.reload(config)
 
 
 if __name__ == "__main__":
