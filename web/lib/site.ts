@@ -2,7 +2,7 @@ export const site = {
   name: "Correct Marketer NG",
   tagline: "Attract, Nurture, Convert and Scale",
   url: (process.env.NEXT_PUBLIC_SITE_URL || "https://correctmarketer.com.ng").replace(/\/$/, ""),
-  email: "muheeb@muheebsulaiman.com",
+  email: "muheeb@correctmarketer.com.ng",
   whatsappNumber: "2349110172901",
   founded: 2021,
   location: { city: "Lagos", country: "Nigeria", countryCode: "NG" },
