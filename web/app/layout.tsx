@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Big_Shoulders_Display, Bricolage_Grotesque, Lora, Work_Sans } from "next/font/google";
+import { Fraunces, Manrope } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import { Analytics } from "@/components/tracking/Analytics";
@@ -11,10 +11,10 @@ import { OneSignalInit } from "@/components/tracking/OneSignalInit";
 import { organizationSchema } from "@/lib/schema";
 import { site } from "@/lib/site";
 
-const display = Big_Shoulders_Display({ subsets: ["latin"], weight: ["700", "800"], variable: "--font-display", display: "swap" });
-const sub = Bricolage_Grotesque({ subsets: ["latin"], weight: ["600", "700"], variable: "--font-sub", display: "swap" });
-const body = Work_Sans({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--font-body", display: "swap" });
-const accent = Lora({ subsets: ["latin"], style: ["italic"], weight: ["400"], variable: "--font-accent", display: "swap" });
+const display = Fraunces({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800"], variable: "--font-display", display: "swap" });
+const sub = Manrope({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--font-sub", display: "swap" });
+const body = Manrope({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--font-body", display: "swap" });
+const accent = Fraunces({ subsets: ["latin"], style: ["italic"], weight: ["400"], variable: "--font-accent", display: "swap" });
 const GA4_ID = process.env.NEXT_PUBLIC_GA4_ID || "G-MMRD9FB9V2";
 
 export const metadata: Metadata = {

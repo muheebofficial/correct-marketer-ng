@@ -20,7 +20,7 @@ const config: Config = {
         "gold-soft": "#E5A93B",
       },
       fontFamily: {
-        display: ["var(--font-display)", "Impact", "sans-serif"],
+        display: ["var(--font-display)", "Georgia", "serif"],
         sub: ["var(--font-sub)", "system-ui", "sans-serif"],
         body: ["var(--font-body)", "system-ui", "sans-serif"],
         accent: ["var(--font-accent)", "Georgia", "serif"],

@@ -26,7 +26,7 @@ export function Hero() {
           <p className="mb-5 font-sub text-[13px] font-bold tracking-[0.08em] text-gold-soft">
             AI-POWERED MARKETING · DIGITAL GROWTH · WEB DEVELOPMENT
           </p>
-          <h1 id="hero-heading" className="font-display text-[clamp(2.75rem,7.6vw,6.25rem)] font-extrabold leading-[0.95] tracking-tight">
+          <h1 id="hero-heading" className="font-display text-[clamp(2.75rem,7.6vw,6.25rem)] font-semibold leading-[1.02] tracking-normal">
             Your business doesn't need more marketing noise. It needs a growth system.
           </h1>
           <div className="gold-rule my-7" />

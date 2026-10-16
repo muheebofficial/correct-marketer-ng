@@ -44,9 +44,8 @@ export function Heading({
   return (
     <Tag
       id={id}
-      className={`font-display text-[clamp(2.25rem,5vw,3.75rem)] font-extrabold leading-[1.02] tracking-tight ${
-        tone === "dark" ? "text-ivory" : "text-forest"
-      } ${className}`}
+      className={`font-display text-[clamp(2.25rem,5vw,3.75rem)] font-semibold leading-[1.02] tracking-normal ${tone === "dark" ? "text-ivory" : "text-forest"
+        } ${className}`}
     >
       {children}
     </Tag>
