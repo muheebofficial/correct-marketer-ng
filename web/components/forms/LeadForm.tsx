@@ -5,7 +5,7 @@ import { FormEvent, useState } from "react";
 import { getAttribution } from "@/lib/attribution";
 import { waLink } from "@/lib/site";
 import { track } from "@/lib/track";
-import { Field, inputClass, parseFieldErrors } from "./fields";
+import { Field, inputClass } from "./fields";
 
 export type LeadIntent =
   | "contact"
@@ -49,7 +49,10 @@ export function LeadForm({
 
     const payload = {
       intent,
-      name: get("name"),
+      source: intent,
+      page: typeof window !== "undefined" ? window.location.pathname : "",
+      firstName: get("firstName"),
+      lastName: get("lastName"),
       email: get("email"),
       phone: get("phone"),
       business: get("business"),
@@ -63,17 +66,25 @@ export function LeadForm({
       fax: get("fax"),
       attribution: getAttribution(),
     };
-
     try {
-      const res = await fetch("/api/lead", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+      const res = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
       const data = await res.json().catch(() => ({}));
       if (res.ok) {
-        track(intent === "contact" ? "contact_form_submit" : "audit_request", { intent, stage: data.stage || "new_lead" });
+        track(intent === "contact" ? "contact_form_submit" : "audit_request", {
+          intent,
+          stage: data.stage || "new_lead",
+        });
         setStatus("done");
         return;
       }
-      if (res.status === 422) {
-        setErrors(parseFieldErrors(data.detail));
+      if (res.status === 400 && Array.isArray(data.fields)) {
+        const fieldErrors: Record<string, string> = {};
+        for (const f of data.fields as string[]) fieldErrors[f] = "Please check this field.";
+        setErrors(fieldErrors);
         setFormError("Please check the highlighted fields.");
       } else if (res.status === 429) {
         setFormError("You've sent a few requests in a short time. Please wait a few minutes, or message us on WhatsApp.");
@@ -112,8 +123,11 @@ export function LeadForm({
   return (
     <form onSubmit={onSubmit} noValidate={false} className={`grid gap-5 ${tone === "dark" ? "text-obsidian" : ""}`}>
       <div className="grid gap-5 sm:grid-cols-2">
-        <Field id="name" label="Your name" required error={errors.name}>
-          <input id="name" name="name" required minLength={2} maxLength={100} autoComplete="name" className={inputClass} {...err("name")} />
+        <Field id="firstName" label="First name" required error={errors.firstName}>
+          <input id="firstName" name="firstName" required minLength={2} maxLength={100} autoComplete="given-name" className={inputClass} {...err("firstName")} />
+        </Field>
+        <Field id="lastName" label="Last name" required error={errors.lastName}>
+          <input id="lastName" name="lastName" required minLength={2} maxLength={100} autoComplete="family-name" className={inputClass} {...err("lastName")} />
         </Field>
         <Field id="phone" label="WhatsApp / phone number" required error={errors.phone}>
           <input id="phone" name="phone" type="tel" required autoComplete="tel" inputMode="tel" placeholder="0803 000 0000" className={inputClass} {...err("phone")} />
