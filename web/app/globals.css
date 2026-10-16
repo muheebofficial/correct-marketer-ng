@@ -210,7 +210,7 @@ body {
 .hero-visual {
   position: relative;
   isolation: isolate;
-  padding: 1rem 0 0.25rem;
+  padding: 1rem 0 0.25rem 2rem;
 }
 
 .hero-visual__glow {
@@ -251,6 +251,12 @@ body {
   padding: 0.9rem 0.85rem;
   border-radius: 0.8rem;
   animation: bob 8s ease-in-out infinite 0.8s;
+}
+
+@media (max-width: 640px) {
+  .hero-mini-card {
+    display: none;
+  }
 }
 
 .service-journey-track {

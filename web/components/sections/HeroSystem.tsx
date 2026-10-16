@@ -9,7 +9,7 @@ const stages = [
 /** The hero's single orchestrated moment: a growth system drawing itself, stage by stage. */
 export function HeroSystem() {
   return (
-    <figure aria-label="How a growth system works, from first click to customer" className="hero-visual relative pl-8">
+    <figure aria-label="How a growth system works, from first click to customer" className="hero-visual relative">
       <div aria-hidden="true" className="hero-visual__glow" />
       <div aria-hidden="true" className="hero-badge">
         <span className="font-sub text-[10px] uppercase tracking-[0.18em] text-gold-soft">Pipeline lift</span>
