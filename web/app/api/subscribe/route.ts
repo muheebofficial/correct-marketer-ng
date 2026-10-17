@@ -1,3 +1,4 @@
+// @ts-ignore -- plain JavaScript module (no type declarations needed)
 import * as mod from "../../../lib/website-leads/handle.js";
 
 type Handler = (a: { body: unknown; ip: string }) => Promise<{ status: number; json: unknown }>;

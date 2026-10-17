@@ -46,7 +46,6 @@ export function LeadForm({
     setFormError("");
     const fd = new FormData(e.currentTarget);
     const get = (k: string) => String(fd.get(k) ?? "").trim();
-
     const payload = {
       intent,
       source: intent,

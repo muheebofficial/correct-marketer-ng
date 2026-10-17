@@ -1,0 +1,1 @@
+export function handleSubscribe(args: { body: unknown; ip: string }): Promise<{ status: number; json: unknown }>;
