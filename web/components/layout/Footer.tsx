@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import { NewsletterForm } from "@/components/forms/NewsletterForm";
 import { getCollection } from "@/lib/api";
 import { services } from "@/lib/content/services";
 import type { Service } from "@/lib/content/types";
@@ -54,13 +53,6 @@ export async function Footer() {
               </p>
             </div>
             <p className="mt-3 font-display text-3xl font-extrabold text-gold">{site.tagline}</p>
-            <div className="mt-8 max-w-md">
-              <h2 className="font-sub text-base font-bold">Get Smarter About Growth</h2>
-              <p className="mb-4 mt-1 text-sm text-ivory/85">
-                Practical marketing, SEO, AI and growth strategies for Nigerian businesses, without the jargon.
-              </p>
-              <NewsletterForm tone="dark" idPrefix="footer-nl" />
-            </div>
           </div>
 
           <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
