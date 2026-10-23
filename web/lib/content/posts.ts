@@ -195,6 +195,82 @@ export const posts: Post[] = [
     ],
     related: ["why-your-website-is-not-generating-customers"],
   },
+  {
+    slug: "claude-duet-proactive-ai-agents-nigerian-business",
+    title: "Claude Duet Is Here: What Proactive AI Agents Mean for Nigerian Business Owners",
+    description:
+      "Anthropic's Claude Duet is an AI agent that starts work before you ask. What it means for Nigerian business owners and what to do now.",
+    category: "AI Automation",
+    tags: ["AI automation", "Claude Duet", "proactive AI agents", "WhatsApp sales automation", "lead follow-up"],
+    author: AUTHOR,
+    published: "2026-10-22",
+    updated: "2026-10-22",
+    readingMinutes: 7,
+    service: "best-ai-automation-agency-in-nigeria",
+    intro:
+      "Let me say the quiet part loud: the AI conversation is changing, and most business owners are still stuck on the old one.",
+    sections: [
+      {
+        heading: "What is Claude Duet?",
+        paragraphs: [
+          "Duet is an AI assistant that watches the apps you connect to it, works out what needs your attention, and carries out tasks in the background. You don't have to open a chat and type a prompt every time.",
+          "According to the report, it can: Build a daily briefing from your connected accounts; check those accounts every few hours and notify you when something needs attention; chase unpaid invoices and draft customer follow-ups; build financial forecasts and simple web apps; and keep working in the cloud after you close your laptop or lock your phone.",
+          "It runs through a mobile app (iOS and Android) and claude.ai, and you talk to it by text or voice.",
+        ],
+      },
+      {
+        heading: "The part that matters: it starts work, it doesn't just answer",
+        paragraphs: [
+          "Think about what actually kills small businesses. It's rarely a lack of tools. It's the email that sat unread for two days, the invoice nobody followed up, the customer who went cold because nobody replied in time.",
+          "Duet is built around catching exactly those moments. That's the shift: from AI that waits for instructions to AI that notices work that needs doing.",
+          "And before you panic about an AI going rogue with your money, here's the sensible part. Per the report, Duet shows you what it plans to do and asks for approval before sending a message, paying for something, signing an agreement, or deleting anything. Some actions, like securities trades and transfers between financial accounts, are off the table entirely.",
+        ],
+      },
+      {
+        heading: "Straight talk: can you use it in Nigeria today?",
+        paragraphs: [
+          "No, not yet, and I won't pretend otherwise.",
+          "Duet is a research preview, open to U.S. subscribers on Claude's Pro and Max plans through a waitlist. It also isn't available for Team or Enterprise plans at launch. Anthropic has admitted it can misread a conversation or get the urgency of an issue wrong, and the checks happen every few hours, not in real time.",
+          "So why am I writing about it? Because the direction is the story, not the launch date.",
+        ],
+      },
+      {
+        heading: "It's not alone: the race is on",
+        paragraphs: [
+          "Duet is entering a market that's already moving fast. Meta launched its own proactive agent, Muse, in September, and it works through WhatsApp. Sensor Tower estimates, as reported in the VentureBeat piece, put Muse at about 10.9 million downloads in its first six weeks. OpenAI has its own competing agents too.",
+          "When Meta, Anthropic, and OpenAI all build toward the same idea inside a single month, that's not a trend. That's a direction of travel.",
+          "And notice Meta's choice: WhatsApp. In Nigeria, WhatsApp is where business actually happens. Orders, enquiries, price negotiations, payment confirmations. If the world's biggest platforms see WhatsApp as the place for AI agents to work, you should too.",
+        ],
+      },
+      {
+        heading: "5 things Nigerian business owners should do right now",
+        paragraphs: [
+          "Get your leads and data in order first. An agent can only act on what it can see. If your customer list lives in your head, your DMs, and three notebooks, no AI will fix that. Put your customers, orders, and follow-ups in one place.",
+          "Fix your process before you automate it. Automation doesn't repair a messy sales process. It runs it faster. Write down how a lead becomes a paying customer in your business. Every step.",
+          "Start with the repetitive stuff. Follow-up messages, order confirmations, FAQs, invoice reminders. These are low-risk, easy to check, and eat hours every week. Start there, not with payroll.",
+          "Keep a human in the approval loop. Even the most advanced agents ask before doing anything consequential. Build the same rule into your own systems: AI drafts and prepares, you approve what matters.",
+          "Don't wait for the perfect tool. You don't need Duet to start. Automation that works for Nigerian businesses today, like AI-powered WhatsApp sales and follow-up systems, is available now. The businesses that build the habit early will be ready when tools like Duet arrive.",
+        ],
+      },
+      {
+        heading: "The bottom line",
+        paragraphs: [
+          "Claude Duet is not for most Nigerian businesses today. But it's a clear preview of how business will run in the next few years: AI that watches, flags, prepares, and acts, with you making the final call.",
+          "The question isn't whether this reaches Nigeria. It's whether your business will be organised enough to use it when it does.",
+          "At Correct Marketer NG, we help Nigerian businesses get lead flow, follow-up, and sales automation working now, so you're not scrambling later. We bring in the leads, automate the follow-up, and leave you talking only to customers who are ready to buy.",
+        ],
+      },
+    ],
+    related: ["why-your-website-is-not-generating-customers", "can-ai-automate-whatsapp-customer-support"],
+    faq: [
+      { q: "What is Claude Duet?", a: "An AI assistant from Anthropic that monitors your connected apps, surfaces what needs attention, and completes tasks in the background, asking for your approval before consequential actions." },
+      { q: "Is Claude Duet available in Nigeria?", a: "Not at launch. It's a research preview for U.S. Pro and Max subscribers via a waitlist." },
+      { q: "What's the difference between Duet and a normal chatbot?", a: "A chatbot answers when you ask. Duet is designed to check your accounts periodically and flag or start work without being prompted." },
+      { q: "Can a Nigerian business use AI automation today?", a: "Yes. WhatsApp sales automation, AI follow-up systems, and automated lead handling are available now, without waiting for Duet." },
+    ],
+    source: 'VentureBeat, "Anthropic\'s answer to Muse is here: Claude Duet", October 21, 2026.',
+    cta: "Want to start? Message us on WhatsApp: +234 911 017 2901 or visit correctmarketer.com.ng.",
+  },
 ];
 
 export const getPost = (slug: string) => posts.find((p) => p.slug === slug);

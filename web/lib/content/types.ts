@@ -73,4 +73,7 @@ export type Post = {
   intro: string;
   sections: PostSection[];
   related: string[];
+  faq?: Faq[];
+  source?: string;
+  cta?: string;
 };
