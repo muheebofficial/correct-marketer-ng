@@ -11,6 +11,29 @@
 			],
 			"isBackground": false,
 			"problemMatcher": []
+		},
+		{
+			"label": "Inspect git worktree",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"status",
+				"--short",
+				"--branch"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Switch branch and copy hero",
+			"type": "shell",
+			"command": "cmd.exe",
+			"args": [
+				"/c",
+				"(git switch -c blog/claude-duet-seo || git switch blog/claude-duet-seo) && copy /Y \"C:\\Users\\DELL\\AppData\\Roaming\\Code\\agentSessionData\\e3d2dae6-3e98-4ae9-b29b-ef1f87548943\\attachments\\79f70b56-69b2-4f35-9916-ce36cfdf52a2\\duet-blog-post-image.png\" \"C:\\Users\\DELL\\Documents\\GitHub\\correct-marketer-ng\\web\\public\\claude-duet-proactive-ai-agents-nigerian-business.png\" && git status --short --branch"
+			],
+			"isBackground": false,
+			"problemMatcher": []
 		}
 	]
 }
