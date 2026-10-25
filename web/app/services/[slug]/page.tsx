@@ -7,6 +7,7 @@ import { FAQ } from "@/components/sections/FAQ";
 import { FooterCTA } from "@/components/sections/FooterCTA";
 import { ProcessStepper } from "@/components/sections/ProcessStepper";
 import { ServiceHero } from "@/components/sections/ServiceHero";
+import { GroupHub, NewServicePage, ServiceFitBlock } from "@/components/services/ServiceContent";
 import { Heading, Section } from "@/components/ui/Section";
 import { getCollection } from "@/lib/api";
 import { caseStudies } from "@/lib/content/caseStudies";
@@ -17,8 +18,15 @@ import type { CaseStudy, Post, Service } from "@/lib/content/types";
 import { buildMetadata } from "@/lib/seo";
 import { serviceSchema } from "@/lib/schema";
 import { waLink } from "@/lib/site";
+import {
+  getGroup,
+  getService,
+  serviceGroups,
+  services as taxonomyServices,
+} from "@/lib/services-taxonomy";
 
 export const revalidate = 300;
+export const dynamicParams = false;
 
 async function load(slug: string) {
   const all = await getCollection<Service>("services", services);
@@ -26,16 +34,69 @@ async function load(slug: string) {
 }
 
 export function generateStaticParams() {
-  return services.map((s) => ({ slug: s.slug }));
+  const slugs = new Set([
+    ...services.map((service) => service.slug),
+    ...serviceGroups.map((group) => group.slug),
+    ...taxonomyServices.map((service) => service.slug),
+  ]);
+  return [...slugs].map((slug) => ({ slug }));
+}
+
+function serviceTitle(name: string): string {
+  const suffix = " in Nigeria | Correct Marketer NG";
+  const available = 60 - suffix.length;
+  const shortened = name.split(/\s+/).reduce((result, word) => {
+    const candidate = result ? `${result} ${word}` : word;
+    return candidate.length <= available ? candidate : result;
+  }, "");
+  return `${shortened || name.split(/\s+/)[0]}${suffix}`;
+}
+
+function serviceDescription(service: NonNullable<ReturnType<typeof getService>>): string {
+  const tail = ` Explore ${service.primaryKeyword} with a practical plan shaped around your business and next step.`;
+  let description = `${service.snippet}${tail}`;
+  if (description.length > 160) {
+    const available = 160 - tail.length;
+    const clippedSnippet = service.snippet.slice(0, available).replace(/\s+\S*$/, "");
+    description = `${clippedSnippet}${tail}`;
+  }
+  if (description.length < 140) {
+    description += " Talk with our team about a useful starting point.";
+  }
+  return description.slice(0, 160).replace(/\s+\S*$/, "");
 }
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  const group = getGroup(params.slug);
+  if (group) {
+    return buildMetadata({
+      title: group.metaTitle,
+      description: group.metaDescription,
+      path: `/services/${group.slug}`,
+    });
+  }
+  const taxonomyService = getService(params.slug);
+  if (taxonomyService?.status === "new") {
+    return buildMetadata({
+      title: serviceTitle(taxonomyService.name),
+      description: serviceDescription(taxonomyService),
+      path: taxonomyService.path,
+    });
+  }
   const s = await load(params.slug);
   if (!s) return {};
   return buildMetadata({ title: s.seoTitle, description: s.seoDescription, path: `/services/${s.slug}` });
 }
 
 export default async function ServicePage({ params }: { params: { slug: string } }) {
+  const group = getGroup(params.slug);
+  if (group) return <GroupHub group={group} />;
+
+  const taxonomyService = getService(params.slug);
+  if (taxonomyService?.status === "new") {
+    return <NewServicePage service={taxonomyService} />;
+  }
+
   const s = await load(params.slug);
   if (!s) notFound();
 
@@ -49,6 +110,7 @@ export default async function ServicePage({ params }: { params: { slug: string }
   const relatedIndustries = industries.filter((i) => s.industries.includes(i.slug));
   const relatedServices = allServices.filter((candidate) => s.relatedServices.includes(candidate.slug));
   const path = `/services/${s.slug}`;
+  const serviceFit = getService(s.slug);
 
   return (
     <>
@@ -63,6 +125,7 @@ export default async function ServicePage({ params }: { params: { slug: string }
         source={`service_${s.slug}_hero`}
         path={path}
       />
+      {serviceFit && <ServiceFitBlock service={serviceFit} />}
 
       <Section labelledBy="problem-h">
         <div className="grid gap-10 lg:grid-cols-[1fr_1.2fr] lg:gap-16">

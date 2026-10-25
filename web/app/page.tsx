@@ -44,6 +44,14 @@ export default function HomePage() {
           </p>
         </div>
         <ServiceGrid headingId="services-heading" />
+        <p className="mt-8">
+          <Link
+            href="/services"
+            className="font-sub font-bold text-forest underline decoration-gold decoration-2 underline-offset-4"
+          >
+            Explore all services by growth stage
+          </Link>
+        </p>
       </Section>
 
       <TrustPillars />
