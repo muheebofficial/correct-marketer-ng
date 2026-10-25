@@ -1,6 +1,6 @@
 # Correct Marketer NG website
 
-**We engineer your growth.** Next.js (App Router, TypeScript, Tailwind) front end, Python (FastAPI) API, Astra DB (DataStax) for leads and CMS content.
+**We engineer your growth.** Next.js (App Router, TypeScript, Tailwind) front end, Python (FastAPI) API, Google Sheets for website form leads, and Astra DB (DataStax) for CMS and API lead records.
 
 ```
 web/   Next.js site: pages, components, SEO, schema, analytics hooks
@@ -9,7 +9,9 @@ api/   FastAPI service: lead capture, newsletter, content CMS, rate limiting, As
 
 ## How the pieces fit
 
-- Browser -> Next.js route handlers (`/api/lead`, `/api/newsletter`) -> Python API (server to server, shared secret) -> Astra DB.
+- Contact and audit forms -> Next.js `/api/subscribe` -> Google Sheets and the existing Resend welcome email.
+- Ebook forms -> Next.js `/api/free-guide` or the standalone ebook API -> Google Sheets and the existing Resend guide email.
+- Newsletter subscriptions -> Next.js `/api/newsletter` -> Python API (server to server, shared secret) -> Astra DB.
 - The Python API URL and secrets never reach the browser.
 - Content ships with sensible defaults in `web/lib/content/`. Documents published in Astra (via the API) override defaults with the same slug and add new ones, so the team can manage posts, case studies, services, industries, FAQs, testimonials, authors and lead magnets without touching source. The site refreshes CMS content every 5 minutes.
 - If the API is offline, the site still renders from the defaults; forms show a WhatsApp fallback.
@@ -79,6 +81,8 @@ The API will fail fast on startup if `API_SHARED_SECRET` or `ADMIN_API_KEY` are 
 2. Put them in `api/.env` (`ASTRA_DB_API_ENDPOINT`, `ASTRA_DB_APPLICATION_TOKEN`), set `DEV_MEMORY_DB=0`.
 3. `python -m scripts.seed` creates the collections: `leads`, `subscribers`, `posts`, `case_studies`, `services`, `industries`, `faqs`, `testimonials`, `authors`, `lead_magnets`.
 
+For a manual lead backfill, `api/scripts/export-leads-since-oct-20.py` prints CSV rows created on or after 2026-10-20. It only reads an existing `leads` collection and does not create or modify data. Do not run it against production without coordinating first; its CSV contains lead contact details.
+
 ## Managing content (CMS)
 
 Endpoints under `/v1/admin/*` need the `X-Admin-Key` header. Swagger UI at `/docs` lets you try them. Example, publishing a verified case study:
@@ -112,12 +116,12 @@ UTM parameters, landing page and referrer are captured per visit and stored with
 ## Deploying
 
 - Web: Vercel or any Node host. Set the env vars from `web/.env.example`.
-- API: any container or Python host (Render, Railway, Fly, a VPS): `uvicorn app.main:app --host 0.0.0.0 --port $PORT`. The rate limiter is in-memory per process; if you run more than one instance, move it to Redis.
+- API: any container or Python host (Render, Railway, Fly, a VPS): `uvicorn app.main:app --host 0.0.0.0 --port $PORT`. Configure the API variables from `api/.env.example`; this includes the server-side sheet webhook and owner-alert email settings. The rate limiter is in-memory per process; if you run more than one instance, move it to Redis.
 - After launch: submit `/sitemap.xml` in Search Console and set `NEXT_PUBLIC_GSC_VERIFICATION`.
 
 ### Free guide
 
-The ebook landing page is served by the web app at `/free-guide`. Set the Monday.com and Resend variables from `web/.env.example` in the web deployment, and place `The-Nigerian-Business-Guide-to-Agentic-AI-Automation.pdf` in `web/private/`. The PDF is included with the server-side delivery function and is not served as a public file. Until the PDF and required email/CRM settings are present, form submissions return a configuration error instead of reporting a false success.
+The ebook landing page is served by the web app at `/free-guide`. Configure `GOOGLE_SHEETS_WEBHOOK_URL`, `GOOGLE_SHEETS_WEBHOOK_SECRET`, and the Resend variables from `web/.env.example` in the web deployment, and place `The-Nigerian-Business-Guide-to-Agentic-AI-Automation.pdf` in `web/private/`. The PDF is included with the server-side delivery function and is not served as a public file. The guide form reports a configuration error if its email or PDF delivery is unavailable.
 
 ## Status and honest limits
 

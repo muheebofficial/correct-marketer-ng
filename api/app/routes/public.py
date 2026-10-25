@@ -1,13 +1,20 @@
 """Endpoints called by the Next.js server: lead capture, newsletter, published content."""
 from __future__ import annotations
 
+import asyncio
 import json
+import os
+import sys
+import urllib.error
 import urllib.request
 from datetime import datetime, timezone
+from uuid import uuid4
+from zoneinfo import ZoneInfo
 
-from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Request
+from fastapi import APIRouter, Depends, HTTPException, Request
 
 from ..config import CONTENT_COLLECTIONS, settings
+from ..lead_sink import submit_lead_to_sheet
 from ..models import LeadChecklistItem, LeadIn, NewsletterIn
 from ..security import client_ip, limiter, require_web_secret
 from ..store import get_store
@@ -38,7 +45,7 @@ def _default_onboarding_checklist() -> list[dict]:
 
 
 def _notify(payload: dict) -> None:
-    """Fire-and-forget webhook (n8n / Zapier / Slack). Failures never affect the visitor."""
+    """Send the existing lead notification webhook before responding."""
     if not settings.lead_webhook_url:
         return
     try:
@@ -48,9 +55,84 @@ def _notify(payload: dict) -> None:
             headers={"Content-Type": "application/json"},
             method="POST",
         )
-        urllib.request.urlopen(req, timeout=8)  # noqa: S310 - URL comes from our own env
-    except Exception:  # noqa: BLE001
-        pass
+        # Website API lead form: deliver the existing notification and auto-reply payload.
+        with urllib.request.urlopen(req, timeout=8):  # noqa: S310 - URL comes from our own env
+            return
+    except (urllib.error.URLError, TimeoutError, OSError):
+        print("Lead notification webhook failed.", file=sys.stderr)
+
+
+def _insert_lead(doc: dict) -> str:
+    return get_store().insert("leads", doc)
+
+
+def _website_sheet_lead(lead: LeadIn, lead_id: str) -> dict:
+    name = lead.name.strip()
+    name_parts = name.split(maxsplit=1)
+    first_name = name_parts[0] if name_parts else ""
+    last_name = name_parts[1] if len(name_parts) > 1 else ""
+    phone = "".join(character for character in lead.phone if character.isdigit() or character == "+")
+    if phone.startswith("00"):
+        phone = "+" + phone[2:]
+    elif phone.startswith("0"):
+        phone = "+234" + phone[1:]
+    elif phone and not phone.startswith("+"):
+        phone = "+" + phone
+    if not any(phone.startswith(prefix) for prefix in ("+234", "+233", "+254", "+27", "+44", "+971", "+1")):
+        phone = ""
+
+    now = datetime.now(ZoneInfo("Africa/Lagos")).strftime("%Y-%m-%d %H:%M")
+    attribution = lead.attribution.model_dump()
+    return {
+        "Lead ID": lead_id,
+        "Name": f"{first_name} {last_name}".strip(),
+        "First name": first_name,
+        "Last name": last_name,
+        "Email": str(lead.email),
+        "Phone": phone,
+        "Form source": lead.source if lead.source != "website_form" else lead.intent,
+        "Page": lead.page,
+        "Submitted": now,
+        "Lead status": "New",
+        "Consent": lead.consent,
+        "Owner": "Muheeb Sulaiman",
+        "Business": lead.business,
+        "Website": lead.website,
+        "Business type": lead.business_type,
+        "Challenge": lead.challenge,
+        "Budget": lead.budget,
+        "Preferred contact": lead.preferred_contact,
+        "Message": lead.message,
+        "Attribution": json.dumps(attribution, ensure_ascii=False, separators=(",", ":")),
+    }
+
+
+def _send_sheet_failure_alert(lead: dict) -> None:
+    api_key = os.getenv("RESEND_API_KEY", "")
+    from_email = os.getenv("FROM_EMAIL", "")
+    notify_email = os.getenv("NOTIFY_EMAIL", "")
+    if not api_key or not from_email or not notify_email:
+        print("Lead sheet failure alert not sent: email configuration missing.", file=sys.stderr)
+        return
+    body = {
+        "from": f"Muheeb Sulaiman <{from_email}>",
+        "to": [notify_email],
+        "subject": "Lead not saved to sheet",
+        "text": "A website lead could not be saved to Google Sheets.\n\nSubmitted fields:\n"
+        + json.dumps(lead, ensure_ascii=False, indent=2),
+    }
+    req = urllib.request.Request(
+        "https://api.resend.com/emails",
+        data=json.dumps(body).encode("utf-8"),
+        headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
+        method="POST",
+    )
+    try:
+        # Website API lead form: send a plain owner alert if the sheet write failed.
+        with urllib.request.urlopen(req, timeout=10):
+            return
+    except (urllib.error.URLError, TimeoutError, OSError):
+        print("Lead sheet failure alert email failed.", file=sys.stderr)
 
 
 def _lead_auto_reply_message(name: str, preferred_contact: str) -> str:
@@ -69,16 +151,17 @@ def _lead_auto_reply_message(name: str, preferred_contact: str) -> str:
 
 
 @router.post("/leads", status_code=201)
-def create_lead(lead: LeadIn, request: Request, background: BackgroundTasks):
+async def create_lead(lead: LeadIn, request: Request):
     ip = client_ip(request)
     limiter.check("lead", ip, limit=5, window_seconds=600)
 
     if lead.fax:  # honeypot tripped: pretend success, store nothing
         return {"ok": True, "stage": "new_lead"}
 
+    lead_id = str(uuid4())
     doc = lead.model_dump()
     doc.pop("fax", None)
-    doc["source"] = "website_form"
+    doc["source"] = lead.source if lead.source != "website_form" else lead.intent
     doc["stage"] = "new_lead"
     doc["owner"] = "Muheeb"
     doc["contact_channel_preference"] = lead.preferred_contact or ("whatsapp" if lead.phone else "email")
@@ -87,23 +170,38 @@ def create_lead(lead: LeadIn, request: Request, background: BackgroundTasks):
     doc["onboarding_checklist"] = _default_onboarding_checklist()
     doc["stage_updated_at"] = _now()
     doc["created_at"] = _now()
+    doc["lead_id"] = lead_id
     doc.pop("status", None)
 
-    lead_id = get_store().insert("leads", doc)
-    background.add_task(
-        _notify,
-        {
-            "type": "lead_created",
-            "id": lead_id,
-            "name": lead.name,
-            "email": lead.email,
-            "phone": lead.phone,
-            "source": doc["source"],
-            "stage": doc["stage"],
-            "auto_reply": _lead_auto_reply_message(lead.name, doc["contact_channel_preference"]),
-        },
+    sheet_lead = _website_sheet_lead(lead, lead_id)
+    results = await asyncio.gather(
+        asyncio.to_thread(submit_lead_to_sheet, "website_leads", sheet_lead),
+        asyncio.to_thread(_insert_lead, doc),
+        asyncio.to_thread(
+            _notify,
+            {
+                "type": "lead_created",
+                "id": lead_id,
+                "name": lead.name,
+                "email": lead.email,
+                "phone": lead.phone,
+                "source": doc["source"],
+                "stage": doc["stage"],
+                "auto_reply": _lead_auto_reply_message(lead.name, doc["contact_channel_preference"]),
+            },
+        ),
+        return_exceptions=True,
     )
-    return {"ok": True, "id": lead_id, "stage": doc["stage"]}
+    sheet_result, astra_id, notification_result = results
+    sheet_saved = isinstance(sheet_result, dict) and sheet_result.get("ok") is True
+    if not sheet_saved:
+        await asyncio.to_thread(_send_sheet_failure_alert, sheet_lead)
+    if isinstance(astra_id, BaseException):
+        print("Astra lead write failed.", file=sys.stderr)
+        astra_id = None
+    if isinstance(notification_result, BaseException):
+        print("Lead notification webhook failed.", file=sys.stderr)
+    return {"ok": True, "id": astra_id, "stage": doc["stage"], "saved": sheet_saved}
 
 
 @router.post("/newsletter", status_code=201)

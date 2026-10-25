@@ -91,6 +91,7 @@ async function sendGuide(lead) {
     throw new Error('PDF not found at ' + pdfPath + '. Commit private/' + ATTACHMENT + ' and keep includeFiles "private/**" for api/lead.js in vercel.json');
   }
   const mail = buildEmail(lead);
+  // Ebook landing page form: send the existing guide delivery email.
   return resend({
     from: from(), to: [lead.email], subject: mail.subject, html: mail.html, text: mail.text,
     reply_to: process.env.REPLY_TO_EMAIL || undefined,
@@ -98,13 +99,13 @@ async function sendGuide(lead) {
   });
 }
 
-// If monday.com fails, email the lead's details to you so nothing is lost.
 async function sendOwnerAlert(lead, reason) {
-  if (!process.env.NOTIFY_EMAIL) return;
+  if (!process.env.NOTIFY_EMAIL) throw new Error('NOTIFY_EMAIL is not configured');
+  // Ebook landing page form: alert the owner that a sheet write failed.
   return resend({
     from: from(), to: [process.env.NOTIFY_EMAIL],
-    subject: '[Action needed] Lead not saved to monday.com: ' + lead.email,
-    text: 'The guide was emailed, but saving to monday.com failed.\nReason: ' + reason + '\n\n' + JSON.stringify(lead, null, 2),
+    subject: 'Lead not saved to sheet',
+    text: 'An ebook lead could not be saved to Google Sheets.\nReason: ' + reason + '\n\n' + JSON.stringify(lead, null, 2),
   });
 }
 

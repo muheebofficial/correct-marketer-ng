@@ -1,16 +1,34 @@
 /* eslint-disable */
-// lib/website-leads/handle.js -- the core of the website lead forms. One call does two things at the same time:
-// sends the welcome email AND saves the lead to monday.com. Called by the Next.js API route.
-const { saveWebLead } = require('./monday');
+// lib/website-leads/handle.js -- validates website leads and coordinates sheet and email delivery.
+const { randomUUID } = require('crypto');
 const { sendWelcome, sendOwnerAlert } = require('./email');
-const { limits } = require('./config');
+const { limits, phone } = require('./config');
 
-const ENV = ['MONDAY_API_TOKEN', 'RESEND_API_KEY', 'FROM_EMAIL'];
 const hits = new Map(); // ip -> [timestamps]  (best-effort brake; resets when the server instance restarts)
 
 const clean = (v, max) => String(v == null ? '' : v).replace(/[\u0000-\u001F\u007F]+/g, ' ').trim().slice(0, max);
 
-async function handleSubscribe({ body, ip }) {
+function toE164(raw) {
+    let value = String(raw || '').replace(/[^\d+]/g, '');
+    if (!value) return null;
+    if (value.startsWith('00')) value = '+' + value.slice(2);
+    if (value.startsWith('0')) {
+        const countryCode = (phone.phoneCountries.find(([, country]) => country === phone.defaultCountry) || ['+234'])[0];
+        value = countryCode + value.slice(1);
+    } else if (!value.startsWith('+')) value = '+' + value;
+    return phone.phoneCountries.some(([prefix]) => value.startsWith(prefix)) ? value : null;
+}
+
+function lagosTimestamp() {
+    const parts = new Intl.DateTimeFormat('en', {
+        timeZone: 'Africa/Lagos', year: 'numeric', month: '2-digit', day: '2-digit',
+        hour: '2-digit', minute: '2-digit', hourCycle: 'h23',
+    }).formatToParts(new Date());
+    const values = Object.fromEntries(parts.map(({ type, value }) => [type, value]));
+    return `${values.year}-${values.month}-${values.day} ${values.hour}:${values.minute}`;
+}
+
+async function handleSubscribe({ body, ip, submitLeadToSheet }) {
     let b = body || {};
     if (typeof b === 'string') { try { b = JSON.parse(b); } catch { b = {}; } }
 
@@ -43,23 +61,43 @@ async function handleSubscribe({ body, ip }) {
     if (digitCount < 7 || digitCount > 15) bad.push('phone');
     if (bad.length) return { status: 400, json: { error: 'invalid', fields: bad } };
 
-    const missingEnv = ENV.filter((k) => !process.env[k]);
-    if (missingEnv.length) {
-        console.error('Missing environment variables:', missingEnv.join(', '));
-        return { status: 500, json: { error: 'not_configured' } };
-    }
+    const sheetLead = {
+        'Lead ID': randomUUID(),
+        Name: `${lead.firstName} ${lead.lastName}`.trim(),
+        'First name': lead.firstName,
+        'Last name': lead.lastName,
+        Email: lead.email,
+        ...(toE164(lead.phone) ? { Phone: toE164(lead.phone) } : {}),
+        'Form source': lead.source,
+        Page: lead.page,
+        Submitted: lagosTimestamp(),
+        'Lead status': 'New',
+        Consent: lead.consent,
+        Owner: 'Muheeb Sulaiman',
+        Business: lead.business,
+        Website: lead.website,
+        'Business type': lead.businessType,
+        Challenge: lead.challenge,
+        Budget: lead.budget,
+        'Preferred contact': lead.preferredContact,
+        Message: lead.message,
+        Attribution: lead.attribution,
+    };
+    const [sheet, mail] = await Promise.allSettled([
+        submitLeadToSheet('website_leads', sheetLead),
+        // Website contact and audit forms: send the existing welcome email.
+        sendWelcome(lead),
+    ]);
+    const saved = sheet.status === 'fulfilled' && sheet.value.ok;
 
-    const [crm, mail] = await Promise.allSettled([saveWebLead(lead), sendWelcome(lead)]);
-
-    if (crm.status === 'rejected') {
-        console.error('monday.com failed:', crm.reason && crm.reason.message);
-        await sendOwnerAlert(lead, crm.reason && crm.reason.message).catch((e) => console.error('owner alert failed:', e.message));
+    if (!saved) {
+        const reason = sheet.status === 'rejected' ? 'Sheet submission failed' : 'Sheet submission failed after retry';
+        await sendOwnerAlert(lead, reason).catch((e) => console.error('owner alert failed:', e.message));
     }
     if (mail.status === 'rejected') {
         console.error('email failed:', mail.reason && mail.reason.message);
-        return { status: 502, json: { error: 'email_failed', saved: crm.status === 'fulfilled' } };
     }
-    return { status: 200, json: { ok: true, emailed: true, saved: crm.status === 'fulfilled' } };
+    return { status: 200, json: { ok: true, emailed: mail.status === 'fulfilled', saved } };
 }
 
 module.exports = { handleSubscribe };

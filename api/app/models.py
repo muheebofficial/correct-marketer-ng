@@ -53,6 +53,7 @@ class LeadIn(BaseModel):
     consent: bool = False
     attribution: Attribution = Attribution()
     source: str = Field(default="website_form", max_length=200)
+    page: str = Field(default="", max_length=500)
     stage: str = Field(default="new_lead", max_length=80)
     owner: str = Field(default="Muheeb", max_length=200)
     contact_channel_preference: Literal["whatsapp", "email", "phone", ""] = ""

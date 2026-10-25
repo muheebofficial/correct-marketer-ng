@@ -33,6 +33,8 @@ class Settings:
     admin_key: str = os.getenv("ADMIN_API_KEY", "")
     site_url: str = os.getenv("SITE_URL", os.getenv("NEXT_PUBLIC_SITE_URL", "")).rstrip("/")
     notify_secret: str = os.getenv("NOTIFY_SECRET", "")
+    google_sheets_webhook_url: str = os.getenv("GOOGLE_SHEETS_WEBHOOK_URL", "")
+    google_sheets_webhook_secret: str = os.getenv("GOOGLE_SHEETS_WEBHOOK_SECRET", "")
     web_origins: tuple[str, ...] = _csv(
         os.getenv("WEB_ORIGINS"),
         "http://localhost:3000,https://correctmarketer.com.ng,https://www.correctmarketer.com.ng",

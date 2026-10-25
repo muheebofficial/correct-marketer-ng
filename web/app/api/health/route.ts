@@ -4,7 +4,7 @@ import path from "node:path";
 
 const PDF_NAME = "The-Nigerian-Business-Guide-to-Agentic-AI-Automation.pdf";
 const PDF_PATH = path.join(process.cwd(), "private", PDF_NAME);
-const REQUIRED_ENV = ["MONDAY_API_TOKEN", "RESEND_API_KEY", "FROM_EMAIL"];
+const REQUIRED_ENV = ["GOOGLE_SHEETS_WEBHOOK_URL", "RESEND_API_KEY", "FROM_EMAIL"];
 const OPTIONAL_ENV = ["REPLY_TO_EMAIL", "NOTIFY_EMAIL"];
 const FREE_MAIL = /@(gmail|googlemail|yahoo|outlook|hotmail|live|icloud|proton|protonmail)\./i;
 
@@ -29,6 +29,15 @@ export async function GET(req: NextRequest) {
     for (const key of REQUIRED_ENV) {
         addCheck(checks, `env ${key}`, Boolean(process.env[key]), process.env[key] ? "set" : "MISSING: add it in Vercel (Production) and redeploy");
     }
+    const sheetsSecretKey = Object.keys(process.env).find(
+        (key) => key.replaceAll("_", "") === "GOOGLESHEETSWEBHOOKSECRET",
+    );
+    addCheck(
+        checks,
+        "env Google Sheets webhook secret",
+        Boolean(sheetsSecretKey && process.env[sheetsSecretKey]),
+        sheetsSecretKey && process.env[sheetsSecretKey] ? "set" : "MISSING: add it in Vercel (Production) and redeploy",
+    );
 
     for (const key of OPTIONAL_ENV) {
         addCheck(checks, `env ${key} (optional)`, true, process.env[key] ? "set" : "not set");
@@ -72,33 +81,6 @@ export async function GET(req: NextRequest) {
             }
         } catch (error: any) {
             addCheck(checks, "Resend accepts mail from FROM_EMAIL", false, `Request failed: ${error?.message || String(error)}`);
-        }
-    }
-
-    if (process.env.MONDAY_API_TOKEN) {
-        try {
-            const response = await fetch("https://api.monday.com/v2", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: process.env.MONDAY_API_TOKEN,
-                    "API-Version": process.env.MONDAY_API_VERSION || "2026-07",
-                },
-                body: JSON.stringify({
-                    query: "query ($board: [ID!]) { me { name } boards(ids: $board) { name columns { id } } }",
-                    variables: { board: [process.env.MONDAY_BOARD_ID || "5105685497"] },
-                }),
-                signal: AbortSignal.timeout(8000),
-            });
-            const payload = await response.json().catch(() => ({})) as { data?: { me?: { name?: string }; boards?: Array<{ name?: string; columns?: Array<{ id: string }> }> }; errors?: Array<{ message?: string }> };
-            const board = payload.data?.boards?.[0];
-            if (payload.errors || !board) {
-                addCheck(checks, "monday.com token and board", false, `monday ${response.status}: ${JSON.stringify(payload.errors || payload).slice(0, 300)}`);
-            } else {
-                addCheck(checks, "monday.com token and board", true, `Connected as ${payload.data?.me?.name || "unknown"}, board "${board.name || "unknown"}"`);
-            }
-        } catch (error: any) {
-            addCheck(checks, "monday.com token and board", false, `Request failed: ${error?.message || String(error)}`);
         }
     }
 

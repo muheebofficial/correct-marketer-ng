@@ -44,6 +44,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     ...metadata,
     openGraph: {
       ...metadata.openGraph,
+      type: "article",
       images: [{ url: image, width: 1200, height: 630, alt: "Checklist showing AI tasks marked done and one payment waiting for the owner's approval, under the headline 'AI that starts work before you ask'" }],
       authors: [post.author],
     },

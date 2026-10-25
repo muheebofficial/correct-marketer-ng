@@ -80,15 +80,17 @@ async function sendWelcome(lead) {
         if (!fs.existsSync(p)) throw new Error('Attachment not found: private/' + safe + '. Attachments are optional. To use one in Next.js, commit it in private/ and add outputFileTracingIncludes for /api/subscribe in next.config so private/** is bundled');
         payload.attachments = [{ filename: safe, content: fs.readFileSync(p).toString('base64') }];
     }
+    // Website contact and audit forms: deliver the configured welcome email.
     return resend(payload);
 }
 
 async function sendOwnerAlert(lead, reason) {
-    if (!process.env.NOTIFY_EMAIL) return;
+    if (!process.env.NOTIFY_EMAIL) throw new Error('NOTIFY_EMAIL is not configured');
+    // Website contact and audit forms: alert the owner that a sheet write failed.
     return resend({
         from: from(), to: [process.env.NOTIFY_EMAIL],
-        subject: '[Action needed] Website lead not saved to monday.com: ' + lead.email,
-        text: 'The welcome email was sent, but saving to monday.com failed.\nReason: ' + reason + '\n\n' + JSON.stringify(lead, null, 2),
+        subject: 'Lead not saved to sheet',
+        text: 'A website lead could not be saved to Google Sheets.\nReason: ' + reason + '\n\n' + JSON.stringify(lead, null, 2),
     });
 }
 

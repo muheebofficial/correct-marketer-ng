@@ -1,9 +1,28 @@
-// api/lead.js -- one click does two things: emails the guide AND saves the lead to monday.com
-const { saveToMonday } = require('./_monday');
+// api/lead.js -- emails the guide and saves the lead to Google Sheets.
+const { randomUUID } = require('crypto');
+const { submitLeadToSheet } = require('./_lead-sink');
 const { sendGuide, sendOwnerAlert } = require('./_email');
 
 const REQUIRED = ['firstName', 'surname', 'email', 'phone', 'business', 'budget', 'description', 'problem'];
-const ENV = ['MONDAY_API_TOKEN', 'RESEND_API_KEY', 'FROM_EMAIL'];
+const PHONE_PREFIXES = ['+234', '+233', '+254', '+27', '+44', '+971', '+1'];
+
+function toE164(raw) {
+    let phone = String(raw || '').replace(/[^\d+]/g, '');
+    if (!phone) return undefined;
+    if (phone.startsWith('00')) phone = '+' + phone.slice(2);
+    if (phone.startsWith('0')) phone = '+234' + phone.slice(1);
+    else if (!phone.startsWith('+')) phone = '+' + phone;
+    return PHONE_PREFIXES.some((prefix) => phone.startsWith(prefix)) ? phone : undefined;
+}
+
+function lagosTimestamp() {
+    const parts = new Intl.DateTimeFormat('en', {
+        timeZone: 'Africa/Lagos', year: 'numeric', month: '2-digit', day: '2-digit',
+        hour: '2-digit', minute: '2-digit', hourCycle: 'h23',
+    }).formatToParts(new Date());
+    const values = Object.fromEntries(parts.map(({ type, value }) => [type, value]));
+    return `${values.year}-${values.month}-${values.day} ${values.hour}:${values.minute}`;
+}
 
 module.exports = async (req, res) => {
     if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
@@ -17,12 +36,6 @@ module.exports = async (req, res) => {
         return res.status(400).json({ error: 'Invalid submission', missing });
     }
 
-    const missingEnv = ENV.filter((k) => !process.env[k]);
-    if (missingEnv.length) {
-        console.error('Missing environment variables:', missingEnv.join(', '));
-        return res.status(500).json({ error: 'Server not configured' });
-    }
-
     const lead = {
         firstName: String(b.firstName).trim(), surname: String(b.surname).trim(),
         email: String(b.email).trim().toLowerCase(), phone: String(b.phone).trim(),
@@ -32,16 +45,37 @@ module.exports = async (req, res) => {
         source: b.source || 'ebook-landing', submittedAt: b.submittedAt || new Date().toISOString(),
     };
 
-    // Both actions start at the same time.
-    const [crm, mail] = await Promise.allSettled([saveToMonday(lead), sendGuide(lead)]);
+    const sheetLead = {
+        'Lead ID': randomUUID(),
+        Name: `${lead.firstName} ${lead.surname}`.trim(),
+        'First name': lead.firstName,
+        Company: lead.business,
+        Email: lead.email,
+        ...(toE164(lead.phone) ? { Phone: toE164(lead.phone) } : {}),
+        'Lead Source': 'Ebook landing page',
+        Status: 'New Lead',
+        'Last interaction': lagosTimestamp(),
+        Owner: 'Muheeb Sulaiman',
+        'Monthly budget': lead.budget,
+        'Problem to solve': lead.problem,
+        'About the business': lead.description,
+        'Social handle': lead.social,
+        Website: lead.website,
+        'Consent to contact': lead.consent,
+    };
 
-    if (crm.status === 'rejected') {
-        console.error('monday.com failed:', crm.reason && crm.reason.message);
-        await sendOwnerAlert(lead, crm.reason && crm.reason.message).catch((e) => console.error('owner alert failed:', e.message));
+    const [sheet, mail] = await Promise.allSettled([
+        submitLeadToSheet('ebook_leads', sheetLead),
+        // Ebook landing page form: deliver the existing guide email with PDF attachment.
+        sendGuide(lead),
+    ]);
+    const saved = sheet.status === 'fulfilled' && sheet.value.ok;
+
+    if (!saved) {
+        await sendOwnerAlert(lead, 'Sheet submission failed after retry').catch((e) => console.error('owner alert failed:', e.message));
     }
     if (mail.status === 'rejected') {
         console.error('email failed:', mail.reason && mail.reason.message);
-        return res.status(502).json({ error: 'email_failed', saved: crm.status === 'fulfilled' });
     }
-    return res.status(200).json({ ok: true, emailed: true, saved: crm.status === 'fulfilled' });
+    return res.status(200).json({ ok: true, emailed: mail.status === 'fulfilled', saved });
 };
