@@ -478,7 +478,7 @@ export function NewServicePage({ service }: { service: Service }) {
           { name: group.name, path: `/services/${group.slug}` },
           { name: service.name, path },
         ]}
-        title={`${service.name} in Nigeria`}
+        title={`Best ${service.name} in Lagos, Nigeria`}
         sub={service.snippet}
         cta="Start a Growth Conversation"
         waMessage={`Hi Correct Marketer NG, I want to discuss ${service.name} for my business.`}

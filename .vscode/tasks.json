@@ -34,6 +34,54 @@
 			],
 			"isBackground": false,
 			"problemMatcher": []
+		},
+		{
+			"label": "Typecheck then build web",
+			"type": "shell",
+			"command": "npm --prefix web run typecheck; if ($LASTEXITCODE -eq 0) { npm --prefix web run build }",
+			"isBackground": false
+		},
+		{
+			"label": "Typecheck web app",
+			"type": "shell",
+			"command": "cd web && npm run typecheck",
+			"args": [],
+			"isBackground": false,
+			"problemMatcher": [
+				"$tsc"
+			],
+			"group": "build"
+		},
+		{
+			"label": "Build web app",
+			"type": "shell",
+			"command": "cd web && npm run build",
+			"args": [],
+			"isBackground": false,
+			"problemMatcher": [
+				"$tsc"
+			],
+			"group": "build"
+		},
+		{
+			"label": "Build web app with logs",
+			"type": "shell",
+			"command": "cd web && npm run build > build-output.txt 2>&1; echo BUILD_EXIT:$?; type build-output.txt",
+			"args": [],
+			"isBackground": false,
+			"problemMatcher": [
+				"$tsc"
+			],
+			"group": "build"
+		},
+		{
+			"label": "Check repo status",
+			"type": "shell",
+			"command": "git status --short",
+			"args": [],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
 		}
 	]
 }

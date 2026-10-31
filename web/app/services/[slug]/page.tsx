@@ -43,27 +43,28 @@ export function generateStaticParams() {
 }
 
 function serviceTitle(name: string): string {
-  const suffix = " in Nigeria | Correct Marketer NG";
-  const available = 60 - suffix.length;
-  const shortened = name.split(/\s+/).reduce((result, word) => {
-    const candidate = result ? `${result} ${word}` : word;
-    return candidate.length <= available ? candidate : result;
-  }, "");
-  return `${shortened || name.split(/\s+/)[0]}${suffix}`;
+  const normalized = name
+    .replace(/\s*\|\s*Correct Marketer NG$/i, "")
+    .replace(/\s+in\s+Nigeria\b/i, " in Lagos, Nigeria")
+    .replace(/\bNigeria\b/i, "Lagos, Nigeria")
+    .replace(/\s+/g, " ")
+    .trim();
+  const withBest = normalized.toLowerCase().startsWith("best ") ? normalized : `Best ${normalized}`;
+  return `${withBest} | Correct Marketer NG`;
 }
 
-function serviceDescription(service: NonNullable<ReturnType<typeof getService>>): string {
-  const tail = ` Explore ${service.primaryKeyword} with a practical plan shaped around your business and next step.`;
-  let description = `${service.snippet}${tail}`;
-  if (description.length > 160) {
-    const available = 160 - tail.length;
-    const clippedSnippet = service.snippet.slice(0, available).replace(/\s+\S*$/, "");
-    description = `${clippedSnippet}${tail}`;
-  }
-  if (description.length < 140) {
-    description += " Talk with our team about a useful starting point.";
-  }
-  return description.slice(0, 160).replace(/\s+\S*$/, "");
+function serviceDescription(service: { name: string; snippet?: string; summary?: string }): string {
+  const base = (service.snippet || service.summary || "Growth-focused digital services").trim();
+  const cleaned = base.replace(/[.!?]+$/, "");
+  return `${cleaned}. Best ${service.name.toLowerCase()} in Lagos, Nigeria for businesses that want stronger local visibility, better leads and a clearer path to conversion.`;
+}
+
+function localizeHeroTitle(value: string): string {
+  return value
+    .replace(/\s+in\s+Nigeria\b/i, " in Lagos, Nigeria")
+    .replace(/\bNigeria\b/i, "Lagos, Nigeria")
+    .replace(/\s+\|\s*Correct Marketer NG.*$/i, "")
+    .trim();
 }
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
@@ -85,7 +86,11 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   }
   const s = await load(params.slug);
   if (!s) return {};
-  return buildMetadata({ title: s.seoTitle, description: s.seoDescription, path: `/services/${s.slug}` });
+  return buildMetadata({
+    title: serviceTitle(s.name),
+    description: serviceDescription({ name: s.name, snippet: s.summary }),
+    path: `/services/${s.slug}`,
+  });
 }
 
 export default async function ServicePage({ params }: { params: { slug: string } }) {
@@ -117,7 +122,7 @@ export default async function ServicePage({ params }: { params: { slug: string }
       <JsonLd data={serviceSchema({ name: s.name, description: s.seoDescription, path })} />
       <ServiceHero
         name={s.name}
-        title={s.heroHeadline}
+        title={localizeHeroTitle(s.heroHeadline)}
         sub={s.heroSub}
         journey={s.heroJourney}
         cta={s.heroCta}

@@ -3,7 +3,7 @@ import type { Service } from "./types";
 export const services: Service[] = [
   {
     slug: "best-seo-agency-in-nigeria",
-    name: "Best SEO Agency in Nigeria",
+    name: "Best SEO Agency in Lagos, Nigeria",
     outcome: "Be the business Lagos finds first.",
     summary:
       "The best SEO agency in Nigeria helps your business rank for the searches that actually create customers. We fix technical SEO, drive intent-based content, and help you show up in both Google and AI-powered search results across Lagos, Abuja, Port Harcourt and every major market in Nigeria.",
@@ -11,10 +11,10 @@ export const services: Service[] = [
     cta: "Get My SEO Growth Plan",
     heroCta: "Talk to the Best SEO Agency in Lagos, Nigeria",
     waMessage: "Hi Correct Marketer NG, I want to speak with the best SEO agency in Nigeria about growing my business online.",
-    seoTitle: "Best SEO Agency in Nigeria | SEO Company in Lagos for Real Growth",
+    seoTitle: "Best SEO Agency in Lagos, Nigeria | SEO Company in Lagos for Real Growth",
     seoDescription:
       "Looking for the best SEO agency in Nigeria or the best SEO company in Lagos? Correct Marketer NG helps Nigerian businesses rank higher on Google, dominate local search, and win more customers with AI-ready SEO strategies.",
-    heroHeadline: "Best SEO agency in Nigeria: stop losing customers to competitors who rank above you.",
+    heroHeadline: "Best SEO agency in Lagos, Nigeria: stop losing customers to competitors who rank above you.",
     heroSub:
       "We build search visibility that brings qualified buyers, not vanity traffic: technical SEO, high-intent content, local SEO for Lagos and Abuja, and AI search visibility that keeps your business discoverable when customers search for your service.",
     heroJourney: ["Customers cannot find you", "We fix search visibility", "More qualified enquiries"],
@@ -84,7 +84,7 @@ export const services: Service[] = [
   },
   {
     slug: "best-google-ads-agency-in-nigeria",
-    name: "Best Google Ads Agency in Nigeria",
+    name: "Best Google Ads Agency in Lagos, Nigeria",
     outcome: "Stop paying for clicks that go nowhere.",
     summary:
       "The best Google Ads agency in Nigeria helps you turn ad spend into real enquiries, not empty clicks. We target the right audience, fix the offer and landing page, and optimize campaigns until each naira works harder for your business across Lagos, Nigeria and beyond.",
@@ -92,10 +92,10 @@ export const services: Service[] = [
     cta: "Improve My Ad Performance",
     heroCta: "Talk to the Best Google Ads Agency in Lagos, Nigeria",
     waMessage: "Hi Correct Marketer NG, I want to speak with the best Google Ads agency in Nigeria about better ad performance and leads.",
-    seoTitle: "Best Google Ads Agency in Nigeria | Meta Ads Company in Lagos",
+    seoTitle: "Best Google Ads Agency in Lagos, Nigeria | Meta Ads Company in Lagos",
     seoDescription:
       "Looking for the best Google Ads agency in Nigeria or the best Meta ads company in Lagos? Correct Marketer NG manages Meta and Google campaigns that target the right buyers, cut wasted spend, and generate qualified leads for Nigerian businesses.",
-    heroHeadline: "Best Google Ads agency in Nigeria: stop paying for clicks that never become customers.",
+    heroHeadline: "Best Google Ads agency in Lagos, Nigeria: stop paying for clicks that never become customers.",
     heroSub:
       "We run Meta and Google campaigns designed to increase qualified leads and sales: sharper targeting, better landing pages, smarter retargeting, and clear reporting that shows which campaigns produce real revenue, not just clicks.",
     heroJourney: ["Clicks waste your budget", "We improve the full ad journey", "More qualified leads"],
@@ -165,7 +165,7 @@ export const services: Service[] = [
   },
   {
     slug: "best-ai-automation-agency-in-nigeria",
-    name: "Best AI Automation Agency in Nigeria",
+    name: "Best AI Automation Agency in Lagos, Nigeria",
     outcome: "Stop answering the same customer questions every day.",
     summary:
       "The best AI automation agency in Nigeria helps your business respond faster, qualify leads better, and recover sales that would otherwise be lost to slow follow-up. We build AI systems around the tools your customers already use, especially WhatsApp and CRM workflows in Lagos-based businesses and beyond.",

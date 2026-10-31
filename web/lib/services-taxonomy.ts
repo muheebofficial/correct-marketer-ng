@@ -39,9 +39,9 @@ export const serviceGroups: ServiceGroup[] = [
       "Attract is the first stage of a growth system: make the right people notice your business, then give them a clear reason to trust what they find.",
     howTheyWorkTogether:
       "Search (SEO, local SEO) captures people with intent. Paid and social ads create demand on demand. Content, creators and PR build the familiarity that makes people choose you. Brand strategy keeps it all consistent so attention turns into trust. Every channel in this stage should point to a page or WhatsApp path built in Generate Leads.",
-    metaTitle: "Attract Customers in Nigeria | Correct Marketer NG",
+    metaTitle: "Best Customer Attraction Services in Lagos, Nigeria | Correct Marketer NG",
     metaDescription:
-      "Get found by Nigerian buyers through search, advertising, content and brand strategy. Explore the channels that bring the right people to your business.",
+      "Find the best customer attraction services in Lagos, Nigeria for SEO, advertising, content and brand strategy that help local businesses get found and chosen.",
   },
   {
     slug: "generate-leads",
@@ -54,9 +54,9 @@ export const serviceGroups: ServiceGroup[] = [
       "Generate Leads gives interested visitors a useful next step, captures their details and records how each conversation began.",
     howTheyWorkTogether:
       "Attention is worth nothing until someone raises a hand. This stage builds where visitors land (website, landing pages), why they share their details (lead magnets and offers), how they get in touch (forms and WhatsApp), and the tracking that records where every lead came from.",
-    metaTitle: "Generate Leads in Nigeria | Correct Marketer NG",
+    metaTitle: "Best Lead Generation Services in Lagos, Nigeria | Correct Marketer NG",
     metaDescription:
-      "Turn website visits and campaign attention into leads you can follow up. Build clearer landing pages, contact paths and attribution for your business.",
+      "Discover the best lead generation services in Lagos, Nigeria to capture enquiries, improve landing pages and follow up faster with a stronger local conversion system.",
   },
   {
     slug: "nurture-prospects",
@@ -69,9 +69,9 @@ export const serviceGroups: ServiceGroup[] = [
       "Nurture keeps useful conversations moving after the first enquiry, with timely replies and a shared record of each prospect's needs.",
     howTheyWorkTogether:
       "Most leads are not ready on day one. A configured WhatsApp Business account and AI agents reply instantly, a CRM remembers every conversation and stage, and follow-up sequences keep the lead warm until they decide.",
-    metaTitle: "Nurture Prospects in Nigeria | Correct Marketer NG",
+    metaTitle: "Best Prospect Nurturing Services in Lagos, Nigeria | Correct Marketer NG",
     metaDescription:
-      "Respond promptly and follow up consistently with WhatsApp, AI, CRM and email or SMS sequences designed around how Nigerian customers buy.",
+      "Explore the best prospect nurturing services in Lagos, Nigeria for WhatsApp follow-up, AI qualification, CRM systems and customer retention workflows.",
   },
   {
     slug: "convert-leads",
@@ -84,9 +84,9 @@ export const serviceGroups: ServiceGroup[] = [
       "Convert removes avoidable friction between interest and action: explain the offer clearly, answer buyer concerns and make the next step easy.",
     howTheyWorkTogether:
       "Conversion is clarity, trust and ease. Optimisation and funnel design sharpen the pitch, social proof builds trust, payment and booking make acting easy, sales training makes chat conversations close, and retargeting recovers people who drifted away.",
-    metaTitle: "Convert More Leads in Nigeria | Correct Marketer NG",
+    metaTitle: "Best Conversion Services in Lagos, Nigeria | Correct Marketer NG",
     metaDescription:
-      "Help interested buyers take the next step with clearer offers, trust signals, easier payments and bookings, stronger sales conversations and retargeting.",
+      "Find the best conversion services in Lagos, Nigeria to improve offers, trust signals, sales conversations and the steps that turn interest into paying customers.",
   },
   {
     slug: "retain-and-scale",
@@ -99,9 +99,9 @@ export const serviceGroups: ServiceGroup[] = [
       "Retain & Scale helps a business learn from customers, repeat what works and strengthen the systems needed for its next phase.",
     howTheyWorkTogether:
       "Retention and referrals compound revenue. Dashboards show what is working. Controlled scaling and testing grow it safely. Market expansion, process automation and custom tools remove ceilings, and training or a fractional CMO adds senior direction.",
-    metaTitle: "Retain & Scale Your Business | Correct Marketer NG",
+    metaTitle: "Best Retention & Growth Services in Lagos, Nigeria | Correct Marketer NG",
     metaDescription:
-      "Build repeat business, see what is working and scale carefully with dashboards, automation, market expansion, practical AI training and senior direction.",
+      "See the best retention and growth services in Lagos, Nigeria for customer loyalty, reporting, automation and scaling strategies that help businesses grow sustainably.",
   },
 ];
 
