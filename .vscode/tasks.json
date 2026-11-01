@@ -82,6 +82,20 @@
 			"isBackground": false,
 			"problemMatcher": [],
 			"group": "build"
+		},
+		{
+			"label": "Build web project",
+			"type": "shell",
+			"command": "npm",
+			"args": [
+				"--prefix",
+				"web",
+				"run",
+				"build"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
 		}
 	]
 }

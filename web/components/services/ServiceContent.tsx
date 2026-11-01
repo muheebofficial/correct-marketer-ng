@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { ServiceLeadForm } from "@/components/forms/ServiceLeadForm";
 import { FAQ } from "@/components/sections/FAQ";
 import { FooterCTA } from "@/components/sections/FooterCTA";
 import { PageHero } from "@/components/sections/PageHero";
@@ -327,6 +328,7 @@ export function GroupHub({ group }: { group: ServiceGroup }) {
         title={group.hubH1}
         sub={group.tagline}
         cta="Start a Growth Conversation"
+        ctaHref="#start"
         waMessage={`Hi Correct Marketer NG, I want to discuss the ${group.name} stage of growth for my business.`}
         source={`services_group_${group.slug}`}
       />
@@ -401,6 +403,14 @@ export function GroupHub({ group }: { group: ServiceGroup }) {
           <FAQ faqs={content.faqs} />
         </div>
       </Section>
+      <ServiceLeadForm
+        pageType="hub"
+        groupSlug={group.slug}
+        groupName={group.name}
+        heading={`Talk to us about ${group.name.toLowerCase()} in Lagos and across Nigeria`}
+        intro="Tell us where your current funnel is leaking, what is already working and what you want to improve next. We’ll suggest the right service mix and the fastest next step."
+        ctaLabel={`Get My ${group.name} Plan`}
+      />
       {nextGroup && (
         <Section tone="forest" labelledBy={`${group.slug}-next`}>
           <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
@@ -481,6 +491,7 @@ export function NewServicePage({ service }: { service: Service }) {
         title={`Best ${service.name} in Lagos, Nigeria`}
         sub={service.snippet}
         cta="Start a Growth Conversation"
+        ctaHref="#start"
         waMessage={`Hi Correct Marketer NG, I want to discuss ${service.name} for my business.`}
         source={`service_${service.slug}`}
       />
@@ -602,6 +613,16 @@ export function NewServicePage({ service }: { service: Service }) {
           {related.slice(0, 3).map((item) => <ServiceSnippetCard key={item.slug} service={item} />)}
         </ul>
       </Section>
+      <ServiceLeadForm
+        pageType="service"
+        serviceSlug={service.slug}
+        serviceName={service.name}
+        groupSlug={group.slug}
+        groupName={group.name}
+        heading={`Talk to us about ${service.name} in Lagos and across Nigeria`}
+        intro="Tell us what you need the service to do, what is happening now and what you want to improve next. We’ll suggest a practical starting point and the right next step."
+        ctaLabel={`Get My ${service.name.length > 20 ? service.name.split(" ").slice(0, 2).join(" ") : service.name} Plan`}
+      />
       <FooterCTA source={`service_${service.slug}`} waMessage={`Hi Correct Marketer NG, I want to discuss ${service.name} for my business.`} />
     </>
   );

@@ -294,7 +294,18 @@ export default async function ServicePage({ params }: { params: { slug: string }
               Prefer WhatsApp? Message us directly
             </a>
           </div>
-          <LeadForm intent={s.intent} submitLabel={s.cta} successWaMessage={s.waMessage} />
+          <LeadForm
+            intent={s.intent}
+            submitLabel={s.cta}
+            successWaMessage={s.waMessage}
+            context={{
+              source: "service-page",
+              serviceSlug: s.slug,
+              serviceName: s.name,
+              serviceGroup: getGroup(s.slug)?.name ?? "",
+              groupName: getGroup(s.slug)?.name ?? "",
+            }}
+          />
         </div>
       </Section>
 

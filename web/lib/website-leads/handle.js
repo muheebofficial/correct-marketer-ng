@@ -41,11 +41,26 @@ async function handleSubscribe({ body, ip, submitLeadToSheet }) {
     if (recent.length >= ((limits && limits.perMinutePerIp) || 5)) return { status: 429, json: { error: 'too_many' } };
     hits.set(key, [...recent, now]);
 
+    const page = clean(b.page || b.page_path || b.page_url, 200);
+    const contextBits = [];
+    if (b.service_name) contextBits.push(`Service: ${clean(b.service_name, 120)}`);
+    if (b.service_group) contextBits.push(`Group: ${clean(b.service_group, 120)}`);
+    if (b.service_slug) contextBits.push(`Slug: ${clean(b.service_slug, 120)}`);
+    if (b.page_title) contextBits.push(`Page title: ${clean(b.page_title, 200)}`);
+    if (b.referrer) contextBits.push(`Referrer: ${clean(b.referrer, 200)}`);
+    const utmValues = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content']
+        .map((key) => [key, clean(b[key], 120)])
+        .filter(([, value]) => value)
+        .map(([key, value]) => `${key}=${value}`);
+    if (utmValues.length) contextBits.push(`UTM: ${utmValues.join(' | ')}`);
+
     const lead = {
         firstName: clean(b.firstName, 80), lastName: clean(b.lastName, 80),
         email: clean(b.email, 120).toLowerCase(), phone: clean(b.phone, 30),
         source: clean(b.source || b.intent, 60).replace(/[^A-Za-z0-9_-]/g, '') || 'website',
-        page: clean(b.page, 200), message: clean(b.message, 1000), business: clean(b.business, 120),
+        page,
+        message: clean([b.message, contextBits.join(' | ')].filter(Boolean).join(' | '), 1000),
+        business: clean(b.business, 120),
         website: clean(b.website, 200), businessType: clean(b.business_type || b.businessType, 100),
         challenge: clean(b.challenge, 1000), budget: clean(b.budget, 100),
         preferredContact: clean(b.preferred_contact || b.preferredContact, 60),

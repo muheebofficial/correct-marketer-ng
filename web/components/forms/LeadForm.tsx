@@ -14,6 +14,23 @@ export type LeadIntent =
   | "seo-visibility-audit"
   | "ai-automation-assessment";
 
+export type LeadFormContext = {
+  source?: "contact" | "service-page" | "hub-page";
+  pagePath?: string;
+  pageUrl?: string;
+  pageTitle?: string;
+  serviceSlug?: string;
+  serviceName?: string;
+  serviceGroup?: string;
+  groupName?: string;
+  referrer?: string;
+  utmSource?: string;
+  utmMedium?: string;
+  utmCampaign?: string;
+  utmTerm?: string;
+  utmContent?: string;
+};
+
 const businessTypes = [
   "Nigerian SME", "E-commerce", "Professional services", "Education", "Hospitality",
   "Restaurant / food", "Technology", "Real estate", "Personal brand", "Startup", "Other",
@@ -29,11 +46,13 @@ export function LeadForm({
   submitLabel = "Start My Growth Conversation",
   successWaMessage,
   tone = "light",
+  context,
 }: {
   intent?: LeadIntent;
   submitLabel?: string;
   successWaMessage?: string;
   tone?: "light" | "dark";
+  context?: LeadFormContext;
 }) {
   const [status, setStatus] = useState<"idle" | "sending" | "done" | "error">("idle");
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -46,10 +65,27 @@ export function LeadForm({
     setFormError("");
     const fd = new FormData(e.currentTarget);
     const get = (k: string) => String(fd.get(k) ?? "").trim();
+    const attribution = getAttribution();
+    const params = typeof window !== "undefined" ? new URLSearchParams(window.location.search) : new URLSearchParams();
+    const pagePath = context?.pagePath ?? (typeof window !== "undefined" ? window.location.pathname : "");
+    const pageUrl = context?.pageUrl ?? (typeof window !== "undefined" ? window.location.href : "");
+    const pageTitle = context?.pageTitle ?? (typeof document !== "undefined" ? document.title : "");
     const payload = {
       intent,
-      source: intent,
-      page: typeof window !== "undefined" ? window.location.pathname : "",
+      source: context?.source ?? intent,
+      page: pagePath,
+      page_path: pagePath,
+      page_url: pageUrl,
+      page_title: pageTitle,
+      service_slug: context?.serviceSlug ?? "",
+      service_name: context?.serviceName ?? "",
+      service_group: context?.groupName ?? context?.serviceGroup ?? "",
+      referrer: context?.referrer ?? (typeof document !== "undefined" ? document.referrer : "") || attribution.referrer,
+      utm_source: context?.utmSource ?? params.get("utm_source") ?? attribution.utm_source,
+      utm_medium: context?.utmMedium ?? params.get("utm_medium") ?? attribution.utm_medium,
+      utm_campaign: context?.utmCampaign ?? params.get("utm_campaign") ?? attribution.utm_campaign,
+      utm_term: context?.utmTerm ?? params.get("utm_term") ?? attribution.utm_term,
+      utm_content: context?.utmContent ?? params.get("utm_content") ?? attribution.utm_content,
       firstName: get("firstName"),
       lastName: get("lastName"),
       email: get("email"),
@@ -63,7 +99,7 @@ export function LeadForm({
       message: get("message"),
       consent: true,
       fax: get("fax"),
-      attribution: getAttribution(),
+      attribution,
     };
     try {
       const res = await fetch("/api/subscribe", {

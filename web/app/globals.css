@@ -11,6 +11,12 @@ html {
   -webkit-text-size-adjust: 100%;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
 body {
   @apply bg-ivory font-body text-obsidian antialiased;
   line-height: 1.6;
