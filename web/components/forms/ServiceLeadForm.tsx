@@ -1,4 +1,5 @@
 import { LeadForm } from "@/components/forms/LeadForm";
+import type { LeadFormContext } from "./LeadForm";
 
 export function ServiceLeadForm({
   pageType,
@@ -22,7 +23,7 @@ export function ServiceLeadForm({
   anchorId?: string;
 }) {
   const source = pageType === "service" ? "service-page" : "hub-page";
-  const serviceContext = {
+  const serviceContext: LeadFormContext = {
     source,
     serviceSlug,
     serviceName,
