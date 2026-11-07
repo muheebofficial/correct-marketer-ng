@@ -80,7 +80,10 @@ export function LeadForm({
       service_slug: context?.serviceSlug ?? "",
       service_name: context?.serviceName ?? "",
       service_group: context?.groupName ?? context?.serviceGroup ?? "",
-      referrer: (context?.referrer ?? (typeof document !== "undefined" ? document.referrer : "")) || attribution.referrer,
+      referrer:
+        context?.referrer ||
+        (typeof document !== "undefined" ? document.referrer : "") ||
+        attribution.referrer,
       utm_source: context?.utmSource ?? params.get("utm_source") ?? attribution.utm_source,
       utm_medium: context?.utmMedium ?? params.get("utm_medium") ?? attribution.utm_medium,
       utm_campaign: context?.utmCampaign ?? params.get("utm_campaign") ?? attribution.utm_campaign,
