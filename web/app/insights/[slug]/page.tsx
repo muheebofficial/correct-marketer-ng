@@ -110,7 +110,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
                 By <Link href="/about" className="font-semibold underline underline-offset-4">{post.author}</Link> · Published <time dateTime={post.published}>{formatDate(post.published)}</time> · {post.readingMinutes} min read
               </p>
               <figure className="mt-8 overflow-hidden rounded-2xl border border-gold/30 bg-[#071918]">
-                <img src={heroImage} alt="Checklist showing AI tasks marked done and one payment waiting for the owner's approval, under the headline 'AI that starts work before you ask'" width={1200} height={630} className="h-auto w-full" priority />
+                <img src={heroImage} alt="Checklist showing AI tasks marked done and one payment waiting for the owner's approval, under the headline 'AI that starts work before you ask'" width={1200} height={630} className="h-auto w-full" fetchPriority="high" />
               </figure>
             </div>
           </header>
