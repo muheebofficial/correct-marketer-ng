@@ -23,7 +23,13 @@ const nextConfig = {
       fallback: [],
     };
   },
-  async redirects() {\n    return [\n      { source: "/insights", destination: "/blog", permanent: true },\n      { source: "/insights/:path*", destination: "/blog/:path*", permanent: true },\n    ];\n  },\n  async headers() {
+  async redirects() {
+    return [
+      { source: "/insights", destination: "/blog", permanent: true },
+      { source: "/insights/:path*", destination: "/blog/:path*", permanent: true },
+    ];
+  },
+  async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
   },
 };
