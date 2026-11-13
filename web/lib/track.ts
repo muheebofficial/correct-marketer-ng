@@ -8,7 +8,9 @@ export type TrackEvent =
   | "service_cta_click"
   | "case_study_view"
   | "phone_click"
-  | "scroll_depth";
+  | "scroll_depth"
+  | "tool_complete"
+  | "tool_whatsapp_send";
 
 declare global {
   interface Window {

@@ -14,6 +14,7 @@ const company = [
 const resources = [
   { label: "Blog", href: "/blog" },
   { label: "Free Audits", href: "/audits" },
+  { label: "Free Tools", href: "/tools" },
   { label: "Sitemap", href: "/sitemap.xml" },
 ];
 const legal = [
