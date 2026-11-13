@@ -68,9 +68,9 @@ export async function notifyPost(slug: string): Promise<NotifyResult> {
       return "skipped";
     }
 
-    revalidatePath("/insights");
-    revalidatePath(`/insights/${slug}`);
-    const postUrl = `${siteUrl}/insights/${encodeURIComponent(slug)}`;
+    revalidatePath("/blog");
+    revalidatePath(`/blog/${slug}`);
+    const postUrl = `${siteUrl}/blog/${encodeURIComponent(slug)}`;
     let postIsLive = false;
     for (let attempt = 0; attempt < 3; attempt += 1) {
       try {
