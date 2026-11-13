@@ -6,17 +6,33 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { budgetArticle, budgetArticleMeta, budgetArticleReadingMinutes } from "@/lib/content/budgetArticle";
 import { articleSchema } from "@/lib/schema";
 import { absoluteUrl, site } from "@/lib/site";
+import { getBlogPosts } from "@/lib/blog";
+import type { Post } from "@/lib/content/types";
+import { formatDate, slugify } from "@/lib/insights";
+import { faqSchema } from "@/lib/schema";
 
 const sections = budgetArticle.split(/(?=^## )/m).map((text) => text.trim()).filter(Boolean);
 const headingId = (heading: string) => heading.toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
 const toc = sections.map((section) => section.match(/^## (.+)$/m)?.[1]).filter((heading): heading is string => Boolean(heading));
 
-export function generateStaticParams() {
-  return [{ slug: budgetArticleMeta.slug }];
+export async function generateStaticParams() {
+  return (await getBlogPosts()).map((post) => ({ slug: post.slug }));
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  if (params.slug !== budgetArticleMeta.slug) return {};
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const post = (await getBlogPosts()).find((item) => item.slug === slug);
+  if (post && slug !== budgetArticleMeta.slug) {
+    const canonical = absoluteUrl(`/blog/${post.slug}`);
+    return {
+      title: post.title,
+      description: post.description,
+      authors: [{ name: post.author }],
+      alternates: { canonical },
+      openGraph: { type: "article", title: post.title, description: post.description, url: canonical, siteName: site.name, locale: "en_NG", publishedTime: post.published, modifiedTime: post.updated, authors: [post.author], tags: post.tags },
+    };
+  }
+  if (slug !== budgetArticleMeta.slug) return {};
   const canonical = absoluteUrl(`/blog/${budgetArticleMeta.slug}`);
   return {
     title: { absolute: budgetArticleMeta.seoTitle },
@@ -118,8 +134,11 @@ function renderSection(section: string, index: number) {
   );
 }
 
-export default function BlogPostPage({ params }: { params: { slug: string } }) {
-  if (params.slug !== budgetArticleMeta.slug) notFound();
+export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const post = (await getBlogPosts()).find((item) => item.slug === slug);
+  if (post && slug !== budgetArticleMeta.slug) return <UnifiedPostPage post={post} />;
+  if (slug !== budgetArticleMeta.slug) notFound();
   const intro = sections[0];
   const introText = intro.replace(/^## .+\n?/, "").trim();
   const canonical = absoluteUrl(`/blog/${budgetArticleMeta.slug}`);
@@ -169,3 +188,78 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
 function TocLinks() {
   return <ol>{toc.map((heading) => <li key={heading}><a href={`#${headingId(heading)}`}>{heading}</a></li>)}</ol>;
 }
+
+
+function UnifiedPostPage({ post }: { post: Post }) {
+  const path = `/blog/${post.slug}`;
+  const url = absoluteUrl(path);
+  const related = post.related ?? [];
+  const schema = [
+    articleSchema({ title: post.title, description: post.description, path, published: post.published, updated: post.updated, author: post.author }),
+    ...(post.faq?.length ? [faqSchema(post.faq)] : []),
+  ];
+  return (
+    <article className="blog-page">
+      <JsonLd data={schema} />
+      <header className="blog-hero">
+        <div className="mx-auto max-w-page px-5 py-12 sm:px-8 sm:py-16">
+          <Link href="/blog" className="mb-7 inline-flex font-sub text-sm font-bold text-gold-soft underline underline-offset-4">← All blog posts</Link>
+          <p className="mb-4 font-sub text-sm font-bold uppercase tracking-[0.16em] text-gold-soft">{post.category}</p>
+          <h1 className="max-w-5xl font-display text-4xl font-extrabold leading-[1.08] sm:text-6xl">{post.title}</h1>
+          <div className="mt-7 flex flex-wrap gap-x-5 gap-y-2 font-sub text-sm text-ivory/85">
+            <span>{post.author}</span>
+            <time dateTime={post.published}>{formatDate(post.published)}</time>
+            {post.updated !== post.published && <time dateTime={post.updated}>Updated {formatDate(post.updated)}</time>}
+            <span>{post.readingMinutes} min read</span>
+          </div>
+        </div>
+      </header>
+      <div className="mx-auto max-w-4xl px-5 py-10 sm:px-8 sm:py-14">
+        <div className="blog-prose">
+          <p className="blog-intro">{post.intro}</p>
+          {post.sections.map((section) => (
+            <section key={section.heading} className="blog-section">
+              <h2 id={slugify(section.heading)}>{section.heading}</h2>
+              {section.paragraphs.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
+            </section>
+          ))}
+          {post.faq?.length ? (
+            <section className="blog-section" aria-labelledby="blog-faq">
+              <h2 id="blog-faq">Frequently asked questions</h2>
+              {post.faq.map((item) => (
+                <div key={item.q} className="mb-6 border-b border-stone-light pb-5">
+                  <h3>{item.q}</h3>
+                  <p>{item.a}</p>
+                </div>
+              ))}
+            </section>
+          ) : null}
+          {post.source && <p className="mt-10 text-sm italic text-mute">{post.source}</p>}
+          {post.cta && <p className="mt-8 font-semibold text-forest">{post.cta}</p>}
+          <p className="mt-8"><a href={`https://wa.me/${site.whatsappNumber}?text=${encodeURIComponent(`Hi Correct Marketer NG, I read "${post.title}" and would like to discuss this with your team.`)}`} target="_blank" rel="noopener noreferrer" className="font-semibold text-forest underline decoration-gold underline-offset-4">Talk to Correct Marketer NG on WhatsApp</a></p>
+        </div>
+        {related.length > 0 && (
+          <section className="mt-14 border-t border-stone-light pt-8" aria-labelledby="related-posts">
+            <h2 id="related-posts" className="font-display text-3xl font-extrabold text-forest">Keep reading</h2>
+            <ul className="mt-4 space-y-3">
+              {related.map((slug) => {
+                const title = relatedTitles.get(slug) ?? slug.replace(/-/g, " ");
+                return <li key={slug}><Link href={`/blog/${slug}`} className="font-sub text-lg font-bold text-forest underline decoration-gold underline-offset-4">{title}</Link></li>;
+              })}
+            </ul>
+          </section>
+        )}
+        <p className="mt-12 border-t border-stone-light pt-6 text-sm text-mute">{site.founder.name} · {site.founder.title}, Correct Marketer NG</p>
+      </div>
+    </article>
+  );
+}
+
+const relatedTitles = new Map<string, string>([
+  ["seo-vs-google-ads-nigeria", "SEO vs Google Ads: Which Should a Nigerian Business Start With?"],
+  ["why-your-website-is-not-generating-customers", "Why Your Website Isn't Generating Customers (and How to Fix It)"],
+  ["how-much-does-seo-cost-in-nigeria", "How Much Does SEO Cost in Nigeria? What Actually Drives the Price"],
+  ["can-ai-automate-whatsapp-customer-support", "Can AI Automate WhatsApp Customer Support for Your Business?"],
+  ["claude-duet-proactive-ai-agents-nigerian-business", "Claude Duet Is Here: What Proactive AI Agents Mean for Nigerian Business Owners"],
+  ["google-ai-overviews-seo-nigeria", "Google AI Overviews and SEO in Nigeria: What Businesses Must Do in 2026"],
+]);
