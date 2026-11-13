@@ -4,6 +4,7 @@ import { caseStudies } from "@/lib/content/caseStudies";
 import { services } from "@/lib/content/services";
 import type { CaseStudy, Service } from "@/lib/content/types";
 import { categoriesOf, getPosts, slugify } from "@/lib/blog";
+import { tools } from "@/lib/tools/registry";
 import { presets } from "@/lib/tools/adCheckPresets";
 import { absoluteUrl } from "@/lib/site";
 
@@ -14,7 +15,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     getPosts(),
   ]);
   const now = new Date();
-  const fixed = ["/", "/services", "/industries", "/case-studies", "/about", "/blog", "/tools", "/tools/ad-budget-calculator", "/audits", "/contact", "/privacy", "/terms", "/cookies"];
+  const fixed = ["/", "/services", "/industries", "/case-studies", "/about", "/blog", "/tools", ...tools.map((t) => t.href), "/audits", "/contact", "/privacy", "/terms", "/cookies"];
   return [
     ...fixed.map((p) => ({ url: absoluteUrl(p), lastModified: now, priority: p === "/" ? 1 : 0.7 })),
     ...allServices.map((s) => ({ url: absoluteUrl(`/services/${s.slug}`), lastModified: now, priority: 0.9 })),

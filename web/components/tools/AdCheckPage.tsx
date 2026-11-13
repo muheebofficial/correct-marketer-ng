@@ -17,7 +17,7 @@ const faqs = [
 export function AdCheckPage({ preset }: { preset?: IndustryPreset }) {
   const base = preset ?? { slug: "", name: "", intro: "", tip: "", example: { monthlyBudget: 100_000, enquiries: 40, sales: 4, averageSale: 50_000, marginPercent: 40 } };
   const path = preset ? `/tools/ad-budget-calculator/${preset.slug}` : "/tools/ad-budget-calculator";
-  const crumbs = [{ name: "Free Tools", path: "/tools" }, { name: "Naira Ad Reality Check", path: "/tools/ad-budget-calculator" }, ...(preset ? [{ name: preset.name, path }] : [])];
+  const crumbs = [{ name: "Tools", path: "/tools" }, { name: "Naira Ad Reality Check", path: "/tools/ad-budget-calculator" }, ...(preset ? [{ name: preset.name, path }] : [])];
   return (
     <>
       <JsonLd data={[breadcrumbSchema([{ name: "Home", path: "/" }, ...crumbs]), faqSchema(faqs)]} />
