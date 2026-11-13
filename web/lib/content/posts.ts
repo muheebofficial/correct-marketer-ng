@@ -270,7 +270,140 @@ export const posts: Post[] = [
     ],
     source: 'VentureBeat, "Anthropic\'s answer to Muse is here: Claude Duet", October 21, 2026.',
     cta: "Want to start? Message us on WhatsApp: +234 911 017 2901 or visit correctmarketer.com.ng.",
-  },
+  },,
+  {
+    "slug": "google-ai-overviews-seo-nigeria",
+    "title": "Google AI Overviews and SEO in Nigeria: What Businesses Must Do in 2026",
+    "description": "Google is changing how people discover businesses. Learn what AI Overviews mean for Nigerian SEO, brand visibility, local search and customer acquisition.",
+    "category": "SEO",
+    "tags": [
+      "Google AI Overviews",
+      "SEO Nigeria",
+      "AI search",
+      "AEO",
+      "GEO",
+      "local SEO",
+      "Google Business Profile"
+    ],
+    "author": "Muheeb Sulaiman",
+    "published": "2026-11-13",
+    "updated": "2026-11-13",
+    "readingMinutes": 9,
+    "service": "seo",
+    "intro": "Let me ask you a question: if Google can answer your customer's question before they visit your website, what exactly are you doing to make sure your business is still part of that decision? Search is changing. And Nigerian businesses that still measure SEO only by blue links and rankings are looking at only part of the picture.",
+    "sections": [
+      {
+        "heading": "Google is changing where people see AI answers",
+        "paragraphs": [
+          "In early November 2026, SEO professionals reported a notable desktop Search layout change: for many brand-name searches, Google's AI Overview appeared in the right-hand column, in the area traditionally associated with a Knowledge Panel. Search Engine Roundtable documented examples involving searches for brands such as Apple, Zillow and Coca-Cola.",
+          "Here is the important qualification: this is an observed change reported across selected searches, not proof that Google has permanently moved every AI Overview to the right side of every results page. The reports were based on desktop examples, Google had not announced a universal rollout, and search layouts can vary by query, location, device and user.",
+          "So, should Nigerian business owners panic? No. But should they pay attention? Absolutely. The bigger development is not the position of one box. It is that Google is increasingly answering questions directly on the results page and shaping what people understand about a business before they click."
+        ]
+      },
+      {
+        "heading": "The real SEO issue is not the box. It is the customer journey.",
+        "paragraphs": [
+          "For years, the familiar SEO journey was straightforward: someone searched, Google displayed links, the user clicked a website, and the business tried to convert that visitor. AI-powered search can change that journey. A person may get a useful summary, compare options, learn basic facts or form an opinion without visiting several websites.",
+          "That does not mean websites are dead. Google says AI Overviews and AI Mode can surface links that help people explore topics and discover sources. But it does mean a business should stop treating a website visit as the only valuable outcome of search visibility.",
+          "Your brand may influence a decision even when the searcher does not click immediately. Your website, reviews, business profile, third-party mentions, social presence and the clarity of your published information all contribute to what a potential customer can find and verify."
+        ]
+      },
+      {
+        "heading": "Will AI Overviews reduce organic traffic?",
+        "paragraphs": [
+          "They can reduce clicks for some searches, particularly when the AI answer satisfies the user's immediate need. In a February 2026 study, Ahrefs reported that the presence of an AI Overview correlated with a 58% lower average click-through rate for the number-one result in its analysis of informational keywords.",
+          "That figure needs context. It is a study result, not a universal prediction that every website will lose 58% of its traffic. The impact varies by query intent, industry, ranking, the usefulness of the AI answer and whether the searcher still needs to visit a source to take action.",
+          "A person asking for a simple definition may be satisfied on the results page. Someone comparing a school, choosing a property lawyer, checking a supplier's credibility or looking for a business that can deliver to Ikeja may still need a website, reviews, prices, proof and a direct way to contact the business.",
+          "The practical lesson is to separate visibility from clicks, and clicks from revenue. Monitor the full journey: search impressions, qualified visits, calls, WhatsApp enquiries, form submissions, booked consultations and sales."
+        ]
+      },
+      {
+        "heading": "Does traditional SEO still matter in the age of AI search?",
+        "paragraphs": [
+          "Yes. Google's own guidance for AI features says the fundamentals of SEO remain relevant. It says there are no additional technical requirements or special optimisations required to appear in AI Overviews or AI Mode. A page must be indexed and eligible to appear in Google Search with a snippet, and inclusion is never guaranteed.",
+          "That is a useful correction to the flood of online advice suggesting that businesses need a secret AI schema, a special file or a completely separate SEO strategy to be considered by Google's AI features. Technical health, helpful content, clear site structure and people-first information still matter.",
+          "This does not mean you should ignore answer-focused content or how AI systems interpret information. It means you should build those practices on top of sound SEO rather than replacing the fundamentals with shortcuts."
+        ]
+      },
+      {
+        "heading": "What Nigerian businesses should do now",
+        "paragraphs": [
+          "1. Build a website you actually own. Your Instagram page, Facebook page and WhatsApp account are useful channels, but they are not a substitute for a website you control. Your site should clearly explain what you sell, who you serve, where you operate, how customers can buy and why they should trust you.",
+          "2. Make your brand information consistent. Use the same business name, address, phone number, website and service descriptions across your website, Google Business Profile and credible directories. Conflicting details make it harder for customers to verify you and can weaken local search clarity.",
+          "3. Optimise your Google Business Profile. Complete the relevant fields, choose accurate categories, add real photos, keep opening hours current, list services and respond to reviews. Google's local results are primarily shaped by relevance, distance and prominence. You cannot control distance, but you can make your business information more complete and trustworthy.",
+          "4. Answer the questions customers actually ask. Do not publish generic articles simply to insert keywords. Explain pricing factors, delivery areas, timelines, requirements, comparisons, risks and what a customer should expect. A Nigerian logistics company, for example, should explain its coverage areas and delivery process rather than publish another vague article about excellent service.",
+          "5. Show evidence, not just claims. Add real project examples, product images, team expertise, customer feedback, certifications where applicable and detailed explanations of how you work. If you say you are experienced, give people something concrete they can use to assess that claim.",
+          "6. Make every important page useful on mobile. Many customers will discover you on a phone, often while multitasking or using mobile data. Keep pages fast, readable and easy to navigate. Make the WhatsApp, call, booking or enquiry action obvious.",
+          "7. Measure actions that matter. Track organic search performance in Google Search Console, website behaviour in analytics, and interactions and enquiries from your business profile. Connect those numbers to your lead records and sales process. Ranking first for a keyword is not a business result if the right customers never contact you."
+        ]
+      },
+      {
+        "heading": "SEO, AEO and GEO: do Nigerian businesses need all three?",
+        "paragraphs": [
+          "SEO is the established practice of improving a website's visibility in search engines. AEO, or Answer Engine Optimisation, is commonly used to describe making information easy for answer-focused systems to understand and use. GEO, or Generative Engine Optimisation, generally refers to improving how a brand and its information can be discovered, understood and referenced in generative AI experiences.",
+          "The terms are useful ways to discuss changing discovery behaviour, but they are not magic switches or official Google ranking products. In practice, much of the work overlaps: publish accurate information, make it accessible to crawlers, organise it clearly, demonstrate first-hand experience, earn genuine reputation and keep your business details consistent.",
+          "Do not let a new acronym convince you to abandon the work that helps customers and search engines understand your business. A well-built website with useful, verifiable information is still a strong foundation."
+        ]
+      },
+      {
+        "heading": "A small lesson from our own Search Console data",
+        "paragraphs": [
+          "I have been watching the performance of my own website, muheebsulaiman.com, in Google Search Console. Across the 28-day period ending 10 November 2026, the site recorded 546 impressions, 7 clicks, a 1.28% click-through rate and an average position of 14.85.",
+          "One guide on the site moved from 79 impressions, zero clicks and an average position of 14.62 in the preceding 28-day period to 97 impressions, 4 clicks and an average position of 8.04 in the latest 28-day period. That is encouraging early movement, but it is not proof of sustained growth, and Search Console does not tell me whether those impressions appeared alongside an AI Overview.",
+          "I am sharing the numbers because SEO should be discussed with evidence, not screenshots of rankings presented as guaranteed business growth. We still need to connect visibility to qualified enquiries and revenue, and we need more time before drawing stronger conclusions."
+        ]
+      },
+      {
+        "heading": "The bottom line: don't optimise only to be clicked",
+        "paragraphs": [
+          "Google's AI features are changing how people encounter information, but the business objective has not changed: be discoverable, be credible, answer the customer's questions and make it easy to take the next step.",
+          "If a potential customer searches for your business and finds outdated details, thin pages, no meaningful reviews or no clear explanation of what you do, an AI Overview is not your biggest problem. Your digital presence needs work.",
+          "At Correct Marketer NG, we approach SEO as part of customer acquisition: helping businesses improve search visibility, build useful websites and turn qualified attention into enquiries. The goal is not simply to collect impressions. It is to help the right people find you, trust you and choose you."
+        ]
+      }
+    ],
+    "related": [
+      "seo-vs-google-ads-nigeria",
+      "why-your-website-is-not-generating-customers",
+      "how-much-does-seo-cost-in-nigeria"
+    ],
+    "faq": [
+      {
+        "q": "Has Google permanently moved AI Overviews to the right side of desktop search?",
+        "a": "No universal permanent move has been confirmed. In November 2026, SEO observers reported right-column AI Overviews for many brand searches on desktop. The examples do not establish that the layout applies to every query, country or device."
+      },
+      {
+        "q": "Will Google AI Overviews reduce traffic to Nigerian websites?",
+        "a": "They may reduce clicks for some informational searches when the summary satisfies the user's need. The impact varies by query and industry, so businesses should measure their own impressions, clicks, enquiries and sales rather than assume a fixed traffic loss."
+      },
+      {
+        "q": "Can a Nigerian business appear in Google AI Overviews?",
+        "a": "Potentially. Google says pages must be indexed and eligible to appear in Search with a snippet. Meeting the requirements does not guarantee inclusion."
+      },
+      {
+        "q": "Is traditional SEO still important?",
+        "a": "Yes. Google says the same foundational SEO best practices remain relevant to AI Overviews and AI Mode, with no separate special optimisation requirement."
+      },
+      {
+        "q": "What is the difference between SEO, AEO and GEO?",
+        "a": "SEO improves visibility in search engines. AEO focuses on making information useful to answer engines. GEO focuses on discoverability and representation in generative AI experiences. Their practical work overlaps considerably."
+      },
+      {
+        "q": "Does a Google Business Profile help local SEO?",
+        "a": "A complete, accurate and actively maintained profile can support local visibility. Google says local results are mainly based on relevance, distance and prominence."
+      },
+      {
+        "q": "Does my website need special AI schema markup to appear in AI Overviews?",
+        "a": "Google says there are no additional technical requirements or special optimisations for AI Overviews. Use structured data when it accurately describes your page, not as a supposed AI ranking shortcut."
+      },
+      {
+        "q": "How should I measure SEO performance in 2026?",
+        "a": "Track impressions, clicks, query visibility, qualified organic visits, calls, WhatsApp enquiries, form submissions, booked appointments and sales. Connect search reporting to your lead and sales records wherever possible."
+      }
+    ],
+    "source": "Sources: Google Search Central, “AI features and your website” — https://developers.google.com/search/docs/appearance/ai-features ; Google Business Profile Help, “Tips to improve your local ranking on Google” — https://support.google.com/business/answer/7091 ; Ahrefs, “Update: AI Overviews Reduce Clicks by 58%” (4 February 2026) — https://ahrefs.com/blog/ai-overviews-reduce-clicks-update/ ; Search Engine Roundtable, “Google AI Overviews For Brands Moved To Right Column” (2 November 2026) — https://www.seroundtable.com/google-ai-overviews-brands-right-42440.html",
+    "cta": "Need a clearer SEO plan for your business? Talk to Correct Marketer NG about improving your website, search visibility and lead generation."
+  }
 ];
 
 export const getPost = (slug: string) => posts.find((p) => p.slug === slug);
