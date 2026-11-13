@@ -3,16 +3,13 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { BlogCTA } from "@/components/blog/BlogCTA";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { OneSignalSubscribeButton } from "@/components/tracking/OneSignalSubscribeButton";
 import { budgetArticle, budgetArticleMeta, budgetArticleReadingMinutes } from "@/lib/content/budgetArticle";
 import { articleSchema, faqSchema } from "@/lib/schema";
 import { getBlogPosts } from "@/lib/blog";
 import type { Post } from "@/lib/content/types";
 import { formatDate, slugify } from "@/lib/insights";
 import { absoluteUrl, site } from "@/lib/site";
-import { getBlogPosts } from "@/lib/blog";
-import type { Post } from "@/lib/content/types";
-import { formatDate, slugify } from "@/lib/insights";
-import { faqSchema } from "@/lib/schema";
 
 const sections = budgetArticle.split(/(?=^## )/m).map((text) => text.trim()).filter(Boolean);
 const headingId = (heading: string) => heading.toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
@@ -215,6 +212,7 @@ function UnifiedPostPage({ post }: { post: Post }) {
             {post.updated !== post.published && <time dateTime={post.updated}>Updated {formatDate(post.updated)}</time>}
             <span>{post.readingMinutes} min read</span>
           </div>
+          <div className="mt-5"><OneSignalSubscribeButton /></div>
         </div>
       </header>
       <div className="mx-auto max-w-4xl px-5 py-10 sm:px-8 sm:py-14">
