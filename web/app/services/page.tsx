@@ -1,6 +1,6 @@
 import { FooterCTA } from "@/components/sections/FooterCTA";
 import { PageHero } from "@/components/sections/PageHero";
-import { ServiceGrid } from "@/components/sections/ServiceGrid";
+import { ServiceGroupsOverview } from "@/components/sections/ServiceGroupsOverview";
 import { Section } from "@/components/ui/Section";
 import { buildMetadata } from "@/lib/seo";
 
@@ -22,7 +22,7 @@ export default function ServicesPage() {
         source="services_index"
       />
       <Section>
-        <ServiceGrid />
+        <ServiceGroupsOverview />
       </Section>
       <FooterCTA source="services_index" />
     </>

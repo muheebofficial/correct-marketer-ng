@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { TrackedLink } from "@/components/tracking/TrackedLink";
 import { getCollection } from "@/lib/api";
 import { services } from "@/lib/content/services";
@@ -28,5 +29,13 @@ export async function ServiceGrid({ headingId }: { headingId?: string }) {
         </li>
       ))}
     </ul>
+  );
+}
+
+export function AllServicesLink() {
+  return (
+    <p className="mt-8">
+      <Link href="/services" className="font-sub font-bold text-forest underline decoration-gold decoration-2 underline-offset-[6px]">See every service by stage of the customer journey</Link>
+    </p>
   );
 }
