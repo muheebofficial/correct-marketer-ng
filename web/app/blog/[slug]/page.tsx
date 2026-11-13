@@ -190,9 +190,8 @@ function TocLinks() {
 }
 
 
-function UnifiedPostPage({ post }: { post: Post }) {
+async function UnifiedPostPage({ post }: { post: Post }) {
   const path = `/blog/${post.slug}`;
-  const url = absoluteUrl(path);
   const related = post.related ?? [];
   const schema = [
     articleSchema({ title: post.title, description: post.description, path, published: post.published, updated: post.updated, author: post.author }),
@@ -289,6 +288,7 @@ async function UnifiedPostPage({ post }: { post: Post }) {
             {post.updated !== post.published && <span>Updated {formatDate(post.updated)}</span>}
             <span>{post.readingMinutes} min read</span>
           </div>
+          <div className="mt-5"><OneSignalSubscribeButton /></div>
         </div>
       </header>
       <div className="mx-auto max-w-4xl px-5 py-10 sm:px-8 sm:py-14">
