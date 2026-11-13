@@ -4,7 +4,7 @@ import { FooterCTA } from "@/components/sections/FooterCTA";
 import { PageHero } from "@/components/sections/PageHero";
 import { PostList } from "@/components/sections/PostList";
 import { Section } from "@/components/ui/Section";
-import { getPosts, slugify, tagsOf } from "@/lib/insights";
+import { getPosts, slugify, tagsOf } from "@/lib/blog";
 import { buildMetadata } from "@/lib/seo";
 
 export const revalidate = 300;
@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: { params: { tag: string } }):
   return buildMetadata({
     title: `${name}: Articles and Guides`,
     description: `Articles tagged ${name} from Correct Marketer NG.`,
-    path: `/insights/tag/${params.tag}`,
+    path: `/blog/tag/${params.tag}`,
     noindex: true, // thin tag archives stay out of the index
   });
 }
@@ -32,12 +32,12 @@ export default async function TagPage({ params }: { params: { tag: string } }) {
   return (
     <>
       <PageHero
-        crumbs={[{ name: "Insights", path: "/insights" }, { name: `#${name}`, path: `/insights/tag/${params.tag}` }]}
+        crumbs={[{ name: "Blog", path: "/blog" }, { name: `#${name}`, path: `/blog/tag/${params.tag}` }]}
         title={`Tagged: ${name}`}
-        source="insights_tag"
+        source="blog_tag"
       />
       <Section><PostList posts={posts} /></Section>
-      <FooterCTA source="insights_tag" />
+      <FooterCTA source="blog_tag" />
     </>
   );
 }

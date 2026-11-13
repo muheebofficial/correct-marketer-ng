@@ -1,38 +1,46 @@
 import Link from "next/link";
-import { budgetArticleMeta, budgetArticleReadingMinutes } from "@/lib/content/budgetArticle";
-import { formatDate } from "@/lib/insights";
-import { site } from "@/lib/site";
+import { FooterCTA } from "@/components/sections/FooterCTA";
+import { PageHero } from "@/components/sections/PageHero";
+import { PostList } from "@/components/sections/PostList";
+import { Section } from "@/components/ui/Section";
+import { OneSignalSubscribeButton } from "@/components/tracking/OneSignalSubscribeButton";
+import { categoriesOf, getPosts, slugify } from "@/lib/blog";
+import { buildMetadata } from "@/lib/seo";
 
-export default function BlogIndexPage() {
+export const revalidate = 300;
+
+export const metadata = buildMetadata({
+  title: "Blog: SEO, Ads, AI & Growth Strategy for Nigerian Businesses",
+  description:
+    "Practical articles on SEO, paid advertising, AI automation, websites and lead generation for Nigerian business owners, without the jargon.",
+  path: "/blog",
+});
+
+export default async function BlogIndexPage() {
+  const posts = await getPosts();
+  const categories = categoriesOf(posts);
   return (
-    <div className="min-h-screen bg-ivory">
-      <section className="bg-forest text-ivory">
-        <div className="mx-auto max-w-page px-5 py-16 sm:px-8 sm:py-24">
-          <p className="mb-4 font-sub text-sm font-bold uppercase tracking-[0.18em] text-gold-soft">Correct Marketer NG / Blog</p>
-          <h1 className="max-w-4xl font-display text-5xl font-extrabold leading-[1.05] sm:text-7xl">Ideas that move your business forward.</h1>
-          <p className="mt-6 max-w-2xl text-lg text-ivory/85">Practical guidance to attract, nurture, convert and scale in Nigeria.</p>
-        </div>
-      </section>
-      <section className="mx-auto max-w-page px-5 py-12 sm:px-8 sm:py-16" aria-label="Latest articles">
-        <article className="max-w-4xl overflow-hidden rounded-sm border border-stone-light bg-white shadow-sm">
-          <div className="h-2 bg-gold" />
-          <div className="p-6 sm:p-10">
-            <div className="mb-5 flex flex-wrap items-center gap-x-4 gap-y-2 font-sub text-sm font-bold text-mute">
-              <span className="rounded-full bg-forest/10 px-3 py-1 text-forest">{budgetArticleMeta.category}</span>
-              <time dateTime={budgetArticleMeta.published}>{formatDate(budgetArticleMeta.published)}</time>
-              <span>{budgetArticleReadingMinutes} min read</span>
-            </div>
-            <h2 className="font-display text-3xl font-bold leading-tight text-obsidian sm:text-4xl">
-              <Link className="hover:text-forest" href={`/blog/${budgetArticleMeta.slug}`}>{budgetArticleMeta.title}</Link>
-            </h2>
-            <p className="mt-5 max-w-2xl text-lg text-mute">{budgetArticleMeta.excerpt}</p>
-            <Link href={`/blog/${budgetArticleMeta.slug}`} className="mt-7 inline-flex min-h-12 items-center rounded-sm bg-forest px-6 font-sub font-bold text-ivory hover:bg-[#0E6236]">
-              Read the article <span className="ml-2" aria-hidden="true">→</span>
+    <>
+      <PageHero
+        crumbs={[{ name: "Blog", path: "/blog" }]}
+        title="Get smarter about growth."
+        sub="Practical marketing, SEO, AI and growth strategy for Nigerian businesses, without the jargon."
+        source="blog_index"
+      />
+      <Section>
+        <nav aria-label="Categories" className="mb-10 flex flex-wrap gap-2">
+          {categories.map((c) => (
+            <Link key={c} href={`/blog/category/${slugify(c)}`} className="min-h-[40px] rounded-full border border-obsidian/30 px-4 py-2 font-sub text-sm font-bold hover:bg-forest hover:text-ivory">
+              {c}
             </Link>
-          </div>
-        </article>
-        <p className="mt-12 text-sm text-mute">Published by {site.name}</p>
-      </section>
-    </div>
+          ))}
+        </nav>
+        <div className="mb-8">
+          <OneSignalSubscribeButton />
+        </div>
+        <PostList posts={posts} />
+      </Section>
+      <FooterCTA source="blog_index" />
+    </>
   );
 }

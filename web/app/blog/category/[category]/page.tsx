@@ -4,7 +4,7 @@ import { FooterCTA } from "@/components/sections/FooterCTA";
 import { PageHero } from "@/components/sections/PageHero";
 import { PostList } from "@/components/sections/PostList";
 import { Section } from "@/components/ui/Section";
-import { categoriesOf, getPosts, slugify } from "@/lib/insights";
+import { categoriesOf, getPosts, slugify } from "@/lib/blog";
 import { buildMetadata } from "@/lib/seo";
 
 export const revalidate = 300;
@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: { params: { category: string 
   return buildMetadata({
     title: `${name} Articles for Nigerian Businesses`,
     description: `Practical ${name} guides and strategy for Nigerian business owners from Correct Marketer NG.`,
-    path: `/insights/category/${params.category}`,
+    path: `/blog/category/${params.category}`,
   });
 }
 
@@ -31,13 +31,13 @@ export default async function CategoryPage({ params }: { params: { category: str
   return (
     <>
       <PageHero
-        crumbs={[{ name: "Insights", path: "/insights" }, { name, path: `/insights/category/${params.category}` }]}
+        crumbs={[{ name: "Blog", path: "/blog" }, { name, path: `/blog/category/${params.category}` }]}
         title={name}
         sub={`Articles on ${name.toLowerCase()} for Nigerian business owners.`}
-        source="insights_category"
+        source="blog_category"
       />
       <Section><PostList posts={posts} /></Section>
-      <FooterCTA source="insights_category" />
+      <FooterCTA source="blog_category" />
     </>
   );
 }

@@ -11,40 +11,32 @@ import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
 import { services } from "@/lib/content/services";
 import type { Service } from "@/lib/content/types";
 import { getCollection } from "@/lib/api";
-import { formatDate, getPosts, slugify } from "@/lib/insights";
+import { formatDate, getPosts, slugify } from "@/lib/blog";
 import { articleSchema, breadcrumbSchema, faqSchema } from "@/lib/schema";
 import { buildMetadata } from "@/lib/seo";
 import { absoluteUrl, site } from "@/lib/site";
 
-export const revalidate = 300;
-
-export async function generateStaticParams() {
-  return (await getPosts()).map((p) => ({ slug: p.slug }));
-}
-
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
-  const { slug } = await params;
+export async function postMetadata(slug: string): Promise<Metadata> {
   const post = (await getPosts()).find((p) => p.slug === slug);
   if (!post) return {};
   return buildMetadata({
     title: post.title,
     description: post.description,
-    path: `/insights/${post.slug}`,
+    path: `/blog/${post.slug}`,
     type: "article",
     publishedTime: post.published,
     modifiedTime: post.updated,
   });
 }
 
-export default async function PostPage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
+export async function PostView({ slug }: { slug: string }) {
   const all = await getPosts();
   const foundPost = all.find((p) => p.slug === slug);
 
   if (!foundPost) notFound();
 
   const post = foundPost;
-  const path = `/insights/${post.slug}`;
+  const path = `/blog/${post.slug}`;
   const allServices = await getCollection<Service>("services", services);
   const serviceAliases: Record<string, string> = {
     seo: "best-seo-agency-in-nigeria",
@@ -67,8 +59,8 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
     const faqItems = post.faq ?? [];
     const breadcrumbItems = [
       { name: "Home", path: "/" },
-      { name: "Insights", path: "/insights" },
-      { name: "AI Automation", path: "/insights/category/ai-automation" },
+      { name: "Blog", path: "/blog" },
+      { name: "AI Automation", path: "/blog/category/ai-automation" },
       { name: post.title, path },
     ];
 
@@ -103,7 +95,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
         <article>
           <header className="on-dark adire bg-forest text-ivory">
             <div className="mx-auto max-w-5xl px-5 py-12 sm:px-8 md:py-20">
-              <Breadcrumbs tone="dark" items={[{ name: "Insights", path: "/insights" }, { name: "AI Automation", path: "/insights/category/ai-automation" }, { name: post.title, path }]} />
+              <Breadcrumbs tone="dark" items={[{ name: "Blog", path: "/blog" }, { name: "AI Automation", path: "/blog/category/ai-automation" }, { name: post.title, path }]} />
               <p className="mt-8 font-sub text-sm font-bold text-gold-soft">{post.category}</p>
               <h1 className="mt-2 font-display text-[clamp(2.25rem,5.5vw,4rem)] font-extrabold leading-[1.02]">{post.title}</h1>
               <p className="mt-5 text-sm text-ivory/85">
@@ -208,9 +200,9 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
           <div className="mx-auto max-w-4xl px-5 py-12 sm:px-8">
             <h2 className="font-display text-3xl font-extrabold text-forest">Related reading</h2>
             <ul className="mt-4 space-y-3">
-              <li><Link href="/insights/can-ai-automate-whatsapp-customer-support" className="font-sub text-lg font-bold text-forest underline decoration-gold underline-offset-4">Can AI Automate WhatsApp Customer Support for Your Business?</Link></li>
-              <li><Link href="/insights/why-your-website-is-not-generating-customers" className="font-sub text-lg font-bold text-forest underline decoration-gold underline-offset-4">Why Your Website Isn't Generating Customers (and How to Fix It)</Link></li>
-              <li><Link href="/insights" className="font-sub text-lg font-bold text-forest underline decoration-gold underline-offset-4">Insights blog index</Link></li>
+              <li><Link href="/blog/can-ai-automate-whatsapp-customer-support" className="font-sub text-lg font-bold text-forest underline decoration-gold underline-offset-4">Can AI Automate WhatsApp Customer Support for Your Business?</Link></li>
+              <li><Link href="/blog/why-your-website-is-not-generating-customers" className="font-sub text-lg font-bold text-forest underline decoration-gold underline-offset-4">Why Your Website Isn't Generating Customers (and How to Fix It)</Link></li>
+              <li><Link href="/blog" className="font-sub text-lg font-bold text-forest underline decoration-gold underline-offset-4">All blog posts</Link></li>
             </ul>
           </div>
         </section>
@@ -236,8 +228,8 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
             <Breadcrumbs
               tone="dark"
               items={[
-                { name: "Insights", path: "/insights" },
-                { name: post.category, path: `/insights/category/${slugify(post.category)}` },
+                { name: "Blog", path: "/blog" },
+                { name: post.category, path: `/blog/category/${slugify(post.category)}` },
                 { name: post.title, path },
               ]}
             />
@@ -326,7 +318,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
             <h2 id="related-h" className="font-display text-3xl font-extrabold text-forest">Keep reading</h2>
             <ul className="mt-4 space-y-2">
               {related.map((r) => (
-                <li key={r.slug}><Link href={`/insights/${r.slug}`} className="font-sub text-lg font-bold text-forest underline decoration-gold underline-offset-4">{r.title}</Link></li>
+                <li key={r.slug}><Link href={`/blog/${r.slug}`} className="font-sub text-lg font-bold text-forest underline decoration-gold underline-offset-4">{r.title}</Link></li>
               ))}
             </ul>
           </div>

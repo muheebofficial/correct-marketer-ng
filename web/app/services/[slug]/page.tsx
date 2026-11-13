@@ -200,7 +200,7 @@ export default async function ServicePage({ params }: { params: { slug: string }
             <ul className="mt-2 space-y-1">
               {relatedPosts.map((p) => (
                 <li key={p.slug}>
-                  <Link href={`/insights/${p.slug}`} className="text-forest underline decoration-gold underline-offset-4">{p.title}</Link>
+                  <Link href={`/blog/${p.slug}`} className="text-forest underline decoration-gold underline-offset-4">{p.title}</Link>
                 </li>
               ))}
             </ul>
