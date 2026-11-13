@@ -4,7 +4,10 @@ import { notFound } from "next/navigation";
 import { BlogCTA } from "@/components/blog/BlogCTA";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { budgetArticle, budgetArticleMeta, budgetArticleReadingMinutes } from "@/lib/content/budgetArticle";
-import { articleSchema } from "@/lib/schema";
+import { articleSchema, faqSchema } from "@/lib/schema";
+import { getBlogPosts } from "@/lib/blog";
+import type { Post } from "@/lib/content/types";
+import { formatDate, slugify } from "@/lib/insights";
 import { absoluteUrl, site } from "@/lib/site";
 import { getBlogPosts } from "@/lib/blog";
 import type { Post } from "@/lib/content/types";
@@ -263,3 +266,67 @@ const relatedTitles = new Map<string, string>([
   ["claude-duet-proactive-ai-agents-nigerian-business", "Claude Duet Is Here: What Proactive AI Agents Mean for Nigerian Business Owners"],
   ["google-ai-overviews-seo-nigeria", "Google AI Overviews and SEO in Nigeria: What Businesses Must Do in 2026"],
 ]);
+
+
+async function UnifiedPostPage({ post }: { post: Post }) {
+  const path = `/blog/${post.slug}`;
+  const url = absoluteUrl(path);
+  const allPosts = await getBlogPosts();
+  const related = allPosts.filter((candidate) => post.related.includes(candidate.slug));
+  const schema = [
+    articleSchema({ title: post.title, description: post.description, path, published: post.published, updated: post.updated, author: post.author }),
+    ...(post.faq?.length ? [faqSchema(post.faq)] : []),
+  ];
+  return (
+    <article className="blog-page">
+      <JsonLd data={schema} />
+      <header className="blog-hero">
+        <div className="mx-auto max-w-page px-5 py-12 sm:px-8 sm:py-16">
+          <Link href="/blog" className="mb-7 inline-flex font-sub text-sm font-bold text-gold-soft underline underline-offset-4">← All blog posts</Link>
+          <p className="mb-4 font-sub text-sm font-bold uppercase tracking-[0.16em] text-gold-soft">{post.category}</p>
+          <h1 className="max-w-5xl font-display text-4xl font-extrabold leading-[1.08] sm:text-6xl">{post.title}</h1>
+          <div className="mt-7 flex flex-wrap gap-x-5 gap-y-2 font-sub text-sm text-ivory/85">
+            <span>{post.author}</span>
+            <time dateTime={post.published}>{formatDate(post.published)}</time>
+            {post.updated !== post.published && <span>Updated {formatDate(post.updated)}</span>}
+            <span>{post.readingMinutes} min read</span>
+          </div>
+        </div>
+      </header>
+      <div className="mx-auto max-w-4xl px-5 py-10 sm:px-8 sm:py-14">
+        <div className="blog-prose">
+          <p className="blog-intro">{post.intro}</p>
+          {post.sections.map((section) => (
+            <section key={section.heading} className="blog-section">
+              <h2 id={slugify(section.heading)}>{section.heading}</h2>
+              {section.paragraphs.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
+            </section>
+          ))}
+          {post.faq?.length ? (
+            <section className="blog-section" aria-labelledby="blog-faq">
+              <h2 id="blog-faq">Frequently asked questions</h2>
+              {post.faq.map((item) => (
+                <div key={item.q} className="mb-6 border-b border-stone-light pb-5">
+                  <h3>{item.q}</h3>
+                  <p>{item.a}</p>
+                </div>
+              ))}
+            </section>
+          ) : null}
+          {post.source && <p className="mt-10 text-sm italic text-mute">{post.source}</p>}
+          {post.cta && <p className="mt-8 font-semibold text-forest">{post.cta}</p>}
+          <p className="mt-8"><a href={`https://wa.me/${site.whatsappNumber}?text=${encodeURIComponent(`Hi Correct Marketer NG, I read "${post.title}" and would like to discuss this with your team.`)}`} target="_blank" rel="noopener noreferrer" className="font-semibold text-forest underline decoration-gold underline-offset-4">Talk to Correct Marketer NG on WhatsApp</a></p>
+        </div>
+        {related.length > 0 && (
+          <section className="mt-14 border-t border-stone-light pt-8" aria-labelledby="related-posts">
+            <h2 id="related-posts" className="font-display text-3xl font-extrabold text-forest">Keep reading</h2>
+            <ul className="mt-4 space-y-3">
+              {related.map((item) => <li key={item.slug}><Link href={`/blog/${item.slug}`} className="font-sub text-lg font-bold text-forest underline decoration-gold underline-offset-4">{item.title}</Link></li>)}
+            </ul>
+          </section>
+        )}
+        <p className="mt-12 border-t border-stone-light pt-6 text-sm text-mute">{site.founder.name} · {site.founder.title}, Correct Marketer NG · <Link href="/blog">More from the Blog</Link></p>
+      </div>
+    </article>
+  );
+}
