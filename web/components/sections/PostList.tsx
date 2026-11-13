@@ -14,7 +14,7 @@ export function PostList({ posts }: { posts: Post[] }) {
             </div>
             <div>
               <h2 className="font-sub text-2xl font-bold leading-snug text-forest">
-                <Link href={`/insights/${p.slug}`} className="underline-offset-4 hover:underline">{p.title}</Link>
+                <Link href={`/blog/${p.slug}`} className="underline-offset-4 hover:underline">{p.title}</Link>
               </h2>
               <p className="mt-2 max-w-2xl text-mute">{p.description}</p>
             </div>
