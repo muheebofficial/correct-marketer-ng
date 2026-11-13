@@ -51,7 +51,7 @@ The scripts require the environment values from `.env.local` or the shell. The m
 
 - Subscribe from an Insights index or article; verify the subscription appears in OneSignal's audience.
 - Publish a draft through the CMS and confirm a push arrives within seconds.
-- Click the push and confirm it opens the matching `/insights/{slug}` page.
+- Click the push and confirm it opens the matching `/blog/{slug}` page.
 - Edit an already-published post and confirm no second push is sent.
 - Set a published post's `publishedAt` (or `published`) to a future time and confirm it is skipped until due; the daily cron will retry it.
 - Deny the browser permission and confirm the branded opt-in control is hidden.
