@@ -12,7 +12,7 @@ const company = [
   { label: "Contact", href: "/contact" },
 ];
 const resources = [
-  { label: "Insights", href: "/insights" },
+  { label: "Blog", href: "/blog" },
   { label: "Free Audits", href: "/audits" },
   { label: "Sitemap", href: "/sitemap.xml" },
 ];
