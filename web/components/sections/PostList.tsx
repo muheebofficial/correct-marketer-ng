@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { formatDate } from "@/lib/insights";
+import { formatDate } from "@/lib/blog";
 import type { Post } from "@/lib/content/types";
 
 export function PostList({ posts }: { posts: Post[] }) {

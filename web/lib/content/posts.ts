@@ -270,7 +270,7 @@ export const posts: Post[] = [
     ],
     source: 'VentureBeat, "Anthropic\'s answer to Muse is here: Claude Duet", October 21, 2026.',
     cta: "Want to start? Message us on WhatsApp: +234 911 017 2901 or visit correctmarketer.com.ng.",
-  },,
+  },
   {
     "slug": "google-ai-overviews-seo-nigeria",
     "title": "Google AI Overviews and SEO in Nigeria: What Businesses Must Do in 2026",

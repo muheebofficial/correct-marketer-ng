@@ -7,7 +7,7 @@
 3. Add the root worker file at `web/public/OneSignalSDKWorker.js`. It must remain publicly available at `/OneSignalSDKWorker.js`; the worker uses the official OneSignal v16 import.
 4. Copy the OneSignal App ID and REST API key from **Settings > Keys & IDs**. Create a separate OneSignal app for localhost testing.
 
-The integration initializes once in the root layout, enables OneSignal's subscription bell, and disables automatic permission prompts. Visitors can request push only by clicking **Get notified of new posts** on an Blog index or post page. The site hides that control after the browser permission is denied or the visitor is subscribed.
+The integration initializes once in the root layout, enables OneSignal's subscription bell, and disables automatic permission prompts. Visitors can request push only by clicking **Get notified of new posts** on a blog index or post page. The site hides that control after the browser permission is denied or the visitor is subscribed.
 
 ## Environment variables
 
@@ -49,7 +49,7 @@ The scripts require the environment values from `.env.local` or the shell. The m
 
 ## Test checklist
 
-- Subscribe from an Insights index or article; verify the subscription appears in OneSignal's audience.
+- Subscribe from a blog index or article; verify the subscription appears in OneSignal's audience.
 - Publish a draft through the CMS and confirm a push arrives within seconds.
 - Click the push and confirm it opens the matching `/blog/{slug}` page.
 - Edit an already-published post and confirm no second push is sent.

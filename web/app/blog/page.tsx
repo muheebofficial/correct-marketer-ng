@@ -1,39 +1,46 @@
 import Link from "next/link";
+import { FooterCTA } from "@/components/sections/FooterCTA";
+import { PageHero } from "@/components/sections/PageHero";
 import { PostList } from "@/components/sections/PostList";
-import { categoriesOf, slugify } from "@/lib/insights";
-import { getBlogPosts } from "@/lib/blog";
+import { Section } from "@/components/ui/Section";
+import { OneSignalSubscribeButton } from "@/components/tracking/OneSignalSubscribeButton";
+import { categoriesOf, getPosts, slugify } from "@/lib/blog";
 import { buildMetadata } from "@/lib/seo";
-import { site } from "@/lib/site";
 
 export const revalidate = 300;
 
 export const metadata = buildMetadata({
-  title: "Blog: SEO, AI & Growth Strategy for Nigerian Businesses",
-  description: "Practical articles on SEO, paid advertising, AI automation, websites and lead generation for Nigerian business owners, without the jargon.",
+  title: "Blog: SEO, Ads, AI & Growth Strategy for Nigerian Businesses",
+  description:
+    "Practical articles on SEO, paid advertising, AI automation, websites and lead generation for Nigerian business owners, without the jargon.",
   path: "/blog",
 });
 
 export default async function BlogIndexPage() {
-  const posts = await getBlogPosts();
+  const posts = await getPosts();
   const categories = categoriesOf(posts);
   return (
-    <div className="min-h-screen bg-ivory">
-      <section className="bg-forest text-ivory">
-        <div className="mx-auto max-w-page px-5 py-16 sm:px-8 sm:py-24">
-          <p className="mb-4 font-sub text-sm font-bold uppercase tracking-[0.18em] text-gold-soft">Correct Marketer NG / Blog</p>
-          <h1 className="max-w-4xl font-display text-5xl font-extrabold leading-[1.05] sm:text-7xl">Ideas that move your business forward.</h1>
-          <p className="mt-6 max-w-2xl text-lg text-ivory/85">Practical guidance to attract, nurture, convert and scale in Nigeria.</p>
-        </div>
-      </section>
-      <section className="mx-auto max-w-page px-5 py-12 sm:px-8 sm:py-16" aria-label="All articles">
-        <nav aria-label="Blog categories" className="mb-10 flex flex-wrap gap-2">
-          {categories.map((category) => (
-            <Link key={category} href={`/blog/category/${slugify(category)}`} className="min-h-[40px] rounded-full border border-obsidian/30 px-4 py-2 font-sub text-sm font-bold hover:bg-forest hover:text-ivory">{category}</Link>
+    <>
+      <PageHero
+        crumbs={[{ name: "Blog", path: "/blog" }]}
+        title="Get smarter about growth."
+        sub="Practical marketing, SEO, AI and growth strategy for Nigerian businesses, without the jargon."
+        source="blog_index"
+      />
+      <Section>
+        <nav aria-label="Categories" className="mb-10 flex flex-wrap gap-2">
+          {categories.map((c) => (
+            <Link key={c} href={`/blog/category/${slugify(c)}`} className="min-h-[40px] rounded-full border border-obsidian/30 px-4 py-2 font-sub text-sm font-bold hover:bg-forest hover:text-ivory">
+              {c}
+            </Link>
           ))}
         </nav>
+        <div className="mb-8">
+          <OneSignalSubscribeButton />
+        </div>
         <PostList posts={posts} />
-        <p className="mt-12 text-sm text-mute">Published by {site.name}. All articles are part of one growing library.</p>
-      </section>
-    </div>
+      </Section>
+      <FooterCTA source="blog_index" />
+    </>
   );
 }

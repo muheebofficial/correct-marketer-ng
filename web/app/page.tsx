@@ -87,7 +87,7 @@ export default function HomePage() {
           <div>
             <Heading id="faq-heading">Straight answers to what business owners ask</Heading>
             <p className="mt-5 text-mute">
-              More in our <Link href="/blog" className="font-semibold text-forest underline decoration-gold underline-offset-4">Blog</Link>.
+              More in our <Link href="/blog" className="font-semibold text-forest underline decoration-gold underline-offset-4">blog</Link>.
             </p>
           </div>
           <FAQ faqs={homeFaqs} />

@@ -24,9 +24,12 @@ const nextConfig = {
     };
   },
   async redirects() {
+    // The /insights section was merged into /blog; keep every old URL alive with a permanent redirect.
     return [
       { source: "/insights", destination: "/blog", permanent: true },
-      { source: "/insights/:path*", destination: "/blog/:path*", permanent: true },
+      { source: "/insights/category/:category", destination: "/blog/category/:category", permanent: true },
+      { source: "/insights/tag/:tag", destination: "/blog/tag/:tag", permanent: true },
+      { source: "/insights/:slug", destination: "/blog/:slug", permanent: true },
     ];
   },
   async headers() {
