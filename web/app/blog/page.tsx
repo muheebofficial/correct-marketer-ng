@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { PostList } from "@/components/sections/PostList";
-import { budgetArticleMeta } from "@/lib/content/budgetArticle";
 import { categoriesOf, slugify } from "@/lib/insights";
 import { getBlogPosts } from "@/lib/blog";
 import { buildMetadata } from "@/lib/seo";
