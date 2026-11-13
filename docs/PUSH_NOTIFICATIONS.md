@@ -7,7 +7,7 @@
 3. Add the root worker file at `web/public/OneSignalSDKWorker.js`. It must remain publicly available at `/OneSignalSDKWorker.js`; the worker uses the official OneSignal v16 import.
 4. Copy the OneSignal App ID and REST API key from **Settings > Keys & IDs**. Create a separate OneSignal app for localhost testing.
 
-The integration initializes once in the root layout, enables OneSignal's subscription bell, and disables automatic permission prompts. Visitors can request push only by clicking **Get notified of new posts** on an Insights index or post page. The site hides that control after the browser permission is denied or the visitor is subscribed.
+The integration initializes once in the root layout, enables OneSignal's subscription bell, and disables automatic permission prompts. Visitors can request push only by clicking **Get notified of new posts** on an Blog index or post page. The site hides that control after the browser permission is denied or the visitor is subscribed.
 
 ## Environment variables
 
@@ -25,7 +25,7 @@ The existing Vercel settings `API_URL` and `API_SHARED_SECRET` are also needed s
 
 The active CMS publishing endpoint is `PUT /v1/admin/content/posts/{slug}` in the Python API. On a new post or a real transition from draft to published, FastAPI queues a best-effort POST to `/api/notify/post-published`; the CMS response does not wait for the network call. Editing a post that is already published does not trigger another notification.
 
-The Node route authenticates `x-notify-secret`, then `lib/notify-post.ts` asks the Python service to atomically claim the Astra post. Only published posts that are not already notified and are not currently sending can be claimed. Future-dated posts are returned to pending. The notifier revalidates `/insights` and `/insights/{slug}`, confirms the post URL returns HTTP 200 (up to three checks, two seconds apart), and sends an English push to the OneSignal **Subscribed Users** segment. The notification opens `/insights/{slug}`. Astra fields support `excerpt` or the current `description`, `publishedAt` or the current `published`, and an optional `coverImage`/`cover_image`.
+The Node route authenticates `x-notify-secret`, then `lib/notify-post.ts` asks the Python service to atomically claim the Astra post. Only published posts that are not already notified and are not currently sending can be claimed. Future-dated posts are returned to pending. The notifier revalidates `/blog` and `/blog/{slug}`, confirms the post URL returns HTTP 200 (up to three checks, two seconds apart), and sends an English push to the OneSignal **Subscribed Users** segment. The notification opens `/blog/{slug}`. Astra fields support `excerpt` or the current `description`, `publishedAt` or the current `published`, and an optional `coverImage`/`cover_image`.
 
 Delivery success records `notified`, `notifiedAt`, and `notifyState: "sent"`; a failure releases the claim to `pending` and logs the error. The daily cron checks pending published posts as a safety net. It runs at 09:00 UTC. Vercel Pro allows more frequent cron runs; adjust the schedule in `web/vercel.json` if the project plan supports it.
 
