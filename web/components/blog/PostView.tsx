@@ -39,9 +39,9 @@ export async function PostView({ slug }: { slug: string }) {
   const path = `/blog/${post.slug}`;
   const allServices = await getCollection<Service>("services", services);
   const serviceAliases: Record<string, string> = {
-    seo: "best-seo-agency-in-nigeria",
-    "web-development": "best-web-development-company-in-nigeria",
-    "ai-marketing-automation": "best-ai-automation-agency-in-nigeria",
+    seo: "best-seo-agency-in-lagos-nigeria",
+    "web-development": "best-web-development-company-in-lagos-nigeria",
+    "ai-marketing-automation": "best-ai-automation-agency-in-lagos-nigeria",
   };
   const serviceSlug = serviceAliases[post.service] ?? post.service;
   const service = allServices.find((s) => s.slug === serviceSlug);
@@ -168,7 +168,7 @@ export async function PostView({ slug }: { slug: string }) {
                   <li><strong>Fix your process before you automate it.</strong> Automation doesn't repair a messy sales process. It runs it faster. Write down how a lead becomes a paying customer in your business. Every step.</li>
                   <li><strong>Start with the repetitive stuff.</strong> Follow-up messages, order confirmations, FAQs, invoice reminders. These are low-risk, easy to check, and eat hours every week. Start there, not with payroll.</li>
                   <li><strong>Keep a human in the approval loop.</strong> Even the most advanced agents ask before doing anything consequential. Build the same rule into your own systems: AI drafts and prepares, you approve what matters.</li>
-                  <li><strong>Don't wait for the perfect tool.</strong> You don't need Duet to start. <Link href="/services/best-ai-automation-agency-in-nigeria">WhatsApp sales and follow-up systems</Link> are available now. The businesses that build the habit early will be ready when tools like Duet arrive.</li>
+                  <li><strong>Don't wait for the perfect tool.</strong> You don't need Duet to start. <Link href="/services/best-ai-automation-agency-in-lagos-nigeria">WhatsApp sales and follow-up systems</Link> are available now. The businesses that build the habit early will be ready when tools like Duet arrive.</li>
                 </ol>
               </section>
 
@@ -178,7 +178,7 @@ export async function PostView({ slug }: { slug: string }) {
                 <p>The question isn't whether this reaches Nigeria. It's whether your business will be organised enough to use it when it does.</p>
                 <p>At Correct Marketer NG, we help Nigerian businesses get lead flow, follow-up, and sales automation working now, so you're not scrambling later. We bring in the leads, automate the follow-up, and leave you talking only to customers who are ready to buy.</p>
                 <p><strong>Want to start? Message us on WhatsApp: <a href="https://wa.me/2349110172901" target="_blank" rel="noopener noreferrer">+234 911 017 2901</a> or visit <Link href="/">correctmarketer.com.ng</Link>.</strong></p>
-                <p>We also help businesses use <Link href="/services/best-ai-automation-agency-in-nigeria">AI automation</Link> in a practical way, without waiting for the next big launch.</p>
+                <p>We also help businesses use <Link href="/services/best-ai-automation-agency-in-lagos-nigeria">AI automation</Link> in a practical way, without waiting for the next big launch.</p>
               </section>
 
               <section className="mt-10" id="faq">

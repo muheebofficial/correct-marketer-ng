@@ -26,6 +26,13 @@ const nextConfig = {
   async redirects() {
     // The /insights section was merged into /blog; keep every old URL alive with a permanent redirect.
     return [
+      // Service URLs were localised to Lagos, Nigeria; the six previously live URLs redirect permanently.
+      { source: "/services/best-seo-agency-in-nigeria", destination: "/services/best-seo-agency-in-lagos-nigeria", permanent: true },
+      { source: "/services/best-google-ads-agency-in-nigeria", destination: "/services/best-google-ads-agency-in-lagos-nigeria", permanent: true },
+      { source: "/services/best-ai-automation-agency-in-nigeria", destination: "/services/best-ai-automation-agency-in-lagos-nigeria", permanent: true },
+      { source: "/services/best-web-development-company-in-nigeria", destination: "/services/best-web-development-company-in-lagos-nigeria", permanent: true },
+      { source: "/services/best-lead-generation-agency-in-nigeria", destination: "/services/best-lead-generation-agency-in-lagos-nigeria", permanent: true },
+      { source: "/services/best-brand-strategy-agency-in-nigeria", destination: "/services/best-brand-strategy-agency-in-lagos-nigeria", permanent: true },
       { source: "/insights", destination: "/blog", permanent: true },
       { source: "/insights/category/:category", destination: "/blog/category/:category", permanent: true },
       { source: "/insights/tag/:tag", destination: "/blog/tag/:tag", permanent: true },

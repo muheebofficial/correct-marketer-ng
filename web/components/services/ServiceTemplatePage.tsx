@@ -8,24 +8,31 @@ import { ProcessStepper } from "@/components/sections/ProcessStepper";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Heading, Section } from "@/components/ui/Section";
 import { serviceCopy } from "@/lib/content/serviceCopy";
-import { breadcrumbSchema, serviceSchema } from "@/lib/schema";
+import { serviceSeo } from "@/lib/services-seo";
+import { breadcrumbSchema, faqSchema, serviceSchema } from "@/lib/schema";
 import { buildMetadata } from "@/lib/seo";
 import { getGroup, getNextGroup, getRelatedServices, getService, getServicesByGroup } from "@/lib/services-taxonomy";
 import { waLink } from "@/lib/site";
 
 export function templateMetadata(slug: string) {
   const s = getService(slug);
-  if (!s) return {};
-  const full = `${s.name} in Nigeria | Correct Marketer NG`;
-  const title = full.length <= 70 ? full : `${s.menuLabel} in Nigeria | Correct Marketer NG`;
-  const description = `${s.snippet} ${s.nigeriaAngle}`.slice(0, 158).replace(/\s+\S*$/, "") + (`${s.snippet} ${s.nigeriaAngle}`.length > 158 ? "…" : "");
-  return buildMetadata({ title, description, path: s.path });
+  const seo = serviceSeo[slug];
+  if (!s || !seo) return {};
+  return buildMetadata({ title: seo.title, description: seo.description, path: s.path });
 }
 
 export function ServiceTemplatePage({ slug }: { slug: string }) {
   const s = getService(slug);
   const copy = serviceCopy[slug];
-  if (!s || !copy) notFound();
+  const seo = serviceSeo[slug];
+  if (!s || !copy || !seo) notFound();
+  const faqs = [
+    ...copy.faqs,
+    {
+      q: `Do you offer ${s.menuLabel.toLowerCase()} outside Lagos?`,
+      a: `Yes. We are based in Lagos and work with businesses across Nigeria, including Abuja, Port Harcourt, Ibadan, Kano, Enugu and Ikorodu. Most of the work is done remotely, and we can meet in person around Lagos.`,
+    },
+  ];
   const group = getGroup(s.groupSlug)!;
   const siblings = getServicesByGroup(s.groupSlug).filter((x) => x.slug !== s.slug);
   const related = getRelatedServices(s.slug);
@@ -35,11 +42,11 @@ export function ServiceTemplatePage({ slug }: { slug: string }) {
 
   return (
     <>
-      <JsonLd data={[serviceSchema({ name: s.name, description: s.snippet, path: s.path }), breadcrumbSchema([{ name: "Home", path: "/" }, ...crumbs])]} />
+      <JsonLd data={[serviceSchema({ name: seo.h1, description: seo.description, path: s.path }), faqSchema(faqs), breadcrumbSchema([{ name: "Home", path: "/" }, ...crumbs])]} />
       <PageHero
         crumbs={crumbs}
-        eyebrow={`${group.name} · Digital growth in Nigeria`}
-        title={s.name}
+        eyebrow={`${group.name} · Lagos, Nigeria`}
+        title={seo.h1}
         sub={s.snippet}
         cta="Talk to us about this"
         ctaHref="#start"
@@ -82,8 +89,9 @@ export function ServiceTemplatePage({ slug }: { slug: string }) {
       </Section>
 
       <Section tone="obsidian" labelledBy="ng-h">
-        <Heading id="ng-h" tone="dark">Why this matters in Nigeria</Heading>
-        <p className="mt-6 max-w-3xl text-xl text-ivory/90">{s.nigeriaAngle}</p>
+        <Heading id="ng-h" tone="dark">Why this matters in Lagos and across Nigeria</Heading>
+        <p className="mt-6 max-w-3xl text-xl text-ivory/90">{seo.lagos}</p>
+        <p className="mt-5 max-w-3xl text-lg text-ivory/75">{s.nigeriaAngle}</p>
       </Section>
 
       <Section labelledBy="process-h">
@@ -123,7 +131,7 @@ export function ServiceTemplatePage({ slug }: { slug: string }) {
       <Section labelledBy="faq-h">
         <div className="grid gap-10 lg:grid-cols-[1fr_1.6fr] lg:gap-16">
           <Heading id="faq-h">Questions we hear about {s.menuLabel.toLowerCase()}</Heading>
-          <FAQ faqs={copy.faqs} />
+          <FAQ faqs={faqs} />
         </div>
       </Section>
 

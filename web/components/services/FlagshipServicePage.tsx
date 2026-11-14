@@ -15,7 +15,7 @@ import { posts as defaultPosts } from "@/lib/content/posts";
 import { services } from "@/lib/content/services";
 import type { CaseStudy, Post, Service } from "@/lib/content/types";
 import { buildMetadata } from "@/lib/seo";
-import { serviceSchema } from "@/lib/schema";
+import { faqSchema, serviceSchema } from "@/lib/schema";
 import { getGroup, getService as getTaxService, getServicesByGroup } from "@/lib/services-taxonomy";
 import { waLink } from "@/lib/site";
 
@@ -47,10 +47,17 @@ export async function FlagshipServicePage({ slug }: { slug: string }) {
   const relatedIndustries = industries.filter((i) => s.industries.includes(i.slug));
   const relatedServices = allServices.filter((candidate) => s.relatedServices.includes(candidate.slug));
   const path = `/services/${s.slug}`;
+  const faqs = [
+    ...s.faqs,
+    {
+      q: "Do you work with businesses outside Lagos?",
+      a: "Yes. We are based in Lagos and work with businesses across Nigeria, including Abuja, Port Harcourt, Ibadan, Kano, Enugu and Ikorodu. Most of the work is done remotely, and we can meet in person around Lagos.",
+    },
+  ];
 
   return (
     <>
-      <JsonLd data={serviceSchema({ name: s.name, description: s.seoDescription, path })} />
+      <JsonLd data={[serviceSchema({ name: s.name, description: s.seoDescription, path }), faqSchema(faqs)]} />
       <ServiceHero
         name={s.name}
         title={s.heroHeadline}
@@ -224,7 +231,7 @@ export async function FlagshipServicePage({ slug }: { slug: string }) {
       <Section labelledBy="faq-h">
         <div className="grid gap-10 lg:grid-cols-[1fr_1.6fr] lg:gap-16">
           <Heading id="faq-h">Questions we hear about {s.name.toLowerCase()}</Heading>
-          <FAQ faqs={s.faqs} />
+          <FAQ faqs={faqs} />
         </div>
       </Section>
 
