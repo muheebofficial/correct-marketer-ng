@@ -69,6 +69,8 @@ export type Post = {
   published: string; // ISO date
   updated: string; // ISO date
   readingMinutes: number;
+  image?: string; // optional featured image path under /public, 1200x630
+  imageAlt?: string;
   service: string; // related service slug
   intro: string;
   sections: PostSection[];

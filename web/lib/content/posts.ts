@@ -403,6 +403,183 @@ export const posts: Post[] = [
     ],
     "source": "Sources: Google Search Central, “AI features and your website” — https://developers.google.com/search/docs/appearance/ai-features ; Google Business Profile Help, “Tips to improve your local ranking on Google” — https://support.google.com/business/answer/7091 ; Ahrefs, “Update: AI Overviews Reduce Clicks by 58%” (4 February 2026) — https://ahrefs.com/blog/ai-overviews-reduce-clicks-update/ ; Search Engine Roundtable, “Google AI Overviews For Brands Moved To Right Column” (2 November 2026) — https://www.seroundtable.com/google-ai-overviews-brands-right-42440.html",
     "cta": "Need a clearer SEO plan for your business? Talk to Correct Marketer NG about improving your website, search visibility and lead generation."
+  },
+  {
+    "slug": "seo-geo-aeo-starter-guide-nigerian-businesses",
+    "title": "SEO, GEO and AEO Starter Guide for Nigerian Businesses",
+    "description": "A plain-English guide to SEO, GEO and AEO for Nigerian businesses: how to rank on Google and get named by ChatGPT, Gemini, Claude and Perplexity.",
+    "category": "SEO",
+    "tags": [
+      "SEO",
+      "GEO",
+      "AEO",
+      "AI search",
+      "Nigeria"
+    ],
+    "author": "Muheeb Sulaiman",
+    "published": "2026-11-16",
+    "updated": "2026-11-16",
+    "readingMinutes": 13,
+    "service": "seo",
+    "image": "/blog/seo-geo-aeo-starter-guide.png",
+    "imageAlt": "Search result for 'best logistics company in Lagos' with an AI answer naming one business, beside the headline SEO. GEO. AEO.",
+    "intro": "A customer in Lagos types “best accountant in Ikeja” into Google and reads the answer Google writes at the top of the page. Then they ask ChatGPT or Perplexity the same question. Each one gives a short list of businesses. If yours is not on those lists, that customer never reaches you, and you never find out they looked.",
+    "sections": [
+      {
+        "heading": "What are SEO, GEO and AEO?",
+        "paragraphs": [
+          "SEO, GEO and AEO are three names for one job: making sure the right customers find your business and believe what they find. They differ in where that discovery happens.",
+          "SEO, or Search Engine Optimisation, is the work of getting your pages found and ranked in search engines such as Google and Bing. It covers your website's technical health, the pages you publish, your Google Business Profile and the trust signals around your brand.",
+          "AEO, or Answer Engine Optimisation, is the habit of writing and structuring content so that a system can lift a clear answer from it. That includes featured snippets, Google's AI Overviews and voice assistants.",
+          "GEO, or Generative Engine Optimisation, is about how generative AI tools such as ChatGPT, Gemini, Claude and Perplexity describe your business when they write an answer. The goal is that they know who you are, trust what your pages say and mention you by name.",
+          "These labels come from the marketing industry. They are not official Google products, and the work overlaps heavily. Google itself says there are no extra technical requirements or special optimisations needed to appear in AI Overviews and AI Mode. Pages need to be indexed and eligible to show in Search with a snippet, and inclusion is never guaranteed. In practice, one strong foundation serves all three."
+        ]
+      },
+      {
+        "heading": "Why Nigerian businesses need this now",
+        "paragraphs": [
+          "Nigeria's online audience is large and still growing. DataReportal counted 109 million internet users in Nigeria at the end of 2025, which is 45.5% of the population, alongside 165 million cellular mobile connections. Most of those people reach the internet on a phone. The gap between connections and users suggests the audience will keep growing, and the businesses that show up clearly now are the ones new users will meet first.",
+          "AI answers are already mainstream. In March 2026 Google said AI Overviews has more than 2 billion monthly users and is available in over 200 countries and territories and 40 languages. ChatGPT, Gemini, Claude and Perplexity answer the same questions without sending anyone to Google at all.",
+          "This changes what a search is worth. In a study published in February 2026, Ahrefs found that when an AI Overview appeared, the average click-through rate for the number-one result was 58% lower on the informational keywords it analysed. That is one study of one type of query, not a forecast for your website. Simple questions get answered on the results page. Questions that lead to a purchase still need a website, prices, proof and a way to contact you.",
+          "Here is why moving early matters. A page of search results has ten places. An AI answer usually names far fewer businesses, and the ones it names are the ones whose details are clear, consistent and easy to check. How crowded those slots are in your industry is something you can test in five minutes. Search for what you sell with Lagos, Abuja or Port Harcourt after it, then see who appears and who is missing."
+        ]
+      },
+      {
+        "heading": "How Nigerians search, and what that means for your content",
+        "paragraphs": [
+          "Searches in Nigeria tend to be local, price-aware and mobile. People type “how much is…”, “price of … in Lagos” and “… near me”, often with an area such as Lekki, Ikeja, Surulere or Ikorodu. They also compare options on WhatsApp and Instagram before they buy.",
+          "Write for those questions. A page that says “Our prices start from ₦150,000, and these three things change the cost” gives Google and an AI tool something concrete to quote. A page that says “Contact us for a quote” gives them nothing.",
+          "Mind the data cost. A page that crawls on mobile data loses the visitor and weakens your search performance. Compress images, remove plugins you do not use and keep your key information in plain text instead of inside images or PDFs.",
+          "Match the next step to the market. For most Nigerian businesses, the sale starts on WhatsApp. Put a clear WhatsApp button next to your prices and track the clicks, so you can connect visibility to enquiries."
+        ]
+      },
+      {
+        "heading": "How SEO, AEO and GEO fit together",
+        "paragraphs": [
+          "SEO makes you findable. AEO makes you quotable. GEO makes you trusted enough to be named.",
+          "Do them in that order. If your site cannot be crawled or loads slowly, no amount of AI-friendly writing will help. If your pages are findable but vague, an AI tool has nothing clear to quote. And if your business details disagree across the web, neither Google nor an AI model can be sure which version is true."
+        ]
+      },
+      {
+        "heading": "Step 1: Build the SEO foundation",
+        "paragraphs": [
+          "Start here, because everything else sits on top of it.",
+          "1. Own a website. Instagram and WhatsApp are good for sales conversations, but you do not control them and search engines cannot read them the way they read a website. Your site should say what you sell, who it is for, where you operate and how to buy.",
+          "2. Give each service and each location its own page. One page that says “we do everything” ranks for nothing. A page on “office cleaning in Lekki” can rank for exactly that. Write each page for a real customer question, not for a keyword list.",
+          "3. Fix the basics. Make sure the site is indexed, loads fast on a phone, uses clear titles and descriptions and runs on HTTPS. Set up Google Search Console and Google Analytics 4 on day one so you can see what is happening.",
+          "4. Claim and complete your Google Business Profile. Choose accurate categories, add real photos, keep opening hours current, list your services and reply to reviews. Google says local results are mainly shaped by relevance, distance and prominence. You cannot change distance, but you can improve the other two.",
+          "5. Keep your business details identical everywhere. Use the same name, address, phone number and website on your site, Google profile, social pages and any directory. Small differences confuse people and machines."
+        ]
+      },
+      {
+        "heading": "Step 2: Write answers, not just pages (AEO)",
+        "paragraphs": [
+          "Answer engines pull from content that gets to the point. Use a question as a heading, answer it in the first two sentences, then add the detail. Readers get what they need quickly, and a system gets a clean passage to quote.",
+          "Cover the questions customers actually ask: what it costs, how long it takes, what is included, what can go wrong and how you compare with the alternatives. Where you can, give real figures in naira along with the factors that move them. If you cannot publish exact prices, publish ranges and explain what changes them.",
+          "Add an FAQ to your key pages, written in the words customers use, including the awkward questions. Use structured data (schema) only where it accurately describes what is on the page. Google says you do not need special markup to appear in its AI features, so treat schema as good housekeeping rather than a shortcut.",
+          "Keep paragraphs short, explain terms the first time you use them and date the pages whose facts change, such as prices and policies. Then update them. Out-of-date prices and policies mislead customers and make your pages less useful to quote."
+        ]
+      },
+      {
+        "heading": "Step 3: Become a source AI tools trust (GEO)",
+        "paragraphs": [
+          "Generative tools build answers from what they can find and from what other sources say about you. Your job is to make sure what they find is accurate, easy to read and backed up elsewhere.",
+          "1. Let the right crawlers in. Check your robots.txt file and your hosting or security settings, because some setups block automated visitors by accident. Search-focused crawlers such as OpenAI's OAI-SearchBot and PerplexityBot need access if you want to appear in those tools' results. Each provider documents its own crawlers and the names change, so check their current guidance before deciding what to allow.",
+          "2. Put your key content in plain text on the page. If your prices, services and contact details appear only inside images, sliders or scripts that need JavaScript to load, many crawlers will not see them.",
+          "3. Build a clear identity. Have an About page that says who runs the business, when it started, your CAC registration, your address and what you are known for. Link it to your Google Business Profile and LinkedIn page, and describe yourself the same way in each place.",
+          "4. Earn mentions beyond your own site. Google reviews, features in Nigerian business and tech publications, listings in credible directories and industry bodies, and partners who link to you all tell search engines and AI tools that you are real. Nobody can guarantee a citation, so be wary of anyone who does.",
+          "5. Publish what only you can publish. Your own data, project examples, pricing and lessons give a model a reason to quote you instead of a generic page.",
+          "6. Treat llms.txt as optional. It is a proposed file that lists your key pages for AI tools. We have not seen a major AI provider say it relies on the file, so do the work above first.",
+          "Then run a simple test today. Ask ChatGPT, Gemini, Claude and Perplexity five questions a customer would ask about your industry in your city, such as “who are the best … in Lagos?” and “how much does … cost in Abuja?”. Write down which businesses each tool names, what it says about them and which sources it cites. Repeat monthly with the same questions. It is not a ranking report, because AI answers vary from one run to the next, but it shows you whom the tools currently trust and what they get wrong about you."
+        ]
+      },
+      {
+        "heading": "How to show Experience, Expertise, Authoritativeness and Trust (E-E-A-T)",
+        "paragraphs": [
+          "E-E-A-T stands for Experience, Expertise, Authoritativeness and Trustworthiness. Google describes it as a framework its human quality raters use to judge whether content is helpful and reliable. It is not a switch you turn on, and Google's guidelines treat trust as the most important part. It is still the best checklist for what belongs on your pages, and the tools that choose sources for AI answers face the same problem of deciding whom to believe.",
+          "Experience. Show that you have actually done the thing. Use your own photos, project examples, before-and-after results shared with the client's permission, and lessons from real jobs. A restaurant that writes about its own kitchen says more than a page of generic food facts.",
+          "Expertise. Say who wrote the page and why they are qualified. Add an author name, a short bio and the relevant credentials or years of practice. Explain things accurately and say what you do not know.",
+          "Authoritativeness. Other people should vouch for you: reviews, press mentions, partners, professional memberships, talks and links from respected sites. You earn these over time by being useful in public.",
+          "Trustworthiness. Make it easy to check you out. Show your registered business name and CAC details, a real address, working phone and WhatsApp numbers, clear prices, refund and delivery policies, and a privacy page that reflects the Nigeria Data Protection Act. Use HTTPS, cite your sources and date your updates."
+        ]
+      },
+      {
+        "heading": "Common mistakes Nigerian businesses make",
+        "paragraphs": [
+          "Relying only on Instagram or WhatsApp. They are valuable channels, but a business that exists only there is invisible to search and hard for AI tools to verify.",
+          "Stuffing pages with “best … in Lagos”. Repeating the phrase does not make a page useful. Write for the customer first.",
+          "Buying cheap links or believing guarantees. Anyone promising a number-one ranking or a guaranteed AI citation is selling something nobody controls. Link schemes can bring short-term movement and long-term penalties.",
+          "Publishing bulk AI-written filler. AI can help you draft, but pages with no first-hand detail, no real prices and no named author add little for a reader and little for a search engine. Add your own experience before you publish.",
+          "Letting details drift. A new phone number on your website and an old one on your Google profile quietly costs you enquiries and trust.",
+          "Not measuring. If you cannot say how many enquiries came from search, you cannot tell what is working."
+        ]
+      },
+      {
+        "heading": "A 30-day starter plan",
+        "paragraphs": [
+          "Week 1, audit and fix. Check that your site is indexed, fast on mobile and secure. Set up Search Console and Analytics. Write down your business details and make them identical everywhere.",
+          "Week 2, local presence. Complete your Google Business Profile, ask five recent customers for honest reviews, and build one page for your main service and one for your main location.",
+          "Week 3, answer content. Rewrite your three most important pages so each answers its main question in the first two sentences, includes real prices or ranges in naira and ends with an FAQ.",
+          "Week 4, authority and baseline. Add an About page with your credentials, get listed in two credible directories, pitch one article or mention to a relevant publication, then run the five-question AI test and save the results as your baseline."
+        ]
+      },
+      {
+        "heading": "How to measure progress honestly",
+        "paragraphs": [
+          "Use Google Search Console for impressions, clicks and the queries that bring people to you. Use Google Analytics 4 to see which visits turn into WhatsApp clicks, calls and form submissions. Check referral traffic from sources such as chatgpt.com and perplexity.ai, which can show when AI tools send visitors. Keep a monthly record of your AI test answers.",
+          "Here is what that looks like in practice. On my own site, muheebsulaiman.com, Search Console recorded 546 impressions, 7 clicks, a 1.28% click-through rate and an average position of 14.85 over the 28 days to 10 November 2026. One guide on the site went from 79 impressions and no clicks to 97 impressions and 4 clicks against the previous 28 days, and its average position improved from 14.62 to 8.04. Those are small numbers and early movement, not proof of sustained growth. I share them because visibility figures should come with their context, and because the real goal is to connect them to qualified enquiries.",
+          "Set realistic expectations. Fixing crawl problems and improving a Google Business Profile can show results within weeks. Rankings and enquiries from new content usually take months."
+        ]
+      },
+      {
+        "heading": "How Correct Marketer NG can help",
+        "paragraphs": [
+          "Correct Marketer NG is a Lagos digital growth agency founded in 2021, and I am Muheeb Sulaiman, its founder. We help Nigerian businesses with SEO, AI search visibility, websites that convert and WhatsApp sales automation.",
+          "A good first step is an SEO and AI visibility review of your site: what search engines and AI tools can currently see, where your business details disagree and what to fix first, in order. We do not promise rankings or AI citations. We give you a clear plan, reporting tied to enquiries and work that follows Google's own guidance."
+        ]
+      }
+    ],
+    "related": [
+      "google-ai-overviews-seo-nigeria",
+      "how-much-does-seo-cost-in-nigeria",
+      "seo-vs-google-ads-nigeria"
+    ],
+    "faq": [
+      {
+        "q": "What is the difference between SEO, GEO and AEO?",
+        "a": "SEO helps your pages rank in search engines. AEO makes your content easy to quote as a direct answer. GEO improves how generative AI tools such as ChatGPT, Gemini, Claude and Perplexity understand and mention your brand. They overlap, and one strong foundation supports all three."
+      },
+      {
+        "q": "Do I need SEO if customers already find me on Instagram and WhatsApp?",
+        "a": "Yes, if you want customers who do not know you yet. Social channels mostly reach people who follow you or are referred to you. Search and AI tools reach people who are actively looking for what you sell, and a website you own is something they can read and verify."
+      },
+      {
+        "q": "Can a Nigerian business appear in ChatGPT, Gemini, Claude or Perplexity answers?",
+        "a": "It is possible, but nobody can guarantee it. These tools draw on what they can find about your business and what other sources say about it. Clear, accurate pages, consistent details and independent mentions give you the best chance."
+      },
+      {
+        "q": "Do I need a special AI file or schema to show up in Google's AI Overviews?",
+        "a": "No. Google says there are no extra technical requirements or special optimisations for AI Overviews and AI Mode. Pages must be indexed and eligible to appear in Search with a snippet. Use structured data where it accurately describes the page."
+      },
+      {
+        "q": "How long does SEO take to work in Nigeria?",
+        "a": "Technical fixes and Google Business Profile improvements can show results within weeks. Meaningful growth in rankings and enquiries usually takes several months and depends on your competition, your current site and how much content is needed."
+      },
+      {
+        "q": "How do I check whether AI tools mention my business?",
+        "a": "Ask each tool the questions a customer would ask about your industry and city, record which businesses and sources appear, and repeat every month. Answers vary between runs, so look for patterns rather than single results."
+      },
+      {
+        "q": "What is E-E-A-T and does it affect rankings?",
+        "a": "E-E-A-T stands for Experience, Expertise, Authoritativeness and Trustworthiness. Google uses it as a framework for judging content quality, not as a single ranking score. Real experience, named authors, independent mentions and clear business details all support it."
+      },
+      {
+        "q": "How much does SEO cost in Nigeria?",
+        "a": "It depends on the size and condition of your site, how competitive your market is and how much content is needed. We quote after an audit so the price matches the work. Our guide to what drives SEO pricing in Nigeria explains the factors."
+      }
+    ],
+    "source": "DataReportal, “Digital 2026: Nigeria” (https://datareportal.com/reports/digital-2026-nigeria); Nairametrics, “Google says AI Overviews has hit 2 billion users globally”, 17 March 2026 (https://nairametrics.com/2026/03/17/google-says-ai-overviews-has-hit-2-billion-users-globally/); Google Search Central, “AI features and your website” (https://developers.google.com/search/docs/appearance/ai-features); Google Business Profile Help, “Tips to improve your local ranking on Google” (https://support.google.com/business/answer/7091); Ahrefs, “Update: AI Overviews Reduce Clicks by 58%”, February 2026 (https://ahrefs.com/blog/ai-overviews-reduce-clicks-update/); Search Console data for muheebsulaiman.com, 28 days to 10 November 2026.",
+    "cta": "Want to know where your business stands? Message Correct Marketer NG on WhatsApp at +234 911 017 2901 and ask for an SEO and AI visibility review."
   }
 ];
 

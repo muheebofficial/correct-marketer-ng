@@ -26,6 +26,7 @@ export async function postMetadata(slug: string): Promise<Metadata> {
     type: "article",
     publishedTime: post.published,
     modifiedTime: post.updated,
+    image: post.image,
   });
 }
 
@@ -220,6 +221,7 @@ export async function PostView({ slug }: { slug: string }) {
           published: post.published,
           updated: post.updated,
           author: post.author,
+          image: post.image ? absoluteUrl(post.image) : undefined,
         })}
       />
       <article>
@@ -241,6 +243,11 @@ export async function PostView({ slug }: { slug: string }) {
               <time dateTime={post.published}>{formatDate(post.published)}</time>
               {post.updated !== post.published && <> · Updated <time dateTime={post.updated}>{formatDate(post.updated)}</time></>} · {post.readingMinutes} min read
             </p>
+            {post.image && (
+              <figure className="mt-8 overflow-hidden rounded-2xl border border-gold/30 bg-obsidian">
+                <img src={post.image} alt={post.imageAlt ?? post.title} width={1200} height={630} className="h-auto w-full" fetchPriority="high" />
+              </figure>
+            )}
           </div>
         </header>
 

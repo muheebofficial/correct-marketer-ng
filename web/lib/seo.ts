@@ -9,10 +9,11 @@ type PageSeo = {
   publishedTime?: string;
   modifiedTime?: string;
   noindex?: boolean;
+  image?: string;
 };
 
 /** One place to build unique title, description, canonical, Open Graph and Twitter metadata. */
-export function buildMetadata({ title, description, path, type = "website", publishedTime, modifiedTime, noindex }: PageSeo): Metadata {
+export function buildMetadata({ title, description, path, type = "website", publishedTime, modifiedTime, noindex, image }: PageSeo): Metadata {
   const url = absoluteUrl(path);
   return {
     title,
@@ -26,8 +27,9 @@ export function buildMetadata({ title, description, path, type = "website", publ
       description,
       siteName: site.name,
       locale: "en_NG",
+      ...(image ? { images: [{ url: absoluteUrl(image), width: 1200, height: 630 }] } : {}),
       ...(type === "article" ? { publishedTime, modifiedTime } : {}),
     },
-    twitter: { card: "summary_large_image", title, description },
+    twitter: { card: "summary_large_image", title, description, ...(image ? { images: [absoluteUrl(image)] } : {}) },
   };
 }

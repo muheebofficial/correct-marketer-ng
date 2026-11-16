@@ -92,13 +92,14 @@ export function serviceSchema(s: { name: string; description: string; path: stri
   };
 }
 
-export function articleSchema(a: { title: string; description: string; path: string; published: string; updated: string; author: string }) {
+export function articleSchema(a: { title: string; description: string; path: string; published: string; updated: string; author: string; image?: string }) {
   return {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: a.title,
     description: a.description,
     mainEntityOfPage: absoluteUrl(a.path),
+    ...(a.image ? { image: a.image } : {}),
     datePublished: a.published,
     dateModified: a.updated,
     author: { "@type": "Person", name: a.author, "@id": personId },
