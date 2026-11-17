@@ -580,6 +580,151 @@ export const posts: Post[] = [
     ],
     "source": "DataReportal, “Digital 2026: Nigeria” (https://datareportal.com/reports/digital-2026-nigeria); Nairametrics, “Google says AI Overviews has hit 2 billion users globally”, 17 March 2026 (https://nairametrics.com/2026/03/17/google-says-ai-overviews-has-hit-2-billion-users-globally/); Google Search Central, “AI features and your website” (https://developers.google.com/search/docs/appearance/ai-features); Google Business Profile Help, “Tips to improve your local ranking on Google” (https://support.google.com/business/answer/7091); Ahrefs, “Update: AI Overviews Reduce Clicks by 58%”, February 2026 (https://ahrefs.com/blog/ai-overviews-reduce-clicks-update/); Search Console data for muheebsulaiman.com, 28 days to 10 November 2026.",
     "cta": "Want to know where your business stands? Message Correct Marketer NG on WhatsApp at +234 911 017 2901 and ask for an SEO and AI visibility review."
+  },
+  {
+    "slug": "cac-free-ng-domain-email-website-nigerian-businesses",
+    "title": "CAC's Free .ng Website Plan: What to Do Before It Launches",
+    "description": "CAC plans to give registered businesses free .ng domains, emails and websites. Here is what is confirmed, what is not, and how to get ready.",
+    "category": "Web Development",
+    "tags": [
+      "CAC",
+      "Free website",
+      ".ng domain",
+      "Web development",
+      "SEO",
+      "Google Ads"
+    ],
+    "author": "Muheeb Sulaiman",
+    "published": "2026-11-17",
+    "updated": "2026-11-17",
+    "readingMinutes": 9,
+    "service": "web-development",
+    "image": "/blog/cac-free-ng-website-plan.png",
+    "imageAlt": "Browser window showing yourbusiness.ng with a WhatsApp button and hello@yourbusiness.ng email, beside the headline Free .ng websites? Get ready.",
+    "intro": "Nigerian business owners are sharing a headline this week: the Corporate Affairs Commission plans to give registered businesses a free .ng domain, business email and website. It sounds like the end of the “I cannot afford a website” excuse. It also raises a bigger question. If every registered business has a website, what makes a customer choose yours?",
+    "sections": [
+      {
+        "heading": "What CAC has announced, and what it has not",
+        "paragraphs": [
+          "Here is what has been reported. Nigerian news outlets, including Legit.ng and MSME Africa, say CAC plans to provide free .ng domain names, business email addresses and websites to registered businesses, to help them build an online presence. MSME Africa, in a report dated 14 November 2026, says the announcement came in a teaser video on CAC's official social media channel.",
+          "Here is what has not been announced. On 17 November 2026, the reports we reviewed say the services are not yet available to apply for. No launch date has been given, no partners have been named (CAC is described as finalising partnerships), and no eligibility rules have been published. We have not seen an official application portal or a full official statement.",
+          "So treat this as a plan, not a product. Prepare for it, but do not wait for it."
+        ]
+      },
+      {
+        "heading": "How we checked this story",
+        "paragraphs": [
+          "Stories like this attract scammers, so here is how we checked it. We read two independent reports, from MSME Africa and NPowerDG, and both trace back to the same CAC social media teaser instead of a detailed official document. Legit.ng carries the story under the headline “After Registration, CAC Set to Give Nigerian Business Owners Free Websites, Domains, Emails”.",
+          "This is also not the first time a free domain through CAC has been proposed. In November 2020, NITDA and NIRA said they wanted newly registered companies to get a free .com.ng domain through CAC registration. The report we read describes a proposed integration and does not confirm that it launched. Plans like this can take time or stall, which is another reason to prepare without waiting.",
+          "We have not been able to review the original teaser ourselves. Before you act on anything you read about this, check CAC's official website and verified social media accounts for the latest information. We will update this article when CAC publishes details."
+        ]
+      },
+      {
+        "heading": "Why this could be good news for Nigerian businesses",
+        "paragraphs": [
+          "A domain name, a business email and a website each cost money, and setting them up takes time. For many small businesses, that cost is the reason they stay on Instagram and WhatsApp alone. A free starting point removes that barrier.",
+          "The .ng domain is Nigeria's country-code domain, managed by the Nigeria Internet Registration Association (NiRA). A .ng address tells customers, and Google, that your business is Nigerian. An email on your own domain, such as hello@yourbusiness.ng, also looks more credible than a free Gmail or Yahoo address when you send a quotation or invoice."
+        ]
+      },
+      {
+        "heading": "The catch: a free website will not set you apart",
+        "paragraphs": [
+          "When every registered business can have a website, having one stops being an advantage. Customers will compare you with competitors who also have a site, a .ng address and a business email. What decides who gets the call is what is on the site, how fast it loads, whether it shows up on Google and how easy it is to buy.",
+          "We do not yet know what CAC's websites will include. If they are standard templates, expect many businesses to end up with similar pages that say very little. A page with a logo, one paragraph about the company and a phone number gives Google little to rank and gives customers little reason to act.",
+          "There are also questions nobody has answered. Will you own the domain and be able to move it? How long is it free, and what happens afterwards? Who hosts the site and the email? Can you edit the pages, add service pages and connect Google Analytics and Search Console? Can you point the domain to a different website later? Ask these before you build your business on it."
+        ]
+      },
+      {
+        "heading": "A free website is the starting line: what actually brings customers",
+        "paragraphs": [
+          "Website quality. A site that wins business loads fast on a phone, says what you sell in the first few seconds, shows prices or price ranges in naira and makes the next step obvious, usually a WhatsApp button. It also shows proof: real photos, customer reviews and your CAC registration details. This is web development work, and it is the part most worth planning for yourself.",
+          "Search visibility. A website only brings customers if people can find it. That means one page for each service and location, clear page titles, a completed Google Business Profile and content that answers the questions customers ask. A .ng domain helps Google see that you target Nigeria, but it does not rank you by itself. Our SEO, GEO and AEO starter guide explains how to be found on Google and in AI answers.",
+          "Paid advertising. Once the site can convert visitors, Google Ads and Meta ads can send people to it on purpose. Ads pointed at a thin page waste money, so fix the page first, set up tracking for WhatsApp clicks and calls, and start with a small test budget. Ads also give quick feedback on which offers and keywords bring enquiries, and that feedback guides your SEO."
+        ]
+      },
+      {
+        "heading": "How to get ready before it launches",
+        "paragraphs": [
+          "1. Make sure your CAC registration is complete and your details are consistent. Use the same business name, address, phone number and registration number everywhere. Mismatched details are an avoidable problem.",
+          "2. Pick your domain name now. Choose a short, easy-to-spell name that matches your business name, and have two or three alternatives ready in case your first choice is taken. If you already own a .com or .com.ng domain, keep it and do not let it lapse while you wait.",
+          "3. Gather your content. You need your logo, photos of your products or work, a list of services with prices or price ranges in naira, your address, opening hours, WhatsApp number, customer reviews and short answers to the ten questions customers ask most.",
+          "4. Write your key pages in advance. Prepare a home page, one page for each main service, an About page and a Contact page. With the words ready, you can launch properly in a day instead of weeks.",
+          "5. Set up your Google Business Profile. It is free, it works with or without a website, and it helps you appear in local searches and on Maps. Add accurate categories, photos and opening hours.",
+          "6. Decide how customers will contact you. For most Nigerian businesses, that is WhatsApp. Set up a WhatsApp Business profile with a greeting message and a catalogue, so the button on your site leads somewhere useful.",
+          "7. Decide who will manage it. Someone has to update prices, publish new content and answer enquiries. A site nobody maintains loses customers' trust."
+        ]
+      },
+      {
+        "heading": "Free site or custom site: how to decide",
+        "paragraphs": [
+          "A free site is probably enough if you are just starting, need a simple online identity and get most customers through referrals or social media. Treat it as a digital business card.",
+          "You will likely want a custom site if you depend on Google or ads for customers, sell products online, take bookings, need to connect payment or CRM tools, or compete in a crowded market where presentation and speed matter.",
+          "A third route may exist. You could use the free .ng domain and email, and build the website separately, if the scheme lets you point the domain to your own site. Whether that is allowed has not been announced."
+        ]
+      },
+      {
+        "heading": "Watch out for “claim your free website” scams",
+        "paragraphs": [
+          "Offers that mention a government scheme attract fraud. Until CAC publishes official instructions, do not pay anyone to “reserve” or “claim” a free domain or website. Do not share your CAC certificate, NIN, BVN or bank details with unofficial pages or WhatsApp groups.",
+          "Be careful with forwarded posts too. Many overstate the plan and describe it as live. Check CAC's official website and verified accounts before you act on a link."
+        ]
+      },
+      {
+        "heading": "Do not confuse it with CAC's free registration offer",
+        "paragraphs": [
+          "Separately, CAC and SMEDAN signed an agreement in September 2025 to offer free business registration to 250,000 micro, small and medium enterprises. SMEDAN says registration normally costs about ₦11,000. Reports in November 2026 say CAC has reopened free registration. That is a different programme from the free website plan. Check the official CAC and SMEDAN channels for current rules before you apply."
+        ]
+      },
+      {
+        "heading": "How Correct Marketer NG can help",
+        "paragraphs": [
+          "We are an independent agency, and we are not part of the CAC programme. What we can do is help you get ready and get more from whatever you receive.",
+          "Website readiness review: we check what you have, what you will need and what to ask before you commit to a free setup. Web development: if a standard site is not enough, we build fast, mobile-first websites with clear service pages, WhatsApp buttons and tracking. SEO: we set up service and location pages, your Google Business Profile and content that answers customer questions. Paid ads: we run Google and Meta campaigns that send traffic to pages built to convert, with reporting tied to enquiries.",
+          "If you want a plain-language view of where your business stands, message us on WhatsApp and ask for a website and visibility review."
+        ]
+      }
+    ],
+    "related": [
+      "why-your-website-is-not-generating-customers",
+      "seo-geo-aeo-starter-guide-nigerian-businesses",
+      "seo-vs-google-ads-nigeria"
+    ],
+    "faq": [
+      {
+        "q": "Is CAC giving free websites to Nigerian businesses now?",
+        "a": "Not yet. Reports dated 12 to 14 November 2026 say CAC plans to provide free .ng domains, business emails and websites to registered businesses, but the services are not yet available to apply for, and no launch date has been announced."
+      },
+      {
+        "q": "Who will qualify for the free .ng domain, email and website?",
+        "a": "Eligibility has not been published. Reports refer to registered businesses, but no rules, documents or application steps have been announced. Check CAC's official channels for updates."
+      },
+      {
+        "q": "What is a .ng domain?",
+        "a": ".ng is Nigeria's country-code top-level domain, managed by the Nigeria Internet Registration Association (NiRA). It signals that a website belongs to Nigeria, for example yourbusiness.ng."
+      },
+      {
+        "q": "Can I keep my existing domain and website?",
+        "a": "Yes. Nothing in the reports requires you to give up a domain or site you already own. Keep it active while the details of the CAC plan are finalised."
+      },
+      {
+        "q": "Will a free website rank on Google?",
+        "a": "A website can rank if Google can find and index it and it has useful, original content that answers what customers search for. A free domain and site do not guarantee rankings, and no one can promise them. Page content, speed, local signals and reputation still decide the result."
+      },
+      {
+        "q": "Do I still need a custom website if I get a free one?",
+        "a": "It depends on your goals. A free site may be enough as a simple online identity. If you rely on Google, ads or online sales, you will probably need more control over content, speed, tracking and design than a standard setup offers."
+      },
+      {
+        "q": "How do I avoid scams about the free website offer?",
+        "a": "Do not pay anyone to reserve or claim a free domain or website, and do not share your CAC certificate, NIN, BVN or bank details with unofficial pages. Check CAC's official website and verified social media accounts for instructions."
+      },
+      {
+        "q": "Is this the same as CAC's free business registration for 250,000 businesses?",
+        "a": "No. The free registration offer is a separate programme, announced by CAC and SMEDAN in September 2025, that covers registration fees for eligible MSMEs. The free domain, email and website plan is a newer announcement that has not yet launched."
+      }
+    ],
+    "source": "MSME Africa, “CAC Plans Free .ng Domains, Business Emails and Websites for Registered Nigerian Businesses”, 14 November 2026 (https://msmeafricaonline.com/cac-plans-free-ng-domains-business-emails-and-websites-for-registered-nigerian-businesses/); NPowerDG, “FG To Provide Free NG Domain, Email And Website To Registered Business In Nigeria”, 12 November 2026 (https://www.npowerdg.com/2026/11/fg-to-provide-free-ng-domain-email-and.html); Legit.ng, “After Registration, CAC Set to Give Nigerian Business Owners Free Websites, Domains, Emails” (https://www.legit.ng/business-economy/industry/1741623-after-registration-cac-set-give-nigerian-business-owners-free-websites-domains-emails/); The Sun, “NITDA, NIRA to give free ‘.com.ng’ domain name to newly registered companies”, 19 November 2020 (https://thesun.ng/nitda-nira-to-give-free-com-ng-domain-name-to-newly-registered-companies/); SMEDAN, “SMEDAN and CAC Partner to Provide Free Business Registration for 250,000 MSMEs”, 27 September 2025 (https://smedan.gov.ng/smedan-cac-free-registration-for-msmes/).",
+    "cta": "Want a plain-language view of where your business stands online? Message Correct Marketer NG on WhatsApp at +234 911 017 2901 and ask for a website and visibility review."
   }
 ];
 
