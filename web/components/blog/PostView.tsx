@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { NewsletterForm } from "@/components/forms/NewsletterForm";
+import { InlineText } from "@/components/blog/InlineText";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { FooterCTA } from "@/components/sections/FooterCTA";
@@ -15,6 +16,11 @@ import { formatDate, getPosts, slugify } from "@/lib/blog";
 import { articleSchema, breadcrumbSchema, faqSchema } from "@/lib/schema";
 import { buildMetadata } from "@/lib/seo";
 import { absoluteUrl, site } from "@/lib/site";
+
+/** Removes [text](url) and **bold** markers so structured data carries plain text. */
+function stripInline(text: string) {
+  return text.replace(/\[([^\]]+)\]\([^)\s]+\)/g, "$1").replace(/\*\*(.+?)\*\*/g, "$1");
+}
 
 export async function postMetadata(slug: string): Promise<Metadata> {
   const post = (await getPosts()).find((p) => p.slug === slug);
@@ -187,7 +193,7 @@ export async function PostView({ slug }: { slug: string }) {
                 {faqItems.map((faqItem) => (
                   <div key={faqItem.q} className="mb-6 border-b border-stone-light pb-5">
                     <h3 className="font-sub text-xl font-bold text-forest">{faqItem.q}</h3>
-                    <p className="mt-2">{faqItem.a}</p>
+                    <p className="mt-2"><InlineText text={faqItem.a} /></p>
                   </div>
                 ))}
               </section>
@@ -224,6 +230,19 @@ export async function PostView({ slug }: { slug: string }) {
           image: post.image ? absoluteUrl(post.image) : undefined,
         })}
       />
+      <JsonLd
+        data={[
+          ...(post.faq && post.faq.length > 0
+            ? [faqSchema(post.faq.map((f) => ({ q: stripInline(f.q), a: stripInline(f.a) })))]
+            : []),
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Blog", path: "/blog" },
+            { name: post.category, path: `/blog/category/${slugify(post.category)}` },
+            { name: post.title, path },
+          ]),
+        ]}
+      />
       <article>
         <header className="on-dark adire bg-forest text-ivory">
           <div className="mx-auto max-w-4xl px-5 py-12 sm:px-8 md:py-20">
@@ -257,7 +276,7 @@ export async function PostView({ slug }: { slug: string }) {
             {post.sections.map((s) => (
               <section key={s.heading} className="mt-10">
                 <h2 id={slugify(s.heading)} className="mb-3 font-sub text-2xl font-bold text-forest">{s.heading}</h2>
-                {s.paragraphs.map((p) => <p key={p}>{p}</p>)}
+                {s.paragraphs.map((p) => <p key={p}><InlineText text={p} /></p>)}
               </section>
             ))}
 
@@ -267,7 +286,7 @@ export async function PostView({ slug }: { slug: string }) {
                 {post.faq.map((faqItem) => (
                   <div key={faqItem.q} className="mb-6 border-b border-stone-light pb-5">
                     <h3 className="font-sub text-xl font-bold text-forest">{faqItem.q}</h3>
-                    <p className="mt-2">{faqItem.a}</p>
+                    <p className="mt-2"><InlineText text={faqItem.a} /></p>
                   </div>
                 ))}
               </section>
