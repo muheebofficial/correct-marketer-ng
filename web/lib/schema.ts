@@ -92,10 +92,22 @@ export function serviceSchema(s: { name: string; description: string; path: stri
   };
 }
 
-export function articleSchema(a: { title: string; description: string; path: string; published: string; updated: string; author: string; image?: string }) {
+export function articleSchema(a: {
+  title: string;
+  description: string;
+  path: string;
+  published: string;
+  updated: string;
+  author: string;
+  image?: string;
+  /** Optional extras. Posts that leave them out produce the same output as before. */
+  section?: string;
+  keywords?: string[];
+  speakable?: string[];
+}) {
   return {
     "@context": "https://schema.org",
-    "@type": "Article",
+    "@type": a.speakable || a.keywords ? "BlogPosting" : "Article",
     headline: a.title,
     description: a.description,
     mainEntityOfPage: absoluteUrl(a.path),
@@ -105,5 +117,19 @@ export function articleSchema(a: { title: string; description: string; path: str
     author: { "@type": "Person", name: a.author, "@id": personId },
     publisher: { "@id": orgId },
     inLanguage: "en-NG",
+    ...(a.section ? { articleSection: a.section } : {}),
+    ...(a.keywords?.length ? { keywords: a.keywords.join(", ") } : {}),
+    ...(a.speakable?.length ? { speakable: { "@type": "SpeakableSpecification", cssSelector: a.speakable } } : {}),
+  };
+}
+
+export function howToSchema(h: { name: string; description: string; path: string; steps: { name: string; text: string }[] }) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: h.name,
+    description: h.description,
+    mainEntityOfPage: absoluteUrl(h.path),
+    step: h.steps.map((s, i) => ({ "@type": "HowToStep", position: i + 1, name: s.name, text: s.text })),
   };
 }

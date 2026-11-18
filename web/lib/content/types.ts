@@ -57,7 +57,22 @@ export type CaseStudy = {
   published?: string;
 };
 
-export type PostSection = { heading: string; paragraphs: string[] };
+export type PostSection = {
+  heading: string;
+  paragraphs: string[];
+  /** Optional bullet or numbered list, rendered after the paragraphs. Items accept [text](url) and **bold**. */
+  list?: { ordered?: boolean; items: string[] };
+  /** Optional comparison table, rendered after the list. */
+  table?: { headers: string[]; rows: string[][] };
+  /** Optional paragraphs rendered after the list and table. */
+  after?: string[];
+};
+
+export type PostHowTo = {
+  name: string;
+  description: string;
+  steps: { name: string; text: string }[];
+};
 
 export type Post = {
   slug: string;
@@ -73,9 +88,14 @@ export type Post = {
   imageAlt?: string;
   service: string; // related service slug
   intro: string;
+  /** Direct answer shown in a #quick-answer block and marked as speakable for answer engines. */
+  quickAnswer?: string;
+  keywords?: string[];
   sections: PostSection[];
   related: string[];
   faq?: Faq[];
+  /** Emits HowTo structured data. Only set it when the post really teaches ordered steps. */
+  howTo?: PostHowTo;
   source?: string;
   cta?: string;
 };

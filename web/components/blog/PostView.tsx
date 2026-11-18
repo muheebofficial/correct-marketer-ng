@@ -13,7 +13,7 @@ import { services } from "@/lib/content/services";
 import type { Service } from "@/lib/content/types";
 import { getCollection } from "@/lib/api";
 import { formatDate, getPosts, slugify } from "@/lib/blog";
-import { articleSchema, breadcrumbSchema, faqSchema } from "@/lib/schema";
+import { articleSchema, breadcrumbSchema, faqSchema, howToSchema } from "@/lib/schema";
 import { buildMetadata } from "@/lib/seo";
 import { absoluteUrl, site } from "@/lib/site";
 
@@ -228,10 +228,14 @@ export async function PostView({ slug }: { slug: string }) {
           updated: post.updated,
           author: post.author,
           image: post.image ? absoluteUrl(post.image) : undefined,
+          section: post.quickAnswer ? post.category : undefined,
+          keywords: post.keywords,
+          speakable: post.quickAnswer ? ["h1", "#quick-answer"] : undefined,
         })}
       />
       <JsonLd
         data={[
+          ...(post.howTo ? [howToSchema({ ...post.howTo, path })] : []),
           ...(post.faq && post.faq.length > 0
             ? [faqSchema(post.faq.map((f) => ({ q: stripInline(f.q), a: stripInline(f.a) })))]
             : []),
@@ -272,11 +276,53 @@ export async function PostView({ slug }: { slug: string }) {
 
         <div className="mx-auto grid max-w-4xl gap-10 px-5 py-12 sm:px-8 lg:grid-cols-[1fr_220px] lg:gap-14">
           <div className="prose-cm text-lg">
-            <p className="font-accent text-xl italic text-mute">{post.intro}</p>
+            <p className="font-accent text-xl italic text-mute"><InlineText text={post.intro} /></p>
+            {post.quickAnswer && (
+              <div id="quick-answer" className="mt-8 border-l-4 border-gold bg-white p-6">
+                <p className="font-sub text-sm font-bold uppercase tracking-[0.12em] text-gold-ink">Quick answer</p>
+                <p className="mt-2 text-lg"><InlineText text={post.quickAnswer} /></p>
+              </div>
+            )}
             {post.sections.map((s) => (
               <section key={s.heading} className="mt-10">
                 <h2 id={slugify(s.heading)} className="mb-3 font-sub text-2xl font-bold text-forest">{s.heading}</h2>
                 {s.paragraphs.map((p) => <p key={p}><InlineText text={p} /></p>)}
+                {s.list && (
+                  s.list.ordered ? (
+                    <ol className="list-decimal space-y-2 pl-6">
+                      {s.list.items.map((item) => <li key={item}><InlineText text={item} /></li>)}
+                    </ol>
+                  ) : (
+                    <ul className="list-disc space-y-2 pl-6">
+                      {s.list.items.map((item) => <li key={item}><InlineText text={item} /></li>)}
+                    </ul>
+                  )
+                )}
+                {s.table && (
+                  <div className="my-6 overflow-x-auto">
+                    <table className="w-full min-w-[34rem] border-collapse text-left text-base">
+                      <thead>
+                        <tr>
+                          {s.table.headers.map((h, i) => (
+                            <th key={`${h}-${i}`} scope="col" className="border border-stone-light bg-stone-50 px-4 py-3 font-sub font-bold text-forest">{h}</th>
+                          ))}
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {s.table.rows.map((row) => (
+                          <tr key={row[0]}>
+                            {row.map((cell, i) => (
+                              i === 0
+                                ? <th key={`${cell}-${i}`} scope="row" className="border border-stone-light px-4 py-3 align-top font-sub font-bold">{cell}</th>
+                                : <td key={`${cell}-${i}`} className="border border-stone-light px-4 py-3 align-top"><InlineText text={cell} /></td>
+                            ))}
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
+                {s.after?.map((p) => <p key={p}><InlineText text={p} /></p>)}
               </section>
             ))}
 
@@ -305,7 +351,7 @@ export async function PostView({ slug }: { slug: string }) {
             )}
 
             {post.cta && (
-              <p className="mt-8 text-base font-semibold text-forest"><strong>{post.cta}</strong></p>
+              <p className="mt-8 text-base font-semibold text-forest"><strong><InlineText text={post.cta} /></strong></p>
             )}
 
             <div className="mt-10 flex flex-wrap gap-x-5 gap-y-2 text-base">
