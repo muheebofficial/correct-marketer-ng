@@ -103,7 +103,7 @@ export const seoAeoGeoPost: Post = {
         ],
       },
       after: [
-        "Be honest about the limits. AI answers change from one run to the next, nobody outside these companies controls them, and anyone who sells you a guaranteed spot in ChatGPT is selling something they cannot deliver. What you can do is give the tools accurate, consistent, well-supported information, and check regularly what they say about you.",
+        "If you want the hands-on version for ChatGPT, read how to [list your business on ChatGPT in Nigeria](/blog/list-your-business-on-chatgpt-nigeria) using Business Hub. Be honest about the limits. AI answers change from one run to the next, nobody outside these companies controls them, and anyone who sells you a guaranteed spot in ChatGPT is selling something they cannot deliver. What you can do is give the tools accurate, consistent, well-supported information, and check regularly what they say about you.",
       ],
     },
     {
@@ -276,6 +276,7 @@ export const seoAeoGeoPost: Post = {
     "google-ai-overviews-seo-nigeria",
     "how-much-does-seo-cost-in-nigeria",
     "why-your-website-is-not-generating-customers",
+    "list-your-business-on-chatgpt-nigeria",
   ],
   howTo: {
     name: "How to check whether your business is visible on Google and in AI tools",

@@ -79,7 +79,7 @@ export const services: Service[] = [
       },
     ],
     industries: ["professional-services", "ecommerce", "real-estate", "education"],
-    posts: ["how-much-does-seo-cost-in-nigeria", "seo-vs-google-ads-nigeria", "why-your-website-is-not-generating-customers", "seo-vs-aeo-vs-geo-nigeria"],
+    posts: ["how-much-does-seo-cost-in-nigeria", "seo-vs-google-ads-nigeria", "why-your-website-is-not-generating-customers", "seo-vs-aeo-vs-geo-nigeria", "list-your-business-on-chatgpt-nigeria"],
     intent: "seo-visibility-audit",
   },
   {

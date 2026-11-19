@@ -363,6 +363,7 @@ export const posts: Post[] = [
       }
     ],
     "related": [
+      "list-your-business-on-chatgpt-nigeria",
       "seo-vs-aeo-vs-geo-nigeria",
       "seo-vs-google-ads-nigeria",
       "why-your-website-is-not-generating-customers",
@@ -424,7 +425,7 @@ export const posts: Post[] = [
     "service": "seo",
     "image": "/blog/seo-geo-aeo-starter-guide.png",
     "imageAlt": "Search result for 'best logistics company in Lagos' with an AI answer naming one business, beside the headline SEO. GEO. AEO.",
-    "intro": "A customer in Lagos types “best accountant in Ikeja” into Google and reads the answer Google writes at the top of the page. Then they ask ChatGPT or Perplexity the same question. Each one gives a short list of businesses. If yours is not on those lists, that customer never reaches you, and you never find out they looked. Not sure how SEO, AEO and GEO differ? Start with our [plain-English comparison](/blog/seo-vs-aeo-vs-geo-nigeria), then come back for the step-by-step plan.",
+    "intro": "A customer in Lagos types “best accountant in Ikeja” into Google and reads the answer Google writes at the top of the page. Then they ask ChatGPT or Perplexity the same question. Each one gives a short list of businesses. If yours is not on those lists, that customer never reaches you, and you never find out they looked. Not sure how SEO, AEO and GEO differ? Start with our [plain-English comparison](/blog/seo-vs-aeo-vs-geo-nigeria), then come back for the step-by-step plan. Want to claim your profile in ChatGPT? See our [ChatGPT Business Hub guide for Nigeria](/blog/list-your-business-on-chatgpt-nigeria).",
     "sections": [
       {
         "heading": "What are SEO, GEO and AEO?",
@@ -541,6 +542,7 @@ export const posts: Post[] = [
       }
     ],
     "related": [
+      "list-your-business-on-chatgpt-nigeria",
       "seo-vs-aeo-vs-geo-nigeria",
       "google-ai-overviews-seo-nigeria",
       "how-much-does-seo-cost-in-nigeria",
@@ -687,6 +689,7 @@ export const posts: Post[] = [
       }
     ],
     "related": [
+      "list-your-business-on-chatgpt-nigeria",
       "why-your-website-is-not-generating-customers",
       "seo-geo-aeo-starter-guide-nigerian-businesses",
       "seo-vs-google-ads-nigeria"
