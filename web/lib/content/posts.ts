@@ -54,7 +54,7 @@ export const posts: Post[] = [
         ],
       },
     ],
-    related: ["seo-vs-google-ads-nigeria", "how-much-does-seo-cost-in-nigeria", "can-ai-automate-whatsapp-customer-support"],
+    related: ["seo-vs-google-ads-nigeria", "how-much-does-seo-cost-in-nigeria", "can-ai-automate-whatsapp-customer-support", "seo-vs-aeo-vs-geo-nigeria"],
   },
   {
     slug: "seo-vs-google-ads-nigeria",
@@ -105,7 +105,7 @@ export const posts: Post[] = [
         ],
       },
     ],
-    related: ["how-much-does-seo-cost-in-nigeria", "why-your-website-is-not-generating-customers"],
+    related: ["how-much-does-seo-cost-in-nigeria", "why-your-website-is-not-generating-customers", "seo-vs-aeo-vs-geo-nigeria"],
   },
   {
     slug: "how-much-does-seo-cost-in-nigeria",
@@ -149,7 +149,7 @@ export const posts: Post[] = [
         ],
       },
     ],
-    related: ["seo-vs-google-ads-nigeria", "why-your-website-is-not-generating-customers"],
+    related: ["seo-vs-google-ads-nigeria", "why-your-website-is-not-generating-customers", "seo-vs-aeo-vs-geo-nigeria"],
   },
   {
     slug: "can-ai-automate-whatsapp-customer-support",
@@ -290,7 +290,7 @@ export const posts: Post[] = [
     "updated": "2026-11-13",
     "readingMinutes": 9,
     "service": "seo",
-    "intro": "Let me ask you a question: if Google can answer your customer's question before they visit your website, what exactly are you doing to make sure your business is still part of that decision? Search is changing. And Nigerian businesses that still measure SEO only by blue links and rankings are looking at only part of the picture.",
+    "intro": "Let me ask you a question: if Google can answer your customer's question before they visit your website, what exactly are you doing to make sure your business is still part of that decision? Search is changing. And Nigerian businesses that still measure SEO only by blue links and rankings are looking at only part of the picture. New to the terms? Our plain-English guide to [SEO vs AEO vs GEO](/blog/seo-vs-aeo-vs-geo-nigeria) explains how they differ.",
     "sections": [
       {
         "heading": "Google is changing where people see AI answers",
@@ -363,6 +363,7 @@ export const posts: Post[] = [
       }
     ],
     "related": [
+      "seo-vs-aeo-vs-geo-nigeria",
       "seo-vs-google-ads-nigeria",
       "why-your-website-is-not-generating-customers",
       "how-much-does-seo-cost-in-nigeria"
@@ -423,7 +424,7 @@ export const posts: Post[] = [
     "service": "seo",
     "image": "/blog/seo-geo-aeo-starter-guide.png",
     "imageAlt": "Search result for 'best logistics company in Lagos' with an AI answer naming one business, beside the headline SEO. GEO. AEO.",
-    "intro": "A customer in Lagos types “best accountant in Ikeja” into Google and reads the answer Google writes at the top of the page. Then they ask ChatGPT or Perplexity the same question. Each one gives a short list of businesses. If yours is not on those lists, that customer never reaches you, and you never find out they looked.",
+    "intro": "A customer in Lagos types “best accountant in Ikeja” into Google and reads the answer Google writes at the top of the page. Then they ask ChatGPT or Perplexity the same question. Each one gives a short list of businesses. If yours is not on those lists, that customer never reaches you, and you never find out they looked. Not sure how SEO, AEO and GEO differ? Start with our [plain-English comparison](/blog/seo-vs-aeo-vs-geo-nigeria), then come back for the step-by-step plan.",
     "sections": [
       {
         "heading": "What are SEO, GEO and AEO?",
@@ -540,6 +541,7 @@ export const posts: Post[] = [
       }
     ],
     "related": [
+      "seo-vs-aeo-vs-geo-nigeria",
       "google-ai-overviews-seo-nigeria",
       "how-much-does-seo-cost-in-nigeria",
       "seo-vs-google-ads-nigeria"
