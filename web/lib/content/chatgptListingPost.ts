@@ -216,7 +216,7 @@ export const chatgptListingPost: Post = {
           "**Week 2: Fix the foundations.** Check that OAI-SearchBot is not blocked, make your business details identical everywhere, and complete your Google Business Profile.",
           "**Week 3: Improve your pages.** Rewrite your service pages with prices, answers and proof. Add an FAQ in the words customers use.",
           "**Week 4: Complete the profile and measure.** Finish identity verification, fill every field, connect your product feed if you sell products, and set up tracking for enquiries from AI sources.",
-          "**Then repeat monthly.** Re-ask the same questions, note what changed and fix the gaps. Beta products change, so keep checking whether new countries or business types have opened up.",
+          "**Then repeat monthly.** Re-ask the same questions, note what changed and fix the gaps. Beta products change, so keep checking whether new countries or business types have opened up. Google’s “sleep” research is a reason to keep checking: read [what it could mean for what AI knows about your business](/blog/google-sleep-framework-ai-knowledge-nigerian-businesses).",
         ],
       },
     },
@@ -265,6 +265,7 @@ export const chatgptListingPost: Post = {
     "seo-geo-aeo-starter-guide-nigerian-businesses",
     "google-ai-overviews-seo-nigeria",
     "cac-free-ng-domain-email-website-nigerian-businesses",
+    "google-sleep-framework-ai-knowledge-nigerian-businesses",
   ],
   howTo: {
     name: "How to claim your business profile on ChatGPT (Business Hub)",

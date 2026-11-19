@@ -363,6 +363,7 @@ export const posts: Post[] = [
       }
     ],
     "related": [
+      "google-sleep-framework-ai-knowledge-nigerian-businesses",
       "list-your-business-on-chatgpt-nigeria",
       "seo-vs-aeo-vs-geo-nigeria",
       "seo-vs-google-ads-nigeria",

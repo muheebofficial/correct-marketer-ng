@@ -3,6 +3,7 @@ import { getCollection } from "./api";
 import { automationPost } from "./content/automationPost";
 import { seoAeoGeoPost } from "./content/seoAeoGeoPost";
 import { chatgptListingPost } from "./content/chatgptListingPost";
+import { sleepFrameworkPost } from "./content/sleepFrameworkPost";
 import { budgetArticleMeta, budgetArticleReadingMinutes } from "./content/budgetArticle";
 import { posts as defaultPosts } from "./content/posts";
 import type { Post } from "./content/types";
@@ -33,7 +34,7 @@ export const budgetArticlePost: Post = {
 export const isBudgetArticle = (slug: string) => slug === budgetArticleMeta.slug;
 
 /** Posts kept in their own content files. A same-slug post from the CMS still wins over these. */
-const standalonePosts: Post[] = [automationPost, seoAeoGeoPost, chatgptListingPost];
+const standalonePosts: Post[] = [automationPost, seoAeoGeoPost, chatgptListingPost, sleepFrameworkPost];
 
 export async function getPosts(): Promise<Post[]> {
   const all = await getCollection<Post>("posts", defaultPosts);
