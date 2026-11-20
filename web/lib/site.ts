@@ -1,7 +1,9 @@
 export const site = {
   name: "Correct Marketer NG",
   tagline: "Attract, Nurture, Convert and Scale",
-  url: (process.env.NEXT_PUBLIC_SITE_URL || "https://correctmarketer.com.ng").replace(/\/$/, ""),
+  // The canonical host must match the host the domain actually serves. Vercel redirects the bare domain
+// (correctmarketer.com.ng) to www with a 308, so every canonical, sitemap URL and schema @id uses www.
+  url: (process.env.NEXT_PUBLIC_SITE_URL || "https://www.correctmarketer.com.ng").replace(/\/$/, ""),
   email: "muheeb@correctmarketer.com.ng",
   whatsappNumber: "2349110172901",
   founded: 2021,
