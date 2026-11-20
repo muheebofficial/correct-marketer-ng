@@ -11,6 +11,7 @@ export function ServiceHero({
     waMessage,
     source,
     path,
+    group,
 }: {
     name: string;
     title: string;
@@ -20,12 +21,13 @@ export function ServiceHero({
     waMessage: string;
     source: string;
     path: string;
+    group?: { name: string; path: string };
 }) {
     return (
         <section aria-labelledby="service-heading" className="on-dark adire overflow-hidden bg-forest text-ivory">
             <div className="mx-auto grid max-w-page items-center gap-12 px-5 py-12 sm:px-8 md:py-20 lg:grid-cols-[1.25fr_0.75fr] lg:gap-16">
                 <div>
-                    <Breadcrumbs items={[{ name: "Services", path: "/services" }, { name, path }]} tone="dark" />
+                    <Breadcrumbs items={[{ name: "Services", path: "/services" }, ...(group ? [group] : []), { name, path }]} tone="dark" />
                     <p className="mt-8 font-sub text-sm font-bold text-gold-soft">DIGITAL GROWTH · NIGERIA</p>
                     <h1 id="service-heading" className="mt-3 max-w-4xl font-display text-4xl font-extrabold leading-[1.02] sm:text-5xl xl:text-6xl">
                         {title}

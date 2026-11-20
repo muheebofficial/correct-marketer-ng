@@ -6,7 +6,7 @@ import { GrowthFlow } from "@/components/sections/GrowthFlow";
 import { Hero } from "@/components/sections/Hero";
 import { ProblemSection } from "@/components/sections/ProblemSection";
 import { ProcessStepper } from "@/components/sections/ProcessStepper";
-import { ServiceGrid } from "@/components/sections/ServiceGrid";
+import { AllServicesLink, ServiceGrid } from "@/components/sections/ServiceGrid";
 import { TrustPillars } from "@/components/sections/TrustPillars";
 import { Heading, Section } from "@/components/ui/Section";
 import { audits } from "@/lib/content/home";
@@ -40,10 +40,11 @@ export default function HomePage() {
         <div className="mb-12 max-w-3xl">
           <Heading id="services-heading">Start with the problem. We'll bring the right tools.</Heading>
           <p className="mt-5 text-lg text-mute">
-            Six services, one goal: more qualified customers for your business. Most clients begin with one and add others as the system grows.
+            Six core services and dozens of specialist ones, all aimed at one goal: more qualified customers for your business. Most clients begin with one and add others as the system grows.
           </p>
         </div>
         <ServiceGrid headingId="services-heading" />
+        <AllServicesLink />
       </Section>
 
       <TrustPillars />

@@ -88,7 +88,10 @@ export function serviceSchema(s: { name: string; description: string; path: stri
     description: s.description,
     url: absoluteUrl(s.path),
     provider: { "@id": orgId },
-    areaServed: { "@type": "Country", name: "Nigeria" },
+    areaServed: [
+      { "@type": "City", name: "Lagos" },
+      { "@type": "Country", name: "Nigeria" },
+    ],
   };
 }
 

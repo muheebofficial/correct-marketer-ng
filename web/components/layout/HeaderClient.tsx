@@ -5,16 +5,18 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { NavDropdown, type DropItem } from "@/components/layout/NavDropdown";
+import { ServicesMegaMenu, type MegaGroup } from "@/components/layout/ServicesMegaMenu";
 import { nav, waLink } from "@/lib/site";
 import { track } from "@/lib/track";
 import { waMessageFor } from "@/lib/waContext";
 
-export function HeaderClient({ menus }: { menus: Record<string, { items: DropItem[]; allLabel: string }> }) {
+export function HeaderClient({ menus, serviceGroups }: { menus: Record<string, { items: DropItem[]; allLabel: string }>; serviceGroups: MegaGroup[] }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [expanded, setExpanded] = useState<string | null>(null);
+  const [openGroup, setOpenGroup] = useState<string | null>(null);
 
-  useEffect(() => { setOpen(false); setExpanded(null); }, [pathname]);
+  useEffect(() => { setOpen(false); setExpanded(null); setOpenGroup(null); }, [pathname]);
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
@@ -42,7 +44,9 @@ export function HeaderClient({ menus }: { menus: Record<string, { items: DropIte
 
           <nav aria-label="Primary" className="hidden items-center gap-7 lg:flex">
             {nav.map((n) =>
-              menus[n.href] ? (
+              n.href === "/services" ? (
+                <ServicesMegaMenu key={n.href} label={n.label} href={n.href} groups={serviceGroups} active={isActive(n.href)} pathname={pathname} />
+              ) : menus[n.href] ? (
                 <NavDropdown key={n.href} label={n.label} href={n.href} items={menus[n.href].items} allLabel={menus[n.href].allLabel} active={isActive(n.href)} pathname={pathname} />
               ) : (
                 <Link
@@ -97,13 +101,14 @@ export function HeaderClient({ menus }: { menus: Record<string, { items: DropIte
           <nav aria-label="Mobile" className="mx-auto flex max-w-page flex-col px-5 py-6">
             {nav.map((n) => {
               const menu = menus[n.href];
+              const isServices = n.href === "/services";
               return (
                 <div key={n.href} className="border-b border-ivory/15">
                   <div className="flex items-center justify-between">
                     <Link href={n.href} className="flex-1 py-4 font-display text-4xl font-extrabold" aria-current={isActive(n.href) ? "page" : undefined}>
                       {n.label}
                     </Link>
-                    {menu && (
+                    {(menu || isServices) && (
                       <button
                         type="button"
                         aria-expanded={expanded === n.href}
@@ -118,6 +123,28 @@ export function HeaderClient({ menus }: { menus: Record<string, { items: DropIte
                       </button>
                     )}
                   </div>
+                  {isServices && expanded === n.href && (
+                    <ul id={`m-${n.label}`} className="mb-4 space-y-1 border-l-2 border-gold pl-4">
+                      {serviceGroups.map((g) => (
+                        <li key={g.slug}>
+                          <div className="flex items-center justify-between">
+                            <Link href={`/services/${g.slug}`} className="flex-1 py-2 font-sub text-lg font-bold text-gold-soft">{g.name}</Link>
+                            <button type="button" aria-expanded={openGroup === g.slug} onClick={() => setOpenGroup(openGroup === g.slug ? null : g.slug)} className="inline-flex h-10 w-10 items-center justify-center rounded-[3px] border border-ivory/30">
+                              <span className="sr-only">{openGroup === g.slug ? `Collapse ${g.name}` : `Expand ${g.name}`}</span>
+                              <svg width="14" height="14" viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={openGroup === g.slug ? "rotate-180" : ""}><path d="M2 4.5l4 4 4-4" /></svg>
+                            </button>
+                          </div>
+                          {openGroup === g.slug && (
+                            <ul className="mb-2 space-y-0.5 pl-3">
+                              {g.items.map((it) => (
+                                <li key={it.href}><Link href={it.href} className="block py-1.5 text-base font-semibold text-ivory/90">{it.label}</Link></li>
+                              ))}
+                            </ul>
+                          )}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                   {menu && expanded === n.href && (
                     <ul id={`m-${n.label}`} className="mb-4 space-y-1 border-l-2 border-gold pl-4">
                       {menu.items.map((it) => (

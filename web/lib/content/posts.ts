@@ -206,7 +206,7 @@ export const posts: Post[] = [
     published: "2026-10-22",
     updated: "2026-10-22",
     readingMinutes: 7,
-    service: "best-ai-automation-agency-in-nigeria",
+    service: "best-ai-automation-agency-in-lagos-nigeria",
     intro:
       "Let me say the quiet part loud: the AI conversation is changing, and most business owners are still stuck on the old one.",
     sections: [
