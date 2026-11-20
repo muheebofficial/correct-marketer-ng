@@ -43,7 +43,7 @@ export const posts: Post[] = [
         heading: "4. Nobody can find the site",
         paragraphs: [
           "A good site nobody visits produces nothing. Search engines need clear service pages, location information and content that answers the questions your customers ask.",
-          "Start with one page per service and one page per location you serve, each written for the way people actually search.",
+          "Start with one page per service and one page per location you serve, each written for the way people actually search. Our full guide on [why your website is not showing on Google in Nigeria](/blog/why-your-website-is-not-showing-on-google-nigeria) walks through every fix.",
         ],
       },
       {
@@ -54,7 +54,7 @@ export const posts: Post[] = [
         ],
       },
     ],
-    related: ["seo-vs-google-ads-nigeria", "how-much-does-seo-cost-in-nigeria", "can-ai-automate-whatsapp-customer-support", "seo-vs-aeo-vs-geo-nigeria"],
+    related: ["seo-vs-google-ads-nigeria", "how-much-does-seo-cost-in-nigeria", "can-ai-automate-whatsapp-customer-support", "seo-vs-aeo-vs-geo-nigeria", "why-your-website-is-not-showing-on-google-nigeria"],
   },
   {
     slug: "seo-vs-google-ads-nigeria",
@@ -105,7 +105,7 @@ export const posts: Post[] = [
         ],
       },
     ],
-    related: ["how-much-does-seo-cost-in-nigeria", "why-your-website-is-not-generating-customers", "seo-vs-aeo-vs-geo-nigeria"],
+    related: ["how-much-does-seo-cost-in-nigeria", "why-your-website-is-not-generating-customers", "seo-vs-aeo-vs-geo-nigeria", "why-your-website-is-not-showing-on-google-nigeria"],
   },
   {
     slug: "how-much-does-seo-cost-in-nigeria",
@@ -149,7 +149,7 @@ export const posts: Post[] = [
         ],
       },
     ],
-    related: ["seo-vs-google-ads-nigeria", "why-your-website-is-not-generating-customers", "seo-vs-aeo-vs-geo-nigeria"],
+    related: ["seo-vs-google-ads-nigeria", "why-your-website-is-not-generating-customers", "seo-vs-aeo-vs-geo-nigeria", "why-your-website-is-not-showing-on-google-nigeria"],
   },
   {
     slug: "can-ai-automate-whatsapp-customer-support",
@@ -543,6 +543,7 @@ export const posts: Post[] = [
       }
     ],
     "related": [
+      "why-your-website-is-not-showing-on-google-nigeria",
       "list-your-business-on-chatgpt-nigeria",
       "seo-vs-aeo-vs-geo-nigeria",
       "google-ai-overviews-seo-nigeria",
